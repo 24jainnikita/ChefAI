@@ -1,129 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ChefAI — Cook what you have</title>
+  <title>ChefAI — Cook What You Have</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-logo">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="13" fill="#C4622D" opacity=".12"/>
-        <path d="M8 18 Q14 10 20 18" stroke="#C4622D" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <circle cx="14" cy="10" r="3" fill="#C4622D"/>
-        <path d="M14 13 L14 20" stroke="#C4622D" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
-      <span class="logo-text">ChefAI</span>
+<!-- ══ NAVBAR ══════════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <svg class="logo-icon" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- puffy hat top - 3 bumps like the real logo -->
+      <path d="M10 32 Q9 22 13 18 Q14 10 19 11 Q20 6 27 6 Q34 6 35 11 Q40 10 41 18 Q45 22 44 32Z"
+            fill="#FFFFFF" stroke="#2C1810" stroke-width="1.4" stroke-linejoin="round"/>
+      <!-- hat shading lines -->
+      <path d="M16 26 Q17 20 20 18" stroke="#E0D8CC" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M32 18 Q35 20 36 25" stroke="#E0D8CC" stroke-width="1.1" stroke-linecap="round"/>
+      <!-- hat brim -->
+      <rect x="9" y="30" width="36" height="10" rx="3" fill="#FFFFFF" stroke="#2C1810" stroke-width="1.4"/>
+      <!-- brim inner line -->
+      <line x1="9" y1="34" x2="45" y2="34" stroke="#E8E0D4" stroke-width="0.8"/>
+      <!-- crossed knife & fork -->
+      <line x1="21" y1="28" x2="25" y2="40" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/>
+      <line x1="25" y1="28" x2="21" y2="40" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/>
+      <!-- spoon -->
+      <line x1="30" y1="29" x2="30" y2="40" stroke="#B8860B" stroke-width="2" stroke-linecap="round"/>
+      <ellipse cx="30" cy="27.5" rx="2.2" ry="2.8" fill="#B8860B"/>
+      <!-- fork tines top -->
+      <path d="M19 28 L19 24 M21 28 L21 24 M23 28 L23 24 M19 24 Q21 22 23 24" stroke="#B8860B" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    </svg>
+    <div class="logo-wordmark">
+      <span class="logo-chef">Chef</span><span class="logo-ai">AI</span>
     </div>
-    <div class="nav-links">
-      <a class="nav-link active" onclick="showPage('home')">Discover</a>
-      <a class="nav-link" onclick="showPage('favourites')">Favourites</a>
-      <a class="nav-link" onclick="showPage('planner')">Meal Plan</a>
+  </div>
+
+  <div class="nav-links">
+    <a class="nav-link active" onclick="showPage('home',this)">Discover</a>
+    <a class="nav-link" onclick="showPage('favourites',this)">Favourites</a>
+    <a class="nav-link" onclick="showPage('planner',this)">Meal Plan</a>
+  </div>
+
+  <div class="nav-pill">🇮🇳 Indian Kitchen · Mood-aware</div>
+</nav>
+
+<!-- ══ HOME PAGE ════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- decorative corner doodles -->
+    <div class="corner-doodle top-left" aria-hidden="true">
+      <svg viewBox="0 0 80 80" fill="none"><path d="M10 70 Q20 40 50 20" stroke="#C4A265" stroke-width="1.2" stroke-dasharray="3 3" fill="none"/><circle cx="50" cy="20" r="3" fill="#C4A265" opacity=".5"/><path d="M5 55 Q12 45 20 50 Q14 58 5 55Z" fill="#7A9E4A" opacity=".4"/></svg>
     </div>
-    <div class="nav-tag">Indian Kitchen · Mood-aware</div>
-  </nav>
+    <div class="corner-doodle top-right" aria-hidden="true">
+      <svg viewBox="0 0 80 80" fill="none"><path d="M70 70 Q60 40 30 20" stroke="#C4A265" stroke-width="1.2" stroke-dasharray="3 3" fill="none"/><path d="M62 15 Q70 10 72 20 Q65 22 62 15Z" fill="#C4622D" opacity=".4"/><circle cx="75" cy="45" r="4" fill="#C4A265" opacity=".3"/></svg>
+    </div>
 
-  <!-- ══════════ HOME PAGE ══════════ -->
-  <div id="page-home" class="page active">
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-text">
-        <div class="hero-pill">
-          <span class="pill-dot"></span>
-          AI-powered · Zero waste cooking
-        </div>
-        <h1 class="hero-title">What's sitting<br/>in your <em>fridge?</em></h1>
-        <p class="hero-sub">Type what you have, pick your mood — ChefAI finds what you can actually cook right now.</p>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-powered · Zero waste cooking
       </div>
-      <div class="hero-illo" aria-hidden="true">
-        <svg viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- plate shadow -->
-          <ellipse cx="100" cy="155" rx="62" ry="10" fill="#D4B896" opacity=".35"/>
-          <!-- bowl body -->
-          <path d="M42 108 Q46 148 100 152 Q154 148 158 108 Z" fill="#E8D4BC"/>
-          <path d="M42 108 Q46 148 100 152 Q154 148 158 108 Z" fill="url(#bowlgrad)" opacity=".5"/>
-          <!-- bowl rim -->
-          <ellipse cx="100" cy="108" rx="58" ry="17" fill="#F0DFC8"/>
-          <ellipse cx="100" cy="108" rx="58" ry="17" fill="url(#rimgrad)" opacity=".4"/>
-          <!-- food in bowl -->
-          <ellipse cx="90" cy="104" rx="14" ry="8" fill="#C4622D" opacity=".8"/>
-          <ellipse cx="112" cy="106" rx="11" ry="7" fill="#8B6914" opacity=".75"/>
-          <ellipse cx="100" cy="100" rx="9" ry="6" fill="#4A7A2A" opacity=".7"/>
-          <circle cx="82" cy="109" r="5" fill="#C4622D" opacity=".6"/>
-          <circle cx="118" cy="108" r="4" fill="#D4A820" opacity=".7"/>
-          <!-- garnish dots -->
-          <circle cx="97" cy="96" r="2" fill="#6B3E1E" opacity=".5"/>
-          <circle cx="106" cy="97" r="1.5" fill="#6B3E1E" opacity=".5"/>
+      <h1 class="hero-title">
+        What's sitting<br/>in your <em>fridge?</em>
+      </h1>
+      <p class="hero-sub">
+        Tell ChefAI what you have and how you feel —<br/>
+        get recipes you can <em>actually</em> cook right now.
+      </p>
+
+      <!-- small decorative bowl — contained, not huge -->
+      <div class="hero-bowl" aria-hidden="true">
+        <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg" width="120">
+          <ellipse cx="60" cy="80" rx="38" ry="6" fill="#D4B896" opacity=".3"/>
+          <path d="M24 58 Q27 78 60 80 Q93 78 96 58Z" fill="#E8D4BC"/>
+          <ellipse cx="60" cy="58" rx="36" ry="11" fill="#F0DFC8"/>
+          <circle cx="52" cy="54" r="8" fill="#C4622D" opacity=".75"/>
+          <circle cx="66" cy="56" r="7" fill="#7A9E4A" opacity=".7"/>
+          <circle cx="58" cy="50" r="5" fill="#B8860B" opacity=".7"/>
           <!-- steam -->
-          <path d="M78 90 Q73 78 79 68 Q85 58 80 48" stroke="#D4B896" stroke-width="2" stroke-linecap="round" fill="none" opacity=".7"/>
-          <path d="M100 85 Q95 73 100 63 Q105 53 100 43" stroke="#D4B896" stroke-width="2" stroke-linecap="round" fill="none" opacity=".7"/>
-          <path d="M122 90 Q127 78 121 68 Q115 58 120 48" stroke="#D4B896" stroke-width="2" stroke-linecap="round" fill="none" opacity=".7"/>
+          <path d="M46 44 Q43 36 47 30" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"/>
+          <path d="M60 41 Q57 33 60 27" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"/>
+          <path d="M74 44 Q77 36 73 30" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"/>
           <!-- spoon -->
-          <path d="M152 42 Q162 58 156 78 L151 115" stroke="#C8A87A" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <ellipse cx="155" cy="38" rx="9" ry="6" fill="#D4BC96" transform="rotate(-15 155 38)"/>
-          <!-- doodle leaf top-left -->
-          <path d="M24 46 Q34 28 52 38 Q42 54 24 46Z" fill="#7A9E4A" opacity=".45"/>
-          <path d="M24 46 Q38 34 52 38" stroke="#5A7A32" stroke-width="1.2" fill="none" opacity=".5"/>
-          <!-- doodle chili bottom right -->
-          <path d="M162 132 Q174 120 182 126 Q178 142 167 141 Q159 138 162 132Z" fill="#C4622D" opacity=".65"/>
-          <path d="M162 132 Q160 122 165 117" stroke="#8B6914" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <!-- deco star -->
-          <path d="M30 80 L32 74 L34 80 L40 80 L35 84 L37 90 L32 86 L27 90 L29 84 L24 80Z" fill="#E8C87A" opacity=".4"/>
-          <defs>
-            <linearGradient id="bowlgrad" x1="42" y1="108" x2="158" y2="152" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#C4A882"/>
-              <stop offset="100%" stop-color="#F0DFC8"/>
-            </linearGradient>
-            <linearGradient id="rimgrad" x1="42" y1="100" x2="158" y2="116" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#FFF8F0"/>
-              <stop offset="100%" stop-color="#C4A882"/>
-            </linearGradient>
-          </defs>
+          <path d="M91 20 Q96 28 93 40 L91 60" stroke="#C8A87A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="93" cy="17" rx="5" ry="4" fill="#D4BC96" transform="rotate(-15 93 17)"/>
         </svg>
       </div>
-    </section>
+    </div>
 
-    <!-- INPUT SECTION -->
-    <section class="input-section">
+    <!-- parchment-style decorative strip -->
+    <div class="parchment-strip">
+      <span>🌿</span><span>Add ingredients</span>
+      <span class="strip-sep">✦</span>
+      <span>Pick your mood</span>
+      <span class="strip-sep">✦</span>
+      <span>Find recipes</span>
+      <span>🍴</span>
+    </div>
+  </section>
+
+  <!-- INPUT CARD -->
+  <section class="input-card-wrap">
+    <div class="input-card">
 
       <!-- INGREDIENTS -->
-      <div class="input-block">
-        <label class="block-label">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1 Q10 4 10 7 A3 3 0 0 1 4 7 Q4 4 7 1Z" fill="#C4622D" opacity=".7"/></svg>
-          Your ingredients
+      <div class="field-group">
+        <label class="field-label">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1 Q9 4 9 6.5 A2.5 2.5 0 0 1 4 6.5 Q4 4 6.5 1Z" fill="#C4622D" opacity=".8"/></svg>
+          Your Ingredients
         </label>
-        <div class="ing-input-row">
-          <input
-            id="ing-input"
-            class="ing-input"
-            placeholder="e.g. paneer, onion, tomato, curd…"
-            onkeydown="if(event.key==='Enter'){addIngredient(this.value);this.value='';}"
-            autocomplete="off"
-          />
-          <button class="add-btn" onclick="addIngredient(document.getElementById('ing-input').value);document.getElementById('ing-input').value=''">
-            Add
-          </button>
+        <div class="ing-row" id="ing-row">
+          <input id="ing-input" class="ing-input" placeholder="e.g. paneer, tomato, onion, dal…" autocomplete="off"
+            onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addIngredient(this.value);this.value='';}"/>
+          <button class="btn-add" onclick="addIngredient(document.getElementById('ing-input').value);document.getElementById('ing-input').value=''">Add</button>
         </div>
-        <div id="tag-container" class="tag-container">
-          <!-- tags injected here -->
-        </div>
-        <p class="input-hint">Press Enter or click Add — try paneer, rice, onion, dal, atta…</p>
+        <div id="tag-container" class="tag-container"></div>
+        <p class="field-hint">Press Enter after each ingredient — try paneer, rice, dal, atta, sabzi…</p>
       </div>
 
+      <div class="card-divider"><span>✦</span></div>
+
       <!-- MOOD -->
-      <div class="input-block">
-        <label class="block-label">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#C4622D" stroke-width="1.2"/><path d="M4.5 8.5 Q7 11 9.5 8.5" stroke="#C4622D" stroke-width="1.2" stroke-linecap="round" fill="none"/><circle cx="5" cy="6" r="1" fill="#C4622D"/><circle cx="9" cy="6" r="1" fill="#C4622D"/></svg>
-          How are you feeling?
+      <div class="field-group">
+        <label class="field-label">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#C4622D" stroke-width="1.1"/><path d="M4 8 Q6.5 10.5 9 8" stroke="#C4622D" stroke-width="1.1" stroke-linecap="round" fill="none"/><circle cx="4.5" cy="5.5" r=".9" fill="#C4622D"/><circle cx="8.5" cy="5.5" r=".9" fill="#C4622D"/></svg>
+          How Are You Feeling?
         </label>
-        <div class="mood-grid">
+        <div class="mood-row">
           <button class="mood-btn" data-mood="lazy"    onclick="selectMood('lazy',this)">😴 Lazy &amp; quick</button>
           <button class="mood-btn" data-mood="festive" onclick="selectMood('festive',this)">🎉 Festive</button>
           <button class="mood-btn" data-mood="healthy" onclick="selectMood('healthy',this)">💪 Healthy</button>
@@ -133,104 +141,128 @@
         </div>
       </div>
 
-      <!-- CUISINE TOGGLE -->
-      <div class="input-block cuisine-row">
-        <label class="block-label">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="4" width="12" height="8" rx="2" stroke="#C4622D" stroke-width="1.2"/><path d="M4 4 V3 Q4 1 7 1 Q10 1 10 3 V4" stroke="#C4622D" stroke-width="1.2" fill="none"/></svg>
-          Cuisine preference
-        </label>
-        <div class="cuisine-toggle">
-          <button class="cuisine-btn active" id="btn-indian" onclick="setCuisine('indian')">🇮🇳 Indian</button>
-          <button class="cuisine-btn" id="btn-any" onclick="setCuisine('any')">🌍 Any</button>
-        </div>
-      </div>
+      <div class="card-divider"><span>✦</span></div>
 
-      <!-- SEARCH BUTTON -->
-      <button class="find-btn" onclick="findRecipes()">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M9 4 Q13.5 4 14 9 Q14.5 13 10 14.5 Q6 15.5 4 12 Q2 8.5 5 6 Q6.5 4 9 4Z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M13 13 L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-        Find my recipes
+      <!-- CUISINE -->
+      <div class="field-group cuisine-field">
+        <label class="field-label">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="4" width="11" height="7" rx="1.5" stroke="#C4622D" stroke-width="1.1"/><path d="M4 4V3Q4 1 6.5 1Q9 1 9 3V4" stroke="#C4622D" stroke-width="1.1" fill="none"/></svg>
+          Cuisine
+        </label>
+        <div class="toggle-group cuisine-toggle">
+
+  <button class="tog-btn active"
+          id="btn-indian"
+          onclick="setCuisine('indian',this)">
+    🇮🇳 Indian
+  </button>
+
+  <button class="tog-btn"
+          id="btn-any"
+          onclick="setCuisine('any',this)">
+    🌍 Any cuisine
+  </button>
+
+</div>
+
+<div class="filters-row">
+
+  <!-- DIET -->
+  <div class="filter-group">
+
+    <label class="field-label">
+      🥗 Diet
+    </label>
+
+    <div class="toggle-group">
+
+      <button class="tog-btn active diet-btn">
+        🟢 Veg
       </button>
 
-    </section>
+      <button class="tog-btn diet-btn">
+        🔴 Non-veg
+      </button>
 
-    <!-- DIVIDER -->
-    <div class="section-divider">
-      <span class="divider-line"></span>
-      <span class="divider-label">recipes for you</span>
-      <span class="divider-line"></span>
+      <button class="tog-btn diet-btn">
+        🌱 Vegan
+      </button>
+
     </div>
 
-    <!-- RECIPE GRID -->
-    <section class="recipe-section">
-      <div id="recipe-grid" class="recipe-grid">
-        <div class="empty-state">
-          <div class="empty-illo">
-            <svg viewBox="0 0 80 60" fill="none" width="80">
-              <rect x="10" y="20" width="60" height="35" rx="6" fill="#F0E3D3"/>
-              <rect x="20" y="10" width="40" height="14" rx="4" fill="#E8D4BC"/>
-              <circle cx="40" cy="38" r="10" fill="#D4B896" opacity=".6"/>
-              <path d="M35 38 Q40 33 45 38" stroke="#8A5D3B" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            </svg>
-          </div>
-          <p class="empty-text">Add ingredients above and hit <strong>Find my recipes</strong></p>
-          <p class="empty-sub">Try: paneer + onion + tomato</p>
-        </div>
-      </div>
-    </section>
-
-  </div><!-- end home -->
-
-
-  <!-- ══════════ FAVOURITES PAGE ══════════ -->
-  <div id="page-favourites" class="page">
-    <section class="inner-page-header">
-      <h2 class="inner-title">Your <em>Favourites</em></h2>
-      <p class="inner-sub">Recipes you've loved — saved just for you.</p>
-    </section>
-    <section class="recipe-section">
-      <div id="fav-grid" class="recipe-grid">
-        <div class="empty-state">
-          <p class="empty-text">No favourites yet — heart a recipe to save it here.</p>
-        </div>
-      </div>
-    </section>
   </div>
 
+</div>
 
-  <!-- ══════════ MEAL PLANNER PAGE ══════════ -->
-  <div id="page-planner" class="page">
-    <section class="inner-page-header">
-      <h2 class="inner-title">Weekly <em>Meal Plan</em></h2>
-      <p class="inner-sub">Plan your week. Eat well every day.</p>
-    </section>
-    <div class="planner-grid">
-      <div class="planner-day" data-day="Mon"><div class="day-label">Monday</div><div class="day-slot" id="plan-Mon">—</div></div>
-      <div class="planner-day" data-day="Tue"><div class="day-label">Tuesday</div><div class="day-slot" id="plan-Tue">—</div></div>
-      <div class="planner-day" data-day="Wed"><div class="day-label">Wednesday</div><div class="day-slot" id="plan-Wed">—</div></div>
-      <div class="planner-day" data-day="Thu"><div class="day-label">Thursday</div><div class="day-slot" id="plan-Thu">—</div></div>
-      <div class="planner-day" data-day="Fri"><div class="day-label">Friday</div><div class="day-slot" id="plan-Fri">—</div></div>
-      <div class="planner-day" data-day="Sat"><div class="day-label">Saturday</div><div class="day-slot" id="plan-Sat">—</div></div>
-      <div class="planner-day" data-day="Sun"><div class="day-label">Sunday</div><div class="day-slot" id="plan-Sun">—</div></div>
+      <!-- FIND BUTTON -->
+      <button class="btn-find" id="btn-find" onclick="findRecipes()">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M8 3Q12 3 12.5 8Q13 12 9 13Q5.5 14 3.5 11Q1.5 8 4 5.5Q5.5 3 8 3Z" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 12 L16 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Find My Recipes
+      </button>
+
     </div>
-    <p class="planner-hint">❤ a recipe and use "Add to plan" to schedule your meals.</p>
-  </div>
+  </section>
 
-
-  <!-- ══════════ RECIPE MODAL ══════════ -->
-  <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
-    <div class="modal" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="closeModal()">✕</button>
-      <div id="modal-content" class="modal-content">
-        <!-- filled by JS -->
-      </div>
+  <!-- RESULTS -->
+  <section class="results-wrap" id="results-section">
+    <div class="results-header" id="results-header" style="display:none">
+      <div class="rh-line"></div>
+      <span class="rh-text" id="results-label">Recipes for you</span>
+      <div class="rh-line"></div>
     </div>
+    <div id="recipe-grid" class="recipe-grid">
+      <!-- filled by JS -->
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+
+<!-- ══ FAVOURITES PAGE ══════════════════════════════════ -->
+<div id="page-favourites" class="page">
+  <div class="inner-header">
+    <h2 class="inner-title">Your <em>Favourites</em></h2>
+    <p class="inner-sub">Recipes you've loved — saved just for you.</p>
   </div>
+  <section class="results-wrap">
+    <div id="fav-grid" class="recipe-grid"></div>
+  </section>
+</div>
 
 
-  <!-- TOAST -->
-  <div id="toast" class="toast"></div>
+<!-- ══ MEAL PLANNER PAGE ════════════════════════════════ -->
+<div id="page-planner" class="page">
+  <div class="inner-header">
+    <h2 class="inner-title">Weekly <em>Meal Plan</em></h2>
+    <p class="inner-sub">Plan your week — eat well every day.</p>
+  </div>
+  <div class="planner-grid">
+    <div class="plan-day"><div class="plan-day-name">Monday</div><div class="plan-slot" id="plan-Mon">—</div></div>
+    <div class="plan-day"><div class="plan-day-name">Tuesday</div><div class="plan-slot" id="plan-Tue">—</div></div>
+    <div class="plan-day"><div class="plan-day-name">Wednesday</div><div class="plan-slot" id="plan-Wed">—</div></div>
+    <div class="plan-day"><div class="plan-day-name">Thursday</div><div class="plan-slot" id="plan-Thu">—</div></div>
+    <div class="plan-day"><div class="plan-day-name">Friday</div><div class="plan-slot" id="plan-Fri">—</div></div>
+    <div class="plan-day"><div class="plan-day-name">Saturday</div><div class="plan-slot" id="plan-Sat">—</div></div>
+    <div class="plan-day"><div class="plan-day-name">Sunday</div><div class="plan-slot" id="plan-Sun">—</div></div>
+  </div>
+  <p class="planner-note">❤ a recipe, then use "Add to Plan" inside the recipe to schedule it here.</p>
+</div>
 
-  <script src="js/api.js"></script>
-  <script src="js/app.js"></script>
+
+<!-- ══ RECIPE MODAL ═════════════════════════════════════ -->
+<div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body" class="modal-body"><!-- filled by JS --></div>
+  </div>
+</div>
+
+
+<!-- ══ TOAST ════════════════════════════════════════════ -->
+<div id="toast" class="toast"></div>
+
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
