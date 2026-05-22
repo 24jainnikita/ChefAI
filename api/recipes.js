@@ -52,7 +52,7 @@ function buildPrompt({ ingredients, mood, cuisine, diet, meal }) {
 A user has these ingredients: ${ingList}.
 ${pantryNote}
 
-Generate EXACTLY 6 recipes that:
+Generate EXACTLY 3 recipes that:
 - Use ONLY the ingredients listed plus pantry staples
 - Are ${moodText}
 - Are ${dietText}
@@ -151,7 +151,7 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: "Ingredients are required" });
     }
 
-    const GEMINI_KEY = process.env.GEMINI_API_KEY;
+    const GEMINI_KEY = process.env.GEMINI_KEY;
     const SPOONACULAR_KEY = process.env.SPOONACULAR_KEY || "";
 
     if (!GEMINI_KEY) {
