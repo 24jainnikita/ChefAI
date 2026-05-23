@@ -1,201 +1,260 @@
-// api/recipes.js
+// api/recipes.js — Hybrid Spoonacular + Gemini backend
+// Flow: Spoonacular (primary) → Gemini fallback + mood tip
 
-const MOOD_DESC = {
-  lazy: "quick and easy, ready in under 20 minutes, minimal steps",
-  festive: "celebratory, rich, flavourful, great for guests",
-  healthy: "light, nutritious, low-calorie, balanced",
-  comfort: "hearty, warm, satisfying, soul food",
-  fancy: "impressive, restaurant-style, elaborate presentation",
-  snack: "small portion, quick snack, finger food"
-};
+const SPOONACULAR_BASE = "https://api.spoonacular.com"
+const GEMINI_BASE      = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
-const PANTRY = [
-  "salt",
-  "water",
-  "oil",
-  "sugar",
-  "black pepper",
-  "turmeric",
-  "red chili powder",
-  "cumin seeds",
-  "mustard seeds",
-  "hing",
-  "curry leaves"
-];
-
-function buildPrompt({ ingredients, mood, cuisine, diet, meal }) {
-  const moodText = mood ? MOOD_DESC[mood] || mood : "any style";
-  const cuisineText = cuisine === "indian" ? "Indian" : "any cuisine";
-  const dietText =
-    diet === "veg"
-      ? "strictly vegetarian (no meat, no eggs, no fish)"
-      : diet === "nonveg"
-      ? "non-vegetarian is fine"
-      : diet === "vegan"
-      ? "strictly vegan (no dairy, no eggs, no meat)"
-      : "any diet";
-
-  const mealText =
-    meal === "breakfast"
-      ? "for breakfast"
-      : meal === "lunch"
-      ? "for lunch"
-      : meal === "dinner"
-      ? "for dinner"
-      : "any meal";
-
-  const ingList = ingredients.join(", ");
-  const pantryNote = `You can assume the user always has these pantry staples: ${PANTRY.join(", ")}.`;
-
-  return `You are a recipe assistant specializing in ${cuisineText} cooking.
-
-A user has these ingredients: ${ingList}.
-${pantryNote}
-
-Generate EXACTLY 3 recipes that:
-- Use ONLY the ingredients listed plus pantry staples
-- Are ${moodText}
-- Are ${dietText}
-- Cuisine style: ${cuisineText}
-- Meal type: ${mealText}
-- Use Indian measurement units: cups, tsp, tbsp — NOT oz or ml
-- Are realistic, cookable recipes
-
-Respond ONLY with a valid JSON array. No markdown, no explanation, no backticks.
-
-Format:
-[
-  {
-    "id": 1,
-    "title": "Recipe Name",
-    "readyInMinutes": 25,
-    "servings": 2,
-    "diet": "vegetarian",
-    "ingredients": [
-      {"name": "paneer", "amount": 200, "unit": "grams"},
-      {"name": "tomato", "amount": 2, "unit": "pieces"}
-    ],
-    "steps": [
-      "Heat oil in a pan.",
-      "Add cumin seeds and let them splutter.",
-      "Add chopped tomatoes and cook for 5 minutes."
-    ],
-    "nutrition": {
-      "calories": 320,
-      "protein": 18,
-      "carbs": 24,
-      "fat": 14
-    },
-    "emoji": "🍛"
-  }
-]`;
+const MOOD_MAP = {
+  lazy:    { maxReadyTime: 20, sort: "time" },
+  festive: { sort: "popularity" },
+  healthy: { maxCalories: 450, sort: "healthiness", minProtein: 8 },
+  comfort: { sort: "popularity", minCalories: 300 },
+  fancy:   { sort: "popularity", minServings: 2 },
+  snack:   { maxReadyTime: 15, type: "snack" }
 }
 
-function extractJsonArray(text) {
-  const clean = text
-    .replace(/```json/gi, "")
-    .replace(/```/g, "")
-    .trim();
-
-  const match = clean.match(/\[[\s\S]*\]/);
-  if (!match) throw new Error("No JSON array found in Gemini response");
-  return JSON.parse(match[0]);
+const DIET_MAP = {
+  veg:    "vegetarian",
+  vegan:  "vegan",
+  nonveg: ""
 }
 
-async function fetchRecipeImage(title, spoonacularKey) {
-  if (!spoonacularKey) return null;
+const MEAL_MAP = {
+  breakfast: "breakfast",
+  lunch:     "main course",
+  dinner:    "main course",
+  snack:     "snack",
+  any:       ""
+}
 
-  try {
-    const params = new URLSearchParams({
-      apiKey: spoonacularKey,
-      query: title,
-      number: "1"
-    });
+const PANTRY = ["salt","water","oil","sugar","black pepper",
+  "turmeric","red chili powder","cumin seeds","mustard seeds","hing","curry leaves"]
 
-    const res = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?${params}`
-    );
+// In-memory cache — prevents quota burn on repeated searches
+const cache = new Map()
 
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    return data.results?.[0]?.image || null;
-  } catch {
-    return null;
+// Retry helper — waits 5s and retries on 429
+async function fetchWithRetry(url, options, retries = 2) {
+  for (let i = 0; i <= retries; i++) {
+    const res = await fetch(url, options)
+    if (res.status !== 429) return res
+    console.warn(`429 received, retry ${i + 1} of ${retries} in 5s...`)
+    if (i < retries) await new Promise(r => setTimeout(r, 5000))
   }
+  return { ok: false, status: 429, json: async () => ({}) }
 }
 
 module.exports = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Origin", "*")
+  res.setHeader("Access-Control-Allow-Methods", "POST,OPTIONS")
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+  if (req.method === "OPTIONS") return res.status(200).end()
+  if (req.method !== "POST")    return res.status(405).json({ error: "Method not allowed" })
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
+  const GEMINI_KEY      = process.env.GEMINI_KEY      || ""
+  const SPOONACULAR_KEY = process.env.SPOONACULAR_KEY || ""
+
+  if (!SPOONACULAR_KEY && !GEMINI_KEY) {
+    return res.status(500).json({ error: "No API keys configured" })
   }
 
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+  const {
+    ingredients = [],
+    mood        = "",
+    cuisine     = "indian",
+    diet        = "veg",
+    meal        = "any"
+  } = req.body || {}
+
+  if (!ingredients.length) {
+    return res.status(400).json({ error: "Ingredients are required" })
+  }
+
+  // Return cached result if same search was made recently
+  const cacheKey = [ingredients.slice().sort().join(","), mood, cuisine, diet, meal].join("|")
+  if (cache.has(cacheKey)) {
+    console.log("Cache hit:", cacheKey)
+    return res.status(200).json(cache.get(cacheKey))
   }
 
   try {
-    const {
-      ingredients = [],
-      mood = "",
-      cuisine = "indian",
-      diet = "veg",
-      meal = "any"
-    } = req.body || {};
-
-    if (!Array.isArray(ingredients) || ingredients.length === 0) {
-      return res.status(400).json({ error: "Ingredients are required" });
-    }
-
-    const GEMINI_KEY = process.env.GEMINI_KEY;
-    const SPOONACULAR_KEY = process.env.SPOONACULAR_KEY || "";
-
-    if (!GEMINI_KEY) {
-      return res.status(500).json({ error: "Missing GEMINI_KEY" });
-    }
-
-    const prompt = buildPrompt({ ingredients, mood, cuisine, diet, meal });
-
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-        })
-      }
-    );
-
-    if (!geminiRes.ok) {
-      const detail = await geminiRes.text().catch(() => "");
-      return res.status(500).json({
-        error: `Gemini API failed: ${geminiRes.status}`,
-        detail
-      });
-    }
-
-    const data = await geminiRes.json();
-    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-    const recipes = extractJsonArray(rawText);
-
-    const withImages = await Promise.all(
-      recipes.map(async (r) => {
-        const image = await fetchRecipeImage(r.title, SPOONACULAR_KEY);
-        return { ...r, image: image || null };
+    // STEP 1: Spoonacular only for non-Indian (Indian ingredients not in their DB)
+    let recipes = []
+    if (SPOONACULAR_KEY && cuisine !== "indian") {
+      recipes = await fetchFromSpoonacular({
+        ingredients, mood, cuisine, diet, meal, apiKey: SPOONACULAR_KEY
       })
-    );
+    }
 
-    return res.status(200).json({ recipes: withImages });
+    // STEP 2: Gemini — always for Indian, fallback for others if < 3 results
+    if (recipes.length < 3 && GEMINI_KEY) {
+      const geminiRecipes = await fetchFromGemini({
+        ingredients, mood, cuisine, diet, meal, apiKey: GEMINI_KEY
+      })
+      const existingIds = new Set(recipes.map(r => r.id))
+      for (const r of geminiRecipes) {
+        if (!existingIds.has(r.id)) recipes.push(r)
+        if (recipes.length >= 6) break
+      }
+    }
+
+    // STEP 3: Mood tip — tiny 1-sentence Gemini call
+    let moodTip = ""
+    if (mood && GEMINI_KEY && recipes.length > 0) {
+      moodTip = await getMoodTip(mood, ingredients, GEMINI_KEY)
+    }
+
+    const result = { recipes: recipes.slice(0, 6), moodTip }
+    cache.set(cacheKey, result)
+    setTimeout(() => cache.delete(cacheKey), 10 * 60 * 1000)
+    return res.status(200).json(result)
+
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      error: err.message || "Server error"
-    });
+    console.error("ChefAI error:", err.message)
+    return res.status(500).json({ error: err.message || "Server error" })
   }
-};
+}
+
+async function fetchFromSpoonacular({ ingredients, mood, cuisine, diet, meal, apiKey }) {
+  try {
+    const moodParams = MOOD_MAP[mood]  || {}
+    const dietParam  = DIET_MAP[diet]  || ""
+    const typeParam  = MEAL_MAP[meal]  || ""
+
+    const params = new URLSearchParams({
+      apiKey,
+      includeIngredients:   ingredients.join(","),
+      number:               "9",
+      addRecipeInformation: "true",
+      addRecipeNutrition:   "true",
+      fillIngredients:      "true",
+      sort:                 moodParams.sort || "max-used-ingredients",
+      ...(cuisine !== "any"       && { cuisine }),
+      ...(dietParam               && { diet: dietParam }),
+      ...(typeParam               && { type: typeParam }),
+      ...(moodParams.maxReadyTime && { maxReadyTime: String(moodParams.maxReadyTime) }),
+      ...(moodParams.maxCalories  && { maxCalories:  String(moodParams.maxCalories)  }),
+      ...(moodParams.minCalories  && { minCalories:  String(moodParams.minCalories)  }),
+      ...(moodParams.minProtein   && { minProtein:   String(moodParams.minProtein)   }),
+    })
+
+    const res = await fetch(`${SPOONACULAR_BASE}/recipes/complexSearch?${params}`)
+    if (!res.ok) { console.warn("Spoonacular:", res.status); return [] }
+
+    const data = await res.json()
+    if (!data.results?.length) return []
+
+    return data.results.map((r, i) => ({
+      id:             r.id || i + 1,
+      title:          r.title || "Untitled",
+      readyInMinutes: r.readyInMinutes || null,
+      servings:       r.servings       || 2,
+      diet:           extractDiet(r),
+      image:          r.image          || null,
+      emoji:          "🍽️",
+      ingredients:    extractIngredients(r),
+      steps:          extractSteps(r),
+      nutrition:      extractNutrition(r),
+      source:         "spoonacular"
+    }))
+
+  } catch (err) {
+    console.warn("Spoonacular failed:", err.message)
+    return []
+  }
+}
+
+async function fetchFromGemini({ ingredients, mood, cuisine, diet, meal, apiKey }) {
+  try {
+    const cuisineText = cuisine === "indian" ? "Indian" : "any cuisine"
+    const dietText    = diet === "veg"   ? "strictly vegetarian" :
+                        diet === "vegan" ? "strictly vegan"      : "any diet"
+    const moodText    = mood || "any style"
+    const mealText    = meal !== "any" ? `suitable for ${meal}` : ""
+
+    const prompt = `Generate exactly 6 ${cuisineText} recipes.
+User has: ${ingredients.join(", ")}.
+Pantry staples: ${PANTRY.join(", ")}.
+Requirements: ${dietText}, ${moodText} style${mealText ? ", " + mealText : ""}.
+Use ONLY listed ingredients plus pantry staples. Use Indian units: cups, tsp, tbsp.
+Respond ONLY with valid JSON array, no markdown.
+[{"id":1,"title":"...","readyInMinutes":25,"servings":2,"diet":"vegetarian","ingredients":[{"name":"paneer","amount":1,"unit":"cup"}],"steps":["Step 1."],"nutrition":{"calories":320,"protein":18,"carbs":24,"fat":14},"emoji":"🍛"}]`
+
+    const res = await fetchWithRetry(`${GEMINI_BASE}?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+      })
+    })
+
+    if (!res.ok) { console.warn("Gemini fallback:", res.status); return [] }
+
+    const data    = await res.json()
+    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || ""
+    const clean   = rawText.replace(/```json/gi,"").replace(/```/g,"").trim()
+    const match   = clean.match(/\[[\s\S]*\]/)
+    if (!match) {
+      console.warn("Gemini: no JSON array found in response")
+      console.warn("Raw text:", rawText.slice(0, 300))
+      return []
+    }
+
+    try {
+      return JSON.parse(match[0]).map(r => ({ ...r, source: "gemini" }))
+    } catch(parseErr) {
+      console.warn("Gemini: JSON parse failed:", parseErr.message)
+      console.warn("Matched text:", match[0].slice(0, 300))
+      return []
+    }
+
+  } catch (err) {
+    console.warn("Gemini fallback failed:", err.message)
+    return []
+  }
+}
+
+async function getMoodTip(mood, ingredients, apiKey) {
+  try {
+    const res = await fetchWithRetry(`${GEMINI_BASE}?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: `In one short friendly sentence (max 15 words), give a cooking tip for someone feeling "${mood}" who has ${ingredients.slice(0,3).join(", ")}. No preamble.` }] }],
+        generationConfig: { temperature: 0.8, maxOutputTokens: 60 }
+      })
+    })
+    if (!res.ok) return ""
+    const data = await res.json()
+    return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || ""
+  } catch { return "" }
+}
+
+function extractDiet(r) {
+  if (r.vegan)      return "vegan"
+  if (r.vegetarian) return "vegetarian"
+  return "non-vegetarian"
+}
+
+function extractIngredients(r) {
+  return (r.extendedIngredients || r.usedIngredients || []).map(i => ({
+    name:   i.name || i.originalName || "",
+    amount: i.amount || 0,
+    unit:   i.unit  || i.measures?.metric?.unitShort || ""
+  }))
+}
+
+function extractSteps(r) {
+  const steps = r.analyzedInstructions?.[0]?.steps
+  if (steps?.length) return steps.map(s => s.step)
+  if (r.instructions) return [r.instructions.replace(/<[^>]*>/g, "")]
+  return []
+}
+
+function extractNutrition(r) {
+  const n = r.nutrition?.nutrients
+  if (!n) return null
+  const get = name => Math.round(n.find(x => x.name === name)?.amount || 0)
+  return { calories: get("Calories"), protein: get("Protein"), carbs: get("Carbohydrates"), fat: get("Fat") }
+}
