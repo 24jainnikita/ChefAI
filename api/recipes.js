@@ -126,9 +126,12 @@ async function fetchFromSpoonacular({ ingredients, mood, cuisine, diet, meal, ap
       includeIngredients:   ingredients.join(","),
       number:               "9",
       addRecipeInformation: "true",
-      addRecipeNutrition:   "true",
-      fillIngredients:      "true",
+      addRecipeNutrition:        "true",
+      fillIngredients:           "true",
+      addRecipeInstructions:     "true",
       sort:                 moodParams.sort || "max-used-ingredients",
+      maximizeMissingIngredients: "false",
+      ignorePantry:         "true",
       ...(cuisine !== "any"       && { cuisine }),
       ...(dietParam               && { diet: dietParam }),
       ...(typeParam               && { type: typeParam }),
@@ -143,8 +146,16 @@ async function fetchFromSpoonacular({ ingredients, mood, cuisine, diet, meal, ap
 
     const data = await res.json()
     if (!data.results?.length) return []
+    // Only keep recipes where most ingredients are ones the user has
+    const filtered = data.results.filter(r => {
+    const used   = r.usedIngredientCount || 0
+    const missed = r.missedIngredientCount || 0
+    // Keep if at least 40% of ingredients are from user's list
+    return missed <= used + 2
+ })
+if (!filtered.length) return []
 
-    return data.results.map((r, i) => ({
+    return filtered.map((r, i) => ({
       id:             r.id || i + 1,
       title:          r.title || "Untitled",
       readyInMinutes: r.readyInMinutes || null,
@@ -232,8 +243,14 @@ async function getMoodTip(mood, ingredients, apiKey) {
 }
 
 function extractDiet(r) {
-  if (r.vegan)      return "vegan"
-  if (r.vegetarian) return "vegetarian"
+  if (r.vegan)                          return "vegan"
+  if (r.vegetarian)                     return "vegetarian"
+  if (r.dairyFree && !r.glutenFree)     return "vegetarian"
+  // Check title for obvious meat words
+  const title = (r.title || "").toLowerCase()
+  const meatWords = ["chicken","mutton","beef","pork","fish","prawn","shrimp","lamb","bacon","meat","turkey"]
+  const hasMeat = meatWords.some(w => title.includes(w))
+  if (!hasMeat) return "vegetarian"
   return "non-vegetarian"
 }
 
@@ -246,10 +263,20 @@ function extractIngredients(r) {
 }
 
 function extractSteps(r) {
-  const steps = r.analyzedInstructions?.[0]?.steps
-  if (steps?.length) return steps.map(s => s.step)
-  if (r.instructions) return [r.instructions.replace(/<[^>]*>/g, "")]
-  return []
+  // Try analyzed instructions first
+  const analyzed = r.analyzedInstructions?.[0]?.steps
+  if (analyzed?.length) return analyzed.map(s => s.step)
+  
+  // Try plain instructions text
+  if (r.instructions) {
+    return r.instructions
+      .replace(/<[^>]*>/g, "")  // strip HTML
+      .split(/\.\s+/)
+      .map(s => s.trim())
+      .filter(s => s.length > 10)
+  }
+
+  return ["No steps available — visit the original recipe source for full instructions."]
 }
 
 function extractNutrition(r) {

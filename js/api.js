@@ -7,7 +7,16 @@ function cacheRecipes(recipes) {
 
 async function getRecipeDetail(id) {
   if (recipeCache[id]) return recipeCache[id]
-  throw new Error("Recipe not in cache")
+
+  // Check localStorage favourites as fallback after refresh
+  const saved = JSON.parse(localStorage.getItem("chefai-favs") || "[]")
+  const found = saved.find(r => r.id === id)
+  if (found) {
+    recipeCache[id] = found  // re-populate cache
+    return found
+  }
+
+  throw new Error("Recipe not in cache — search again to reload")
 }
 
 // ══ MAIN SEARCH — calls your Vercel backend ═══════════

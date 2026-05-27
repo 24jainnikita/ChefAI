@@ -3,13 +3,47 @@ let ingredients   = []
 let selectedMood  = ""
 let selectedCuis  = "indian"
 let selectedDiet  = "veg"
+let selectedMeal  = "any"
 let favourites    = JSON.parse(localStorage.getItem("chefai-favs") || "[]")
 let currentServings = 2
 let baseServings    = 2
-let currentRecipe   = null   // full recipe object from Gemini
+let currentRecipe   = null
+
+// ══ CLICK SOUND ══════════════════════════════════════
+function playClick() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const o = ctx.createOscillator()
+    const g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.frequency.setValueAtTime(880, ctx.currentTime)
+    o.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.08)
+    g.gain.setValueAtTime(0.15, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
+    o.start(ctx.currentTime)
+    o.stop(ctx.currentTime + 0.12)
+  } catch(e) {}
+}
+
+function playAdd() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const o = ctx.createOscillator()
+    const g = ctx.createGain()
+    o.connect(g); g.connect(ctx.destination)
+    o.type = "sine"
+    o.frequency.setValueAtTime(523, ctx.currentTime)
+    o.frequency.setValueAtTime(659, ctx.currentTime + 0.08)
+    g.gain.setValueAtTime(0.12, ctx.currentTime)
+    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18)
+    o.start(ctx.currentTime)
+    o.stop(ctx.currentTime + 0.18)
+  } catch(e) {}
+}
 
 // ══ PAGE SWITCHING ═══════════════════════════════════
 function showPage(name, el) {
+  playClick()
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"))
   document.querySelectorAll(".nav-link").forEach(l => l.classList.remove("active"))
   document.getElementById("page-" + name).classList.add("active")
@@ -24,11 +58,45 @@ function addIngredient(raw) {
   parts.forEach(val => {
     if (val && !ingredients.includes(val)) { ingredients.push(val); added++ }
   })
-  if (added) renderTags()
+  if (added) { renderTags(); playAdd() }
   document.getElementById("ing-input").focus()
+  const COMMON_INGREDIENTS = [
+  "milk","egg","paneer","tomato","onion","potato","rice","atta",
+  "dal","garlic","ginger","butter","oil","sugar","salt","flour",
+  "chicken","mushroom","spinach","carrot","capsicum","curd","cream"
+]
+
+  function findSimilar(input) {
+  return COMMON_INGREDIENTS.find(ing => {
+    if (ing.includes(input) || input.includes(ing)) return true
+    // simple edit distance check
+    let diff = 0
+    const len = Math.min(ing.length, input.length)
+    for (let i = 0; i < len; i++) if (ing[i] !== input[i]) diff++
+    return diff <= 1 && Math.abs(ing.length - input.length) <= 1
+  })
+}
+function addIngredient(raw) {
+  const parts = raw.split(",").map(s => s.trim().toLowerCase()).filter(Boolean)
+  let added = 0
+  parts.forEach(val => {
+    if (val && !ingredients.includes(val)) {
+      ingredients.push(val)
+      added++
+      // Check for possible typo
+      const similar = findSimilar(val)
+      if (similar && similar !== val) {
+        showToast(`💡 Did you mean "${similar}"? Added "${val}" anyway.`)
+      }
+    }
+  })
+  if (added) { renderTags(); playAdd() }
+  document.getElementById("ing-input").focus()
+}
 }
 
 function removeIngredient(name) {
+  playClick()
   ingredients = ingredients.filter(i => i !== name)
   renderTags()
 }
@@ -42,8 +110,31 @@ function renderTags() {
     </div>`).join("")
 }
 
+// ══ QUICK ADD ════════════════════════════════════════
+function toggleCat(el) {
+  playClick()
+  el.classList.toggle("open")
+  el.nextElementSibling.classList.toggle("open")
+}
+
+function quickAdd(el) {
+  const val = el.textContent.trim().toLowerCase()
+  if (!ingredients.includes(val)) {
+    ingredients.push(val)
+    renderTags()
+    el.classList.add("added")
+    playAdd()
+  } else {
+    ingredients = ingredients.filter(i => i !== val)
+    renderTags()
+    el.classList.remove("added")
+    playClick()
+  }
+}
+
 // ══ MOOD ═════════════════════════════════════════════
 function selectMood(mood, el) {
+  playClick()
   if (selectedMood === mood) {
     selectedMood = ""
     el.classList.remove("sel")
@@ -56,15 +147,25 @@ function selectMood(mood, el) {
 
 // ══ CUISINE ══════════════════════════════════════════
 function setCuisine(val, el) {
+  playClick()
   selectedCuis = val
-  document.querySelectorAll(".cuis-btn").forEach(b => b.classList.remove("active"))
+  document.querySelectorAll(".tog-btn[id^='btn-indian'], .tog-btn[id^='btn-any']").forEach(b => b.classList.remove("active"))
   el.classList.add("active")
 }
 
 // ══ DIET ═════════════════════════════════════════════
 function setDiet(val, el) {
+  playClick()
   selectedDiet = val
   document.querySelectorAll(".diet-btn").forEach(b => b.classList.remove("active"))
+  el.classList.add("active")
+}
+
+// ══ MEAL ═════════════════════════════════════════════
+function setMeal(val, el) {
+  playClick()
+  selectedMeal = val
+  document.querySelectorAll(".meal-btn").forEach(b => b.classList.remove("active"))
   el.classList.add("active")
 }
 
@@ -75,6 +176,7 @@ async function findRecipes() {
     document.getElementById("ing-input").focus()
     return
   }
+  playClick()
 
   const btn  = document.getElementById("btn-find")
   const grid = document.getElementById("recipe-grid")
@@ -104,11 +206,11 @@ async function findRecipes() {
   } catch(err) {
     lbl.textContent = "Error"
     if (err.message.includes("429")) {
-      grid.innerHTML = emptyState("⏳","Too many requests","Wait 30 seconds and try again — free tier limit hit")
+      grid.innerHTML = emptyState("⏳","Too many requests","Wait 30 seconds and try again")
     } else if (err.message.includes("JSON")) {
       grid.innerHTML = emptyState("⚠️","Unexpected response","Try again — AI sometimes needs a retry!")
     } else {
-      grid.innerHTML = emptyState("⚠️","Gemini error — check console","Open F12 → Console to see the exact error")
+      grid.innerHTML = emptyState("⚠️",err.message || "Something went wrong","Check console for details")
     }
     console.error(err)
   } finally {
@@ -135,7 +237,7 @@ function renderRecipes(recipes, container) {
       ? `<img src="${r.image}" alt="${escStr(r.title)}"
            onload="this.style.opacity=1"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-           style="opacity:0;transition:opacity .3s;width:100%;height:100%;object-fit:cover" loading="lazy"/>
+           style="opacity:0;transition:opacity .4s;width:100%;height:100%;object-fit:cover" loading="lazy"/>
          <div class="card-img-fallback">${r.emoji || "🍽️"}</div>`
       : `<div class="card-img-fallback" style="display:flex">${r.emoji || "🍽️"}</div>`
 
@@ -164,15 +266,16 @@ function renderRecipes(recipes, container) {
 
 // ══ MODAL ════════════════════════════════════════════
 async function openRecipe(id) {
+  playClick()
   const overlay = document.getElementById("modal-overlay")
   const body    = document.getElementById("modal-body")
   overlay.classList.add("open")
   document.body.style.overflow = "hidden"
 
   body.innerHTML = `
-    <div class="skeleton" style="height:210px;border-radius:10px;margin-bottom:16px"></div>
-    <div class="skeleton" style="height:26px;width:65%;border-radius:6px;margin-bottom:10px"></div>
-    <div class="skeleton" style="height:120px;border-radius:8px"></div>`
+    <div class="skeleton" style="height:220px;border-radius:12px;margin-bottom:18px"></div>
+    <div class="skeleton" style="height:28px;width:60%;border-radius:6px;margin-bottom:10px"></div>
+    <div class="skeleton" style="height:100px;border-radius:8px"></div>`
 
   try {
     const d = await getRecipeDetail(id)
@@ -231,9 +334,9 @@ async function openRecipe(id) {
           </li>`).join("")}
       </ol>` : ""}
 
-      <div class="modal-section">Pantry staples assumed available</div>
-      <p style="font-size:13px;color:var(--ink-lt);font-style:italic;line-height:1.6">
-        Salt, water, oil, sugar, turmeric, red chili powder, cumin seeds, black pepper — these are assumed in your kitchen.
+      <div class="modal-section">Pantry staples assumed</div>
+      <p style="font-family:'Outfit',sans-serif;font-size:13px;color:var(--ink-lt);font-style:italic;line-height:1.7">
+        Salt, water, oil, sugar, turmeric, red chili powder, cumin seeds, black pepper — assumed available in your kitchen.
       </p>
 
       <div class="modal-actions">
@@ -253,12 +356,13 @@ async function openRecipe(id) {
 
 function closeModal(e) {
   if (e && e.target !== document.getElementById("modal-overlay")) return
+  playClick()
   document.getElementById("modal-overlay").classList.remove("open")
   document.body.style.overflow = ""
 }
 
-// serving scaler
 function changeServings(delta) {
+  playClick()
   const next = Math.max(1, Math.min(30, currentServings + delta))
   currentServings = next
   document.getElementById("modal-servings").textContent = next
@@ -273,9 +377,7 @@ function renderIngList(ings, target, base) {
   return ings.map(ing => {
     const raw = parseFloat(ing.amount) || 0
     const amt = raw ? raw * ratio : 0
-    const display = amt
-      ? (amt < 10 ? parseFloat(amt.toFixed(1)) : Math.round(amt))
-      : ""
+    const display = amt ? (amt < 10 ? parseFloat(amt.toFixed(1)) : Math.round(amt)) : ""
     return `<li>${display ? `<strong>${display} ${ing.unit||""}</strong>` : ""} ${ing.name}</li>`
   }).join("")
 }
@@ -284,22 +386,19 @@ function renderIngList(ings, target, base) {
 function generateShoppingList() {
   if (!currentRecipe?.ingredients) return
   const owned  = new Set(ingredients.map(i => i.toLowerCase()))
-  const missing = currentRecipe.ingredients.filter(ing =>
-    !owned.has(ing.name.toLowerCase())
-  )
-  if (missing.length === 0) {
-    showToast("✅ You have everything needed!")
-    return
-  }
+  const missing = currentRecipe.ingredients.filter(ing => !owned.has(ing.name.toLowerCase()))
+  if (missing.length === 0) { showToast("✅ You have everything needed!"); return }
   const list = missing.map(i => `• ${i.amount} ${i.unit} ${i.name}`).join("\n")
   alert(`🛒 Shopping list for "${currentRecipe.title}":\n\n${list}`)
 }
 
 // ══ FAVOURITES ═══════════════════════════════════════
 function quickFav(id, title, image, btn) {
+  playClick()
   const idx = favourites.findIndex(f => f.id === id)
   if (idx === -1) {
-    favourites.push({ id, title, image })
+    const fullRecipe = recipeCache[id] ||  {id, title, image}
+    favourites.push(fullRecipe)
     btn.classList.add("loved"); btn.textContent = "♥"
     showToast("❤ Saved to favourites!")
   } else {
@@ -311,10 +410,12 @@ function quickFav(id, title, image, btn) {
 }
 
 function toggleFavModal(id, title, image) {
+  playClick()
   const idx = favourites.findIndex(f => f.id === id)
   const btn = document.getElementById("fav-modal-btn")
   if (idx === -1) {
-    favourites.push({ id, title, image })
+    const fullRecipe = recipeCache[id] || { id, title, image }
+    favourites.push(fullRecipe)
     btn.className = "m-btn primary"; btn.textContent = "♥ Saved"
     showToast("❤ Saved to favourites!")
   } else {
@@ -325,9 +426,7 @@ function toggleFavModal(id, title, image) {
   saveFavs()
 }
 
-function saveFavs() {
-  localStorage.setItem("chefai-favs", JSON.stringify(favourites))
-}
+function saveFavs() { localStorage.setItem("chefai-favs", JSON.stringify(favourites)) }
 
 function renderFavourites() {
   const g = document.getElementById("fav-grid")
@@ -381,57 +480,34 @@ document.addEventListener("keydown", e => {
   }
 })
 
+// ══ MEAL PLAN PERSISTENCE ════════════════════════════
+function savePlan() {
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"]
+  const plan = {}
+  days.forEach(d => {
+    const slot = document.getElementById("plan-" + d)
+    if (slot && slot.classList.contains("filled")) {
+      plan[d] = slot.textContent
+    }
+  })
+  localStorage.setItem("chefai-plan", JSON.stringify(plan))
+}
+
+function loadPlan() {
+  const plan = JSON.parse(localStorage.getItem("chefai-plan") || "{}")
+  Object.entries(plan).forEach(([day, title]) => {
+    const slot = document.getElementById("plan-" + day)
+    if (slot) {
+      slot.textContent = title
+      slot.className = "plan-slot filled"
+    }
+  })
+}
+
 // ══ HELPERS ══════════════════════════════════════════
 function escStr(s) {
   return String(s||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"')
 }
 
-// ══ QUICK ADD ════════════════════════════════════════
-function toggleCat(el) {
-  el.classList.toggle("open")
-  el.nextElementSibling.classList.toggle("open")
-}
-
-function quickAdd(el) {
-  const val = el.textContent.trim().toLowerCase()
-  if (!ingredients.includes(val)) {
-    ingredients.push(val)
-    renderTags()
-    el.classList.add("added")
-  } else {
-    // clicking again removes it
-    ingredients = ingredients.filter(i => i !== val)
-    renderTags()
-    el.classList.remove("added")
-  }
-}
-
-// ══ MEAL TYPE ════════════════════════════════════════
-let selectedMeal = "any"
-
-function setMeal(val, el) {
-  selectedMeal = val
-  document.querySelectorAll(".meal-btn").forEach(b => b.classList.remove("active"))
-  el.classList.add("active")
-}document.querySelectorAll('.mood-btn, .tog-btn, .btn-add, .btn-find, .qi')
-.forEach(button => {
-
-  button.addEventListener('click', function (e) {
-
-    const ripple = document.createElement('span');
-    ripple.classList.add('ripple');
-
-    const rect = button.getBoundingClientRect();
-
-    ripple.style.left = `${e.clientX - rect.left}px`;
-    ripple.style.top = `${e.clientY - rect.top}px`;
-
-    button.appendChild(ripple);
-
-    setTimeout(() => {
-      ripple.remove();
-    }, 600);
-
-  });
-
-});
+// Load saved plan on startup
+loadPlan()
