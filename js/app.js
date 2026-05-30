@@ -60,39 +60,6 @@ function addIngredient(raw) {
   })
   if (added) { renderTags(); playAdd() }
   document.getElementById("ing-input").focus()
-  const COMMON_INGREDIENTS = [
-  "milk","egg","paneer","tomato","onion","potato","rice","atta",
-  "dal","garlic","ginger","butter","oil","sugar","salt","flour",
-  "chicken","mushroom","spinach","carrot","capsicum","curd","cream"
-]
-
-  function findSimilar(input) {
-  return COMMON_INGREDIENTS.find(ing => {
-    if (ing.includes(input) || input.includes(ing)) return true
-    // simple edit distance check
-    let diff = 0
-    const len = Math.min(ing.length, input.length)
-    for (let i = 0; i < len; i++) if (ing[i] !== input[i]) diff++
-    return diff <= 1 && Math.abs(ing.length - input.length) <= 1
-  })
-}
-function addIngredient(raw) {
-  const parts = raw.split(",").map(s => s.trim().toLowerCase()).filter(Boolean)
-  let added = 0
-  parts.forEach(val => {
-    if (val && !ingredients.includes(val)) {
-      ingredients.push(val)
-      added++
-      // Check for possible typo
-      const similar = findSimilar(val)
-      if (similar && similar !== val) {
-        showToast(`💡 Did you mean "${similar}"? Added "${val}" anyway.`)
-      }
-    }
-  })
-  if (added) { renderTags(); playAdd() }
-  document.getElementById("ing-input").focus()
-}
 }
 
 function removeIngredient(name) {
@@ -384,11 +351,24 @@ function renderIngList(ings, target, base) {
 
 // ══ SHOPPING LIST ════════════════════════════════════
 function generateShoppingList() {
-  if (!currentRecipe?.ingredients) return
-  const owned  = new Set(ingredients.map(i => i.toLowerCase()))
-  const missing = currentRecipe.ingredients.filter(ing => !owned.has(ing.name.toLowerCase()))
+  if (!currentRecipe?.ingredients?.length) {
+    showToast("No ingredient data available for this recipe")
+    return
+  }
+  const owned = new Set([
+    ...ingredients.map(i => i.toLowerCase()),
+    "salt","water","oil","sugar","black pepper","turmeric",
+    "red chili powder","cumin seeds","mustard seeds","hing","curry leaves"
+  ])
+  const missing = currentRecipe.ingredients.filter(ing => {
+    const name = (ing.name || "").toLowerCase()
+    return name && !owned.has(name) && ![...owned].some(o => name.includes(o) || o.includes(name))
+  })
   if (missing.length === 0) { showToast("✅ You have everything needed!"); return }
-  const list = missing.map(i => `• ${i.amount} ${i.unit} ${i.name}`).join("\n")
+  const list = missing.map(i => {
+    const amt = i.amount ? `${i.amount} ${i.unit || ""}`.trim() : ""
+    return `• ${amt ? amt + " " : ""}${i.name}`
+  }).join("\n")
   alert(`🛒 Shopping list for "${currentRecipe.title}":\n\n${list}`)
 }
 
@@ -397,8 +377,7 @@ function quickFav(id, title, image, btn) {
   playClick()
   const idx = favourites.findIndex(f => f.id === id)
   if (idx === -1) {
-    const fullRecipe = recipeCache[id] ||  {id, title, image}
-    favourites.push(fullRecipe)
+    favourites.push({ id, title, image })
     btn.classList.add("loved"); btn.textContent = "♥"
     showToast("❤ Saved to favourites!")
   } else {
@@ -414,8 +393,7 @@ function toggleFavModal(id, title, image) {
   const idx = favourites.findIndex(f => f.id === id)
   const btn = document.getElementById("fav-modal-btn")
   if (idx === -1) {
-    const fullRecipe = recipeCache[id] || { id, title, image }
-    favourites.push(fullRecipe)
+    favourites.push({ id, title, image })
     btn.className = "m-btn primary"; btn.textContent = "♥ Saved"
     showToast("❤ Saved to favourites!")
   } else {
@@ -457,6 +435,7 @@ function planFromModal(title) {
   if (!match) { showToast("Invalid day — try Mon, Tue, Wed…"); return }
   const slot = document.getElementById("plan-" + match)
   if (slot) { slot.textContent = title; slot.className = "plan-slot filled" }
+  savePlan()
   document.getElementById("modal-overlay").classList.remove("open")
   document.body.style.overflow = ""
   showPage("planner", document.querySelectorAll(".nav-link")[2])
@@ -479,6 +458,11 @@ document.addEventListener("keydown", e => {
     document.body.style.overflow = ""
   }
 })
+
+// ══ HELPERS ══════════════════════════════════════════
+function escStr(s) {
+  return String(s||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"')
+}
 
 // ══ MEAL PLAN PERSISTENCE ════════════════════════════
 function savePlan() {
@@ -504,10 +488,4 @@ function loadPlan() {
   })
 }
 
-// ══ HELPERS ══════════════════════════════════════════
-function escStr(s) {
-  return String(s||"").replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,'\\"')
-}
-
-// Load saved plan on startup
 loadPlan()
