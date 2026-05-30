@@ -11,28 +11,18 @@
 </head>
 <body>
 
-<!-- ══ NAVBAR ══════════════════════════════════════════ -->
 <nav class="navbar">
   <div class="nav-logo">
     <svg class="logo-icon" viewBox="0 0 60 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- puffy hat - 3 lobes like real logo -->
-      <path d="M8 34 Q7 20 12 15 Q14 7 20 9 Q22 4 30 4 Q38 4 40 9 Q46 7 48 15 Q53 20 52 34Z"
-            fill="#FFFFFF" stroke="#2C1810" stroke-width="1.5" stroke-linejoin="round"/>
-      <!-- hat volume shading -->
+      <path d="M8 34 Q7 20 12 15 Q14 7 20 9 Q22 4 30 4 Q38 4 40 9 Q46 7 48 15 Q53 20 52 34Z" fill="#FFFFFF" stroke="#2C1810" stroke-width="1.5" stroke-linejoin="round"/>
       <path d="M14 28 Q15 19 19 16" stroke="#E8E0D0" stroke-width="1.2" stroke-linecap="round"/>
       <path d="M38 16 Q42 19 43 26" stroke="#E8E0D0" stroke-width="1.2" stroke-linecap="round"/>
-      <path d="M27 10 Q29 7 33 9" stroke="#F0EAE0" stroke-width="1" stroke-linecap="round"/>
-      <!-- hat brim - wide rectangle -->
       <rect x="7" y="32" width="46" height="12" rx="3" fill="#FFFFFF" stroke="#2C1810" stroke-width="1.5"/>
-      <!-- brim dividing line -->
       <line x1="7" y1="37" x2="53" y2="37" stroke="#EAE0D0" stroke-width="0.8"/>
-      <!-- crossed knife (diagonal left) -->
       <line x1="22" y1="31" x2="27" y2="44" stroke="#B8860B" stroke-width="2.2" stroke-linecap="round"/>
       <line x1="27" y1="31" x2="22" y2="44" stroke="#B8860B" stroke-width="2.2" stroke-linecap="round"/>
-      <!-- fork (right of cross) -->
       <line x1="32" y1="31" x2="32" y2="44" stroke="#B8860B" stroke-width="2.2" stroke-linecap="round"/>
       <path d="M30 31 L30 27 M32 31 L32 27 M34 31 L34 27 M30 27 Q32 24 34 27" stroke="#B8860B" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-      <!-- spoon (rightmost) -->
       <line x1="39" y1="33" x2="39" y2="44" stroke="#B8860B" stroke-width="2.2" stroke-linecap="round"/>
       <ellipse cx="39" cy="30.5" rx="3" ry="3.5" fill="#B8860B"/>
     </svg>
@@ -40,74 +30,55 @@
       <span class="logo-chef">Chef</span><span class="logo-ai">AI</span>
     </div>
   </div>
-
   <div class="nav-links">
     <a class="nav-link active" onclick="showPage('home',this)">Discover</a>
     <a class="nav-link" onclick="showPage('favourites',this)">Favourites</a>
     <a class="nav-link" onclick="showPage('planner',this)">Meal Plan</a>
   </div>
-
-  <div class="nav-pill">🇮🇳 Indian Kitchen · Mood-aware</div>
+  <div class="nav-pill">🇮🇳 Indian Kitchen · AI-powered</div>
 </nav>
 
-<!-- ══ HOME PAGE ════════════════════════════════════════ -->
+
+<!-- HOME PAGE -->
 <div id="page-home" class="page active">
 
-  <!-- HERO -->
   <section class="hero">
-    <!-- decorative corner doodles -->
     <div class="corner-doodle top-left" aria-hidden="true">
-      <svg viewBox="0 0 80 80" fill="none"><path d="M10 70 Q20 40 50 20" stroke="#C4A265" stroke-width="1.2" stroke-dasharray="3 3" fill="none"/><circle cx="50" cy="20" r="3" fill="#C4A265" opacity=".5"/><path d="M5 55 Q12 45 20 50 Q14 58 5 55Z" fill="#7A9E4A" opacity=".4"/></svg>
+      <svg viewBox="0 0 80 80" fill="none"><path d="M10 70 Q20 40 50 20" stroke="#C4A265" stroke-width="1.2" stroke-dasharray="3 3"/><circle cx="50" cy="20" r="3" fill="#C4A265" opacity=".5"/><path d="M5 55 Q12 45 20 50 Q14 58 5 55Z" fill="#7A9E4A" opacity=".4"/></svg>
     </div>
     <div class="corner-doodle top-right" aria-hidden="true">
-      <svg viewBox="0 0 80 80" fill="none"><path d="M70 70 Q60 40 30 20" stroke="#C4A265" stroke-width="1.2" stroke-dasharray="3 3" fill="none"/><path d="M62 15 Q70 10 72 20 Q65 22 62 15Z" fill="#C4622D" opacity=".4"/><circle cx="75" cy="45" r="4" fill="#C4A265" opacity=".3"/></svg>
+      <svg viewBox="0 0 80 80" fill="none"><path d="M70 70 Q60 40 30 20" stroke="#C4A265" stroke-width="1.2" stroke-dasharray="3 3"/><path d="M62 15 Q70 10 72 20 Q65 22 62 15Z" fill="#C4622D" opacity=".4"/></svg>
     </div>
-
     <div class="hero-inner">
-      <div class="hero-badge">
-        <span class="badge-dot"></span>
-        AI-powered · Zero waste cooking
+      <div class="hero-text">
+        <div class="hero-badge"><span class="badge-dot"></span>AI-generated · Never returns zero</div>
+        <h1 class="hero-title">What's sitting<br/>in your <em>fridge?</em></h1>
+        <p class="hero-sub">Add ingredients, pick your mood — ChefAI generates a recipe <em>just for you</em>.</p>
       </div>
-      <h1 class="hero-title">
-        What's sitting<br/>in your <em>fridge?</em>
-      </h1>
-      <p class="hero-sub">
-        Tell ChefAI what you have and how you feel —<br/>
-        get recipes you can <em>actually</em> cook right now.
-      </p>
-
-      <!-- small decorative bowl — contained, not huge -->
       <div class="hero-bowl" aria-hidden="true">
-        <svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg" width="120">
+        <svg viewBox="0 0 120 90" fill="none" width="110">
           <ellipse cx="60" cy="80" rx="38" ry="6" fill="#D4B896" opacity=".3"/>
           <path d="M24 58 Q27 78 60 80 Q93 78 96 58Z" fill="#E8D4BC"/>
           <ellipse cx="60" cy="58" rx="36" ry="11" fill="#F0DFC8"/>
           <circle cx="52" cy="54" r="8" fill="#C4622D" opacity=".75"/>
           <circle cx="66" cy="56" r="7" fill="#7A9E4A" opacity=".7"/>
           <circle cx="58" cy="50" r="5" fill="#B8860B" opacity=".7"/>
-          <!-- steam -->
           <path d="M46 44 Q43 36 47 30" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"/>
           <path d="M60 41 Q57 33 60 27" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"/>
           <path d="M74 44 Q77 36 73 30" stroke="#C4A882" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".6"/>
-          <!-- spoon -->
           <path d="M91 20 Q96 28 93 40 L91 60" stroke="#C8A87A" stroke-width="2.5" stroke-linecap="round" fill="none"/>
           <ellipse cx="93" cy="17" rx="5" ry="4" fill="#D4BC96" transform="rotate(-15 93 17)"/>
         </svg>
       </div>
     </div>
-
-    <!-- parchment-style decorative strip -->
     <div class="parchment-strip">
       <span>🌿</span><span>Add ingredients</span>
-      <span class="strip-sep">✦</span>
-      <span>Pick your mood</span>
-      <span class="strip-sep">✦</span>
-      <span>Find recipes</span>
+      <span class="strip-sep">✦</span><span>Pick your mood</span>
+      <span class="strip-sep">✦</span><span>Get your recipe</span>
       <span>🍴</span>
     </div>
   </section>
 
-  <!-- INPUT CARD -->
   <section class="input-card-wrap">
     <div class="input-card">
 
@@ -117,13 +88,83 @@
           <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1 Q9 4 9 6.5 A2.5 2.5 0 0 1 4 6.5 Q4 4 6.5 1Z" fill="#C4622D" opacity=".8"/></svg>
           Your Ingredients
         </label>
-        <div class="ing-row" id="ing-row">
-          <input id="ing-input" class="ing-input" placeholder="e.g. paneer, tomato, onion, dal…" autocomplete="off"
+        <div class="ing-row">
+          <input id="ing-input" class="ing-input" placeholder="Type an ingredient and press Enter…" autocomplete="off"
             onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addIngredient(this.value);this.value='';}"/>
           <button class="btn-add" onclick="addIngredient(document.getElementById('ing-input').value);document.getElementById('ing-input').value=''">Add</button>
         </div>
         <div id="tag-container" class="tag-container"></div>
         <p class="field-hint">Press Enter after each ingredient — try paneer, rice, dal, atta, sabzi…</p>
+
+        <div class="quick-label">Quick add from your pantry:</div>
+        <div class="quick-cats">
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🥛 Dairy &amp; Eggs</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Paneer</span>
+              <span class="qi" onclick="quickAdd(this)">Milk</span>
+              <span class="qi" onclick="quickAdd(this)">Curd</span>
+              <span class="qi" onclick="quickAdd(this)">Butter</span>
+              <span class="qi" onclick="quickAdd(this)">Ghee</span>
+              <span class="qi" onclick="quickAdd(this)">Cheese</span>
+              <span class="qi" onclick="quickAdd(this)">Egg</span>
+              <span class="qi" onclick="quickAdd(this)">Cream</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🥦 Vegetables</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Onion</span>
+              <span class="qi" onclick="quickAdd(this)">Tomato</span>
+              <span class="qi" onclick="quickAdd(this)">Potato</span>
+              <span class="qi" onclick="quickAdd(this)">Capsicum</span>
+              <span class="qi" onclick="quickAdd(this)">Carrot</span>
+              <span class="qi" onclick="quickAdd(this)">Spinach</span>
+              <span class="qi" onclick="quickAdd(this)">Cauliflower</span>
+              <span class="qi" onclick="quickAdd(this)">Peas</span>
+              <span class="qi" onclick="quickAdd(this)">Brinjal</span>
+              <span class="qi" onclick="quickAdd(this)">Cabbage</span>
+              <span class="qi" onclick="quickAdd(this)">Beans</span>
+              <span class="qi" onclick="quickAdd(this)">Mushroom</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🌾 Grains &amp; Dal</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Rice</span>
+              <span class="qi" onclick="quickAdd(this)">Atta</span>
+              <span class="qi" onclick="quickAdd(this)">Moong dal</span>
+              <span class="qi" onclick="quickAdd(this)">Toor dal</span>
+              <span class="qi" onclick="quickAdd(this)">Chana dal</span>
+              <span class="qi" onclick="quickAdd(this)">Rajma</span>
+              <span class="qi" onclick="quickAdd(this)">Chickpeas</span>
+              <span class="qi" onclick="quickAdd(this)">Poha</span>
+              <span class="qi" onclick="quickAdd(this)">Suji</span>
+              <span class="qi" onclick="quickAdd(this)">Bread</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🍗 Meat &amp; Fish</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Chicken</span>
+              <span class="qi" onclick="quickAdd(this)">Mutton</span>
+              <span class="qi" onclick="quickAdd(this)">Fish</span>
+              <span class="qi" onclick="quickAdd(this)">Prawns</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🍋 Fruits &amp; Others</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Lemon</span>
+              <span class="qi" onclick="quickAdd(this)">Banana</span>
+              <span class="qi" onclick="quickAdd(this)">Coconut</span>
+              <span class="qi" onclick="quickAdd(this)">Ginger</span>
+              <span class="qi" onclick="quickAdd(this)">Garlic</span>
+              <span class="qi" onclick="quickAdd(this)">Green chili</span>
+              <span class="qi" onclick="quickAdd(this)">Coriander</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="card-divider"><span>✦</span></div>
@@ -135,28 +176,58 @@
           How Are You Feeling?
         </label>
         <div class="mood-row">
-          <button class="mood-btn" data-mood="lazy"    onclick="selectMood('lazy',this)">😴 Lazy &amp; quick</button>
-          <button class="mood-btn" data-mood="festive" onclick="selectMood('festive',this)">🎉 Festive</button>
-          <button class="mood-btn" data-mood="healthy" onclick="selectMood('healthy',this)">💪 Healthy</button>
-          <button class="mood-btn" data-mood="comfort" onclick="selectMood('comfort',this)">🍲 Comfort food</button>
-          <button class="mood-btn" data-mood="fancy"   onclick="selectMood('fancy',this)">✨ Fancy dish</button>
-          <button class="mood-btn" data-mood="snack"   onclick="selectMood('snack',this)">☕ Light snack</button>
+          <button class="mood-btn" onclick="selectMood('lazy',this)">😴 Lazy &amp; quick</button>
+          <button class="mood-btn" onclick="selectMood('festive',this)">🎉 Festive</button>
+          <button class="mood-btn" onclick="selectMood('healthy',this)">💪 Healthy</button>
+          <button class="mood-btn" onclick="selectMood('comfort',this)">🍲 Comfort food</button>
+          <button class="mood-btn" onclick="selectMood('fancy',this)">✨ Fancy dish</button>
+          <button class="mood-btn" onclick="selectMood('snack',this)">☕ Light snack</button>
         </div>
       </div>
 
       <div class="card-divider"><span>✦</span></div>
 
-      <!-- CUISINE -->
-      <div class="field-group cuisine-field">
-        <label class="field-label">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="4" width="11" height="7" rx="1.5" stroke="#C4622D" stroke-width="1.1"/><path d="M4 4V3Q4 1 6.5 1Q9 1 9 3V4" stroke="#C4622D" stroke-width="1.1" fill="none"/></svg>
-          Cuisine
-        </label>
-        <div class="cuisine-toggle">
-          <button class="cuis-btn active" id="btn-indian" onclick="setCuisine('indian',this)">🇮🇳 Indian</button>
-          <button class="cuis-btn" id="btn-any" onclick="setCuisine('any',this)">🌍 Any cuisine</button>
+      <!-- ALL FILTERS -->
+      <div class="filters-row">
+
+        <div class="filter-group">
+          <label class="field-label">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="4" width="11" height="7" rx="1.5" stroke="#C4622D" stroke-width="1.1"/><path d="M4 4V3Q4 1 6.5 1Q9 1 9 3V4" stroke="#C4622D" stroke-width="1.1" fill="none"/></svg>
+            Cuisine
+          </label>
+          <div class="toggle-group">
+            <button class="tog-btn active" id="btn-indian" onclick="setCuisine('indian',this)">🇮🇳 Indian</button>
+            <button class="tog-btn" id="btn-any" onclick="setCuisine('any',this)">🌍 Any</button>
+          </div>
         </div>
-      </div>
+
+        <div class="filter-group">
+          <label class="field-label">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#C4622D" stroke-width="1.1"/><circle cx="6.5" cy="6.5" r="2" fill="#C4622D"/></svg>
+            Diet
+          </label>
+          <div class="toggle-group">
+            <button class="tog-btn diet-btn active" id="btn-veg"    onclick="setDiet('veg',this)">🟢 Veg</button>
+            <button class="tog-btn diet-btn"        id="btn-nonveg" onclick="setDiet('nonveg',this)">🔴 Non-veg</button>
+            <button class="tog-btn diet-btn"        id="btn-vegan"  onclick="setDiet('vegan',this)">🌱 Vegan</button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <label class="field-label">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1 L8 5h4L9 7.5l1 4-3.5-2.5L3 11.5l1-4L1 5h4z" fill="#C4622D" opacity=".7"/></svg>
+            Meal type
+          </label>
+          <div class="toggle-group">
+            <button class="tog-btn meal-btn active" id="btn-any-meal"  onclick="setMeal('any',this)">Any</button>
+            <button class="tog-btn meal-btn" id="btn-breakfast"        onclick="setMeal('breakfast',this)">🌅 Breakfast</button>
+            <button class="tog-btn meal-btn" id="btn-lunch"            onclick="setMeal('lunch',this)">☀️ Lunch</button>
+            <button class="tog-btn meal-btn" id="btn-dinner"           onclick="setMeal('dinner',this)">🌙 Dinner</button>
+            <button class="tog-btn meal-btn" id="btn-snack-meal"       onclick="setMeal('snack',this)">🍪 Snack</button>
+          </div>
+        </div>
+
+      </div><!-- /filters-row -->
 
       <!-- FIND BUTTON -->
       <button class="btn-find" id="btn-find" onclick="findRecipes()">
@@ -167,22 +238,19 @@
     </div>
   </section>
 
-  <!-- RESULTS -->
   <section class="results-wrap" id="results-section">
     <div class="results-header" id="results-header" style="display:none">
       <div class="rh-line"></div>
       <span class="rh-text" id="results-label">Recipes for you</span>
       <div class="rh-line"></div>
     </div>
-    <div id="recipe-grid" class="recipe-grid">
-      <!-- filled by JS -->
-    </div>
+    <div id="recipe-grid" class="recipe-grid"></div>
   </section>
 
 </div><!-- /home -->
 
 
-<!-- ══ FAVOURITES PAGE ══════════════════════════════════ -->
+<!-- FAVOURITES -->
 <div id="page-favourites" class="page">
   <div class="inner-header">
     <h2 class="inner-title">Your <em>Favourites</em></h2>
@@ -194,7 +262,7 @@
 </div>
 
 
-<!-- ══ MEAL PLANNER PAGE ════════════════════════════════ -->
+<!-- MEAL PLANNER -->
 <div id="page-planner" class="page">
   <div class="inner-header">
     <h2 class="inner-title">Weekly <em>Meal Plan</em></h2>
@@ -213,18 +281,16 @@
 </div>
 
 
-<!-- ══ RECIPE MODAL ═════════════════════════════════════ -->
+<!-- MODAL -->
 <div id="modal-overlay" class="modal-overlay" onclick="closeModal(event)">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div id="modal-body" class="modal-body"><!-- filled by JS --></div>
+    <div id="modal-body" class="modal-body"></div>
   </div>
 </div>
 
-
-<!-- ══ TOAST ════════════════════════════════════════════ -->
+<!-- TOAST -->
 <div id="toast" class="toast"></div>
-
 
 <script src="js/api.js"></script>
 <script src="js/app.js"></script>
