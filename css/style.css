@@ -1170,3 +1170,122 @@ body {
   background-size: 200% 100% !important;
   border-radius: 4px !important;
 }
+
+/* ══ JOURNAL CARD OVERRIDE — stronger specificity ════ */
+.recipe-grid .recipe-card {
+  background: #FEFAF0 !important;
+  border: 1.5px solid #C8A96E !important;
+  border-radius: 6px !important;
+  box-shadow: 2px 4px 12px rgba(101,67,33,.14), inset 0 0 60px rgba(196,162,101,.05) !important;
+  transform-origin: center bottom;
+}
+
+/* Aged top border — like torn notebook paper */
+.recipe-grid .recipe-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #B8860B 0px, #B8860B 1px,
+    transparent 1px, transparent 8px,
+    #C8A96E 8px, #C8A96E 9px,
+    transparent 9px, transparent 14px
+  );
+  opacity: .45;
+  z-index: 3;
+}
+
+/* Remove conflicting after pseudo */
+.recipe-grid .recipe-card::after { display: none; }
+
+/* Image — slight warmth filter */
+.recipe-grid .card-img img {
+  filter: sepia(12%) contrast(1.05) brightness(0.97) saturate(0.95) !important;
+  transition: transform .4s, filter .4s !important;
+}
+.recipe-grid .recipe-card:hover .card-img img {
+  filter: sepia(6%) contrast(1.06) brightness(1.0) saturate(1.0) !important;
+}
+
+/* Card title — elegant serif */
+.recipe-grid .card-title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: #3D1F08 !important;
+  line-height: 1.3 !important;
+}
+
+/* Badges — stamp style */
+.recipe-grid .badge {
+  background: transparent !important;
+  border: 1px solid #C8A96E !important;
+  color: #6B4226 !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: .5px !important;
+  text-transform: uppercase !important;
+  border-radius: 3px !important;
+  padding: 2px 8px !important;
+}
+
+/* Hover — lift like picking up a card */
+.recipe-grid .recipe-card:hover {
+  transform: translateY(-6px) rotate(0.5deg) scale(1.01) !important;
+  box-shadow: 5px 12px 28px rgba(101,67,33,.22) !important;
+  border-color: #B8860B !important;
+}
+
+/* Alternate cards tilt opposite direction */
+.recipe-grid .recipe-card:nth-child(even) { transform: rotate(0.4deg); }
+.recipe-grid .recipe-card:nth-child(even):hover {
+  transform: translateY(-6px) rotate(-0.4deg) scale(1.01) !important;
+}
+.recipe-grid .recipe-card:nth-child(3n) { transform: rotate(-0.5deg); }
+.recipe-grid .recipe-card:nth-child(3n):hover {
+  transform: translateY(-6px) rotate(0.6deg) scale(1.01) !important;
+}
+
+/* Heart — wax seal red when loved */
+.recipe-grid .card-heart {
+  background: rgba(254,250,240,.95) !important;
+  border: 1px solid #C8A96E !important;
+}
+.recipe-grid .card-heart.loved {
+  background: #8B1A1A !important;
+  border-color: #8B1A1A !important;
+  color: #fff !important;
+}
+
+/* Card entrance — flip in like turning a page */
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(24px) rotate(-1.5deg); }
+  to   { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+
+/* Modal — parchment journal page */
+.modal-box {
+  background: #FEFAF0 !important;
+  border: 1.5px solid #C8A96E !important;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-size: 26px !important;
+  color: #3D1F08 !important;
+}
+.modal-section {
+  color: #8B5E2A !important;
+  letter-spacing: 1.5px !important;
+}
+.nutri-box {
+  background: #F5ECD7 !important;
+  border: 1px solid #D4B87A !important;
+}
+.step-num {
+  background: #8B5E2A !important;
+}
+.ing-list li::before {
+  background: #B8860B !important;
+}
