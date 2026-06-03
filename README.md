@@ -128,8 +128,9 @@ Get your free API keys:
 ---
 
 ## Screenshots
+ChefAI Overview
 
-> <img width="1491" height="1490" alt="chefAI_overview" src="https://github.com/user-attachments/assets/f92bd0f1-53b8-4c04-93ce-6b9f81a671a8" />
+<img width="1491" height="1799" alt="chefai_overview" src="https://github.com/user-attachments/assets/b2c262c5-4f40-4fe4-8754-26111353db21" />
 
 
 ---
