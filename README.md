@@ -135,10 +135,6 @@ ChefAI Overview
 
 ---
 
-## Academic Context
-
-Built as a **Minor Project** for BCO074C — Computer Science & Engineering, 6th Semester.
-
 **Course Outcomes addressed:**
 - CO1: Real-world problem identification (food waste, meal planning)
 - CO2: Software design using APIs and serverless architecture
