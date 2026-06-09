@@ -9,6 +9,15 @@ let currentServings = 2
 let baseServings    = 2
 let currentRecipe   = null
 
+const MOOD_MESSAGES = {
+  lazy:    "⚡ Quick recipes — ready in under 20 minutes",
+  festive: "🎉 Celebratory dishes — perfect for guests",
+  healthy: "💪 Light and nutritious — under 450 calories",
+  comfort: "🍲 Hearty and warming — soul food picks",
+  fancy:   "✨ Restaurant-style — impressive presentation",
+  snack:   "☕ Light bites — small portions, big flavour"
+}
+
 // ══ CLICK SOUND ══════════════════════════════════════
 function playClick() {
   try {
@@ -167,8 +176,11 @@ async function findRecipes() {
       return
     }
 
-    lbl.textContent = `${recipes.length} recipes crafted for you`
-    renderRecipes(recipes, grid)
+    lbl.textContent = selectedMood && MOOD_MESSAGES[selectedMood]
+  ? MOOD_MESSAGES[selectedMood]
+  : `${recipes.length} recipes crafted for you`
+
+  renderRecipes(recipes, grid)
 
   } catch(err) {
     lbl.textContent = "Error"

@@ -52,6 +52,7 @@ module.exports = async (req, res) => {
   if (req.method !== "POST")    return res.status(405).json({ error: "Method not allowed" })
 
   const GEMINI_KEY      = process.env.GEMINI_KEY      || ""
+  const GEMINI_KEY2 = process.env.GEMINI_KEY2         || ""
   const SPOONACULAR_KEY = process.env.SPOONACULAR_KEY || ""
 
   if (!SPOONACULAR_KEY && !GEMINI_KEY) {
@@ -78,16 +79,16 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // STEP 1: Spoonacular only for non-Indian (Indian ingredients not in their DB)
-    let recipes = []
-    if (SPOONACULAR_KEY && cuisine !== "indian") {
-      recipes = await fetchFromSpoonacular({
-        ingredients, mood, cuisine, diet, meal, apiKey: SPOONACULAR_KEY
-      })
-    }
+   // STEP 1: Spoonacular only for non-Indian AND no mood selected
+let recipes = []
+if (SPOONACULAR_KEY && cuisine !== "indian" && !mood) {
+  recipes = await fetchFromSpoonacular({
+    ingredients, mood, cuisine, diet, meal, apiKey: SPOONACULAR_KEY
+  })
+}
 
-    // STEP 2: Gemini — always for Indian, fallback for others if < 3 results
-    if (recipes.length < 3 && GEMINI_KEY) {
+// STEP 2: Gemini — for Indian, for mood-based, or fallback if < 3 results
+if (recipes.length < 3 && GEMINI_KEY) {
       const geminiRecipes = await fetchFromGemini({
         ingredients, mood, cuisine, diet, meal, apiKey: GEMINI_KEY
       })
@@ -191,14 +192,25 @@ Use ONLY listed ingredients plus pantry staples. Use Indian units: cups, tsp, tb
 Respond ONLY with valid JSON array, no markdown.
 [{"id":1,"title":"...","readyInMinutes":25,"servings":2,"diet":"vegetarian","ingredients":[{"name":"paneer","amount":1,"unit":"cup"}],"steps":["Step 1."],"nutrition":{"calories":320,"protein":18,"carbs":24,"fat":14},"emoji":"🍛"}]`
 
-    const res = await fetchWithRetry(`${GEMINI_BASE}?key=${apiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-      })
+  let res = await fetchWithRetry(`${GEMINI_BASE}?key=${apiKey}`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+  })
+})
+if (res.status === 429 && GEMINI_KEY2) {
+  console.log("Primary Gemini key exhausted, switching to backup...")
+  res = await fetchWithRetry(`${GEMINI_BASE}?key=${GEMINI_KEY2}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      contents: [{ parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
     })
+  })
+}
 
     if (!res.ok) { console.warn("Gemini fallback:", res.status); return [] }
 
