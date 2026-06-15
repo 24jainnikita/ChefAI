@@ -382,14 +382,17 @@ function toggleFavModal(id, title, image) {
   playClick()
   const idx = favourites.findIndex(f => f.id === id)
   const btn = document.getElementById("fav-modal-btn")
+  const fullRecipe = recipeCache[id] || { id, title, image }
   if (idx === -1) {
-    favourites.push({ id, title, image })
+    favourites.push(fullRecipe)
     btn.className = "m-btn primary"; btn.textContent = "♥ Saved"
     showToast("❤ Saved to favourites!")
+    if (currentUser) saveFavToFirestore(fullRecipe)
   } else {
     favourites.splice(idx, 1)
     btn.className = "m-btn"; btn.textContent = "♡ Save recipe"
     showToast("Removed from favourites")
+    if (currentUser) removeFavFromFirestore(id)
   }
   saveFavs()
 }
@@ -401,6 +404,9 @@ function saveFavs() {
 
 function renderFavourites() {
   const g = document.getElementById("fav-grid")
+  // Update header with count
+const header = document.querySelector("#page-favourites .inner-title")
+if (header) header.innerHTML = `Your <em>Cookbook</em> <span style="font-size:16px;color:var(--gold);font-family:'Outfit',sans-serif;font-weight:500">· ${favourites.length} recipes</span>`
   if (!favourites.length) {
     g.innerHTML = emptyState("🤍","No favourites yet","Heart a recipe on Discover to save it here")
     return
