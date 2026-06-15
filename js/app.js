@@ -9,15 +9,6 @@ let currentServings = 2
 let baseServings    = 2
 let currentRecipe   = null
 
-const MOOD_MESSAGES = {
-  lazy:    "⚡ Quick recipes — ready in under 20 minutes",
-  festive: "🎉 Celebratory dishes — perfect for guests",
-  healthy: "💪 Light and nutritious — under 450 calories",
-  comfort: "🍲 Hearty and warming — soul food picks",
-  fancy:   "✨ Restaurant-style — impressive presentation",
-  snack:   "☕ Light bites — small portions, big flavour"
-}
-
 // ══ CLICK SOUND ══════════════════════════════════════
 function playClick() {
   try {
@@ -176,11 +167,8 @@ async function findRecipes() {
       return
     }
 
-    lbl.textContent = selectedMood && MOOD_MESSAGES[selectedMood]
-  ? MOOD_MESSAGES[selectedMood]
-  : `${recipes.length} recipes crafted for you`
-
-  renderRecipes(recipes, grid)
+    lbl.textContent = `${recipes.length} recipes crafted for you`
+    renderRecipes(recipes, grid)
 
   } catch(err) {
     lbl.textContent = "Error"
@@ -363,24 +351,11 @@ function renderIngList(ings, target, base) {
 
 // ══ SHOPPING LIST ════════════════════════════════════
 function generateShoppingList() {
-  if (!currentRecipe?.ingredients?.length) {
-    showToast("No ingredient data available for this recipe")
-    return
-  }
-  const owned = new Set([
-    ...ingredients.map(i => i.toLowerCase()),
-    "salt","water","oil","sugar","black pepper","turmeric",
-    "red chili powder","cumin seeds","mustard seeds","hing","curry leaves"
-  ])
-  const missing = currentRecipe.ingredients.filter(ing => {
-    const name = (ing.name || "").toLowerCase()
-    return name && !owned.has(name) && ![...owned].some(o => name.includes(o) || o.includes(name))
-  })
+  if (!currentRecipe?.ingredients) return
+  const owned  = new Set(ingredients.map(i => i.toLowerCase()))
+  const missing = currentRecipe.ingredients.filter(ing => !owned.has(ing.name.toLowerCase()))
   if (missing.length === 0) { showToast("✅ You have everything needed!"); return }
-  const list = missing.map(i => {
-    const amt = i.amount ? `${i.amount} ${i.unit || ""}`.trim() : ""
-    return `• ${amt ? amt + " " : ""}${i.name}`
-  }).join("\n")
+  const list = missing.map(i => `• ${i.amount} ${i.unit} ${i.name}`).join("\n")
   alert(`🛒 Shopping list for "${currentRecipe.title}":\n\n${list}`)
 }
 
@@ -388,14 +363,17 @@ function generateShoppingList() {
 function quickFav(id, title, image, btn) {
   playClick()
   const idx = favourites.findIndex(f => f.id === id)
+  const fullRecipe = recipeCache[id] || { id, title, image }
   if (idx === -1) {
-    favourites.push({ id, title, image })
+    favourites.push(fullRecipe)
     btn.classList.add("loved"); btn.textContent = "♥"
     showToast("❤ Saved to favourites!")
+    if (currentUser) saveFavToFirestore(fullRecipe)
   } else {
     favourites.splice(idx, 1)
     btn.classList.remove("loved"); btn.textContent = "♡"
     showToast("Removed from favourites")
+    if (currentUser) removeFavFromFirestore(id)
   }
   saveFavs()
 }
@@ -416,7 +394,10 @@ function toggleFavModal(id, title, image) {
   saveFavs()
 }
 
-function saveFavs() { localStorage.setItem("chefai-favs", JSON.stringify(favourites)) }
+function saveFavs() {
+  localStorage.setItem("chefai-favs", JSON.stringify(favourites))
+  // Firestore sync handled per-action in quickFav and toggleFavModal
+}
 
 function renderFavourites() {
   const g = document.getElementById("fav-grid")
@@ -447,7 +428,6 @@ function planFromModal(title) {
   if (!match) { showToast("Invalid day — try Mon, Tue, Wed…"); return }
   const slot = document.getElementById("plan-" + match)
   if (slot) { slot.textContent = title; slot.className = "plan-slot filled" }
-  savePlan()
   document.getElementById("modal-overlay").classList.remove("open")
   document.body.style.overflow = ""
   showPage("planner", document.querySelectorAll(".nav-link")[2])
@@ -501,3 +481,53 @@ function loadPlan() {
 }
 
 loadPlan()
+
+// ══ AUTH STATE LISTENER ═══════════════════════════════════
+firebase.auth().onAuthStateChanged(async (user) => {
+  currentUser = user
+
+  const authBtn   = document.getElementById("auth-btn")
+  const authLabel = document.getElementById("auth-label")
+
+  if (user) {
+    // User signed in
+    authLabel.innerHTML = user.photoURL
+      ? `<img src="${user.photoURL}" class="auth-avatar" alt="${user.displayName}"/> ${user.displayName?.split(" ")[0] || "You"}`
+      : `👤 ${user.displayName?.split(" ")[0] || "You"}`
+
+    authBtn.classList.add("signed-in")
+    saveUserProfile(user)
+
+    // Load Firestore favourites
+    const firestoreFavs = await loadFavsFromFirestore()
+    if (firestoreFavs && firestoreFavs.length > 0) {
+      favourites = firestoreFavs
+      saveFavs() // sync to localStorage too
+      showToast(`Welcome back! ${firestoreFavs.length} recipes in your cookbook.`)
+    } else {
+      // First sign-in — migrate localStorage favs
+      const localFavs = JSON.parse(localStorage.getItem("chefai-favs") || "[]")
+      if (localFavs.length > 0) {
+        await migrateLocalFavsToFirestore(localFavs)
+        showToast("Your favourites have been synced to the cloud! ☁️")
+      }
+    }
+
+  } else {
+    // User signed out
+    currentUser = null
+    authLabel.innerHTML = "Sign in"
+    authBtn.classList.remove("signed-in")
+    // Fall back to localStorage
+    favourites = JSON.parse(localStorage.getItem("chefai-favs") || "[]")
+  }
+})
+
+// ══ AUTH BUTTON CLICK ══════════════════════════════════════
+function handleAuthClick() {
+  if (currentUser) {
+    if (confirm(`Sign out of ChefAI?`)) signOut()
+  } else {
+    signInWithGoogle()
+  }
+}

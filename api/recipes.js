@@ -34,12 +34,20 @@ const PANTRY = ["salt","water","oil","sugar","black pepper",
 const cache = new Map()
 
 // Retry helper — waits 5s and retries on 429
-async function fetchWithRetry(url, options, retries = 2) {
+async function fetchWithRetry(url, options, retries = 1) {
   for (let i = 0; i <= retries; i++) {
-    const res = await fetch(url, options)
-    if (res.status !== 429) return res
-    console.warn(`429 received, retry ${i + 1} of ${retries} in 5s...`)
-    if (i < retries) await new Promise(r => setTimeout(r, 5000))
+    try {
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 8000) // 8s timeout
+      const res = await fetch(url, { ...options, signal: controller.signal })
+      clearTimeout(timeout)
+      if (res.status !== 429) return res
+      console.warn(`429 received, retry ${i + 1}...`)
+      if (i < retries) await new Promise(r => setTimeout(r, 3000)) // 3s wait
+    } catch(err) {
+      console.warn("Fetch error:", err.message)
+      if (i === retries) return { ok: false, status: 500, json: async () => ({}) }
+    }
   }
   return { ok: false, status: 429, json: async () => ({}) }
 }
@@ -81,7 +89,7 @@ module.exports = async (req, res) => {
   try {
    // STEP 1: Spoonacular only for non-Indian AND no mood selected
 let recipes = []
-if (SPOONACULAR_KEY && cuisine !== "indian" && !mood) {
+if (SPOONACULAR_KEY) {
   recipes = await fetchFromSpoonacular({
     ingredients, mood, cuisine, diet, meal, apiKey: SPOONACULAR_KEY
   })
@@ -90,8 +98,8 @@ if (SPOONACULAR_KEY && cuisine !== "indian" && !mood) {
 // STEP 2: Gemini — for Indian, for mood-based, or fallback if < 3 results
 if (recipes.length < 3 && GEMINI_KEY) {
       const geminiRecipes = await fetchFromGemini({
-        ingredients, mood, cuisine, diet, meal, apiKey: GEMINI_KEY
-      })
+  ingredients, mood, cuisine, diet, meal, apiKey: GEMINI_KEY, backupKey: GEMINI_KEY2
+})
       const existingIds = new Set(recipes.map(r => r.id))
       for (const r of geminiRecipes) {
         if (!existingIds.has(r.id)) recipes.push(r)
@@ -106,9 +114,12 @@ if (recipes.length < 3 && GEMINI_KEY) {
     }
 
     const result = { recipes: recipes.slice(0, 6), moodTip }
-    cache.set(cacheKey, result)
-    setTimeout(() => cache.delete(cacheKey), 10 * 60 * 1000)
-    return res.status(200).json(result)
+// Only cache if we actually got results
+if (recipes.length > 0) {
+  cache.set(cacheKey, result)
+  setTimeout(() => cache.delete(cacheKey), 10 * 60 * 1000)
+}
+return res.status(200).json(result)
 
   } catch (err) {
     console.error("ChefAI error:", err.message)
@@ -133,7 +144,6 @@ async function fetchFromSpoonacular({ ingredients, mood, cuisine, diet, meal, ap
       sort:                 moodParams.sort || "max-used-ingredients",
       maximizeMissingIngredients: "false",
       ignorePantry:         "true",
-      ...(cuisine !== "any"       && { cuisine }),
       ...(dietParam               && { diet: dietParam }),
       ...(typeParam               && { type: typeParam }),
       ...(moodParams.maxReadyTime && { maxReadyTime: String(moodParams.maxReadyTime) }),
@@ -176,7 +186,7 @@ if (!filtered.length) return []
   }
 }
 
-async function fetchFromGemini({ ingredients, mood, cuisine, diet, meal, apiKey }) {
+async function fetchFromGemini({ ingredients, mood, cuisine, diet, meal, apiKey, backupKey}) {
   try {
     const cuisineText = cuisine === "indian" ? "Indian" : "any cuisine"
     const dietText    = diet === "veg"   ? "strictly vegetarian" :
@@ -192,49 +202,51 @@ Use ONLY listed ingredients plus pantry staples. Use Indian units: cups, tsp, tb
 Respond ONLY with valid JSON array, no markdown.
 [{"id":1,"title":"...","readyInMinutes":25,"servings":2,"diet":"vegetarian","ingredients":[{"name":"paneer","amount":1,"unit":"cup"}],"steps":["Step 1."],"nutrition":{"calories":320,"protein":18,"carbs":24,"fat":14},"emoji":"🍛"}]`
 
-  let res = await fetchWithRetry(`${GEMINI_BASE}?key=${apiKey}`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-  })
-})
-if (res.status === 429 && GEMINI_KEY2) {
-  console.log("Primary Gemini key exhausted, switching to backup...")
-  res = await fetchWithRetry(`${GEMINI_BASE}?key=${GEMINI_KEY2}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-    })
-  })
+    // Try primary key first
+    let data = await tryGemini(prompt, apiKey)
+
+    // If primary failed and backup key exists, try backup
+    if (!data && backupKey) {
+  console.log("Primary Gemini failed, trying backup key...")
+  data = await tryGemini(prompt, backupKey)
 }
 
-    if (!res.ok) { console.warn("Gemini fallback:", res.status); return [] }
+    if (!data) return []
 
-    const data    = await res.json()
     const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || ""
     const clean   = rawText.replace(/```json/gi,"").replace(/```/g,"").trim()
     const match   = clean.match(/\[[\s\S]*\]/)
     if (!match) {
-      console.warn("Gemini: no JSON array found in response")
-      console.warn("Raw text:", rawText.slice(0, 300))
+      console.warn("Gemini: no JSON array found")
       return []
     }
 
-    try {
-      return JSON.parse(match[0]).map(r => ({ ...r, source: "gemini" }))
-    } catch(parseErr) {
-      console.warn("Gemini: JSON parse failed:", parseErr.message)
-      console.warn("Matched text:", match[0].slice(0, 300))
-      return []
-    }
+    return JSON.parse(match[0]).map(r => ({ ...r, source: "gemini" }))
 
   } catch (err) {
     console.warn("Gemini fallback failed:", err.message)
     return []
+  }
+}
+
+// Helper — tries one Gemini key, returns parsed data or null
+async function tryGemini(prompt, key) {
+  try {
+    const res = await fetchWithRetry(`${GEMINI_BASE}?key=${key}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
+      })
+    })
+    if (!res.ok) {
+      console.warn("Gemini key failed:", res.status)
+      return null
+    }
+    return await res.json()
+  } catch {
+    return null
   }
 }
 
