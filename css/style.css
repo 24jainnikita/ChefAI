@@ -628,8 +628,9 @@ body {
   line-height: 1.3;
   margin-bottom: 10px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
 }
 .card-meta { display: flex; flex-wrap: wrap; gap: 5px; }
