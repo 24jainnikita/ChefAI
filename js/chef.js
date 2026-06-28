@@ -332,7 +332,9 @@ const CHEF_VOCAB = [
   "bread", "vermicelli", "chicken", "mutton", "fish", "prawns", "prawn", "egg",
   "eggs", "milk", "curd", "yogurt", "butter", "ghee", "cheese", "cream", "lemon",
   "banana", "coconut", "ginger", "garlic", "coriander", "mint", "methi", "besan",
-  "dal", "lentils", "soya", "tofu", "corn"
+  "dal", "lentils", "soya", "tofu", "corn",
+  "noodles", "pasta", "oats", "sprouts", "mayonnaise", "cucumber",
+  "soy sauce", "schezwan sauce"
 ]
 
 function reEsc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") }
@@ -462,25 +464,33 @@ function botRespond(text, after) {
   }, delay)
 }
 
-// ── Main intent router ────────────────────────────────────────────────────────
+// ── Main intent router (discovery mode) ──────────────────────────────────────
 async function handleChefIntent(text) {
-  // 1) Local understanding first (instant, no quota).
-  const local = chefUnderstand(text)
-  if (chefHasEntities(local)) {
-    chefApplyEntities(local)
-    const { msg, doSearch } = chefContextResponse()
-    botRespond(msg, doSearch ? () => { chefGoHome(); if (typeof findRecipes === "function") findRecipes() } : null)
-    return
+  const cls = chefClassifyIntent(text)
+
+  switch (cls.intent) {
+    case "INGREDIENT": {
+      chefApplyEntities(cls.entities)
+      const { msg, doSearch } = chefContextResponse()
+      botRespond(msg, doSearch ? () => { chefGoHome(); if (typeof findRecipes === "function") findRecipes() } : null)
+      return
+    }
+    case "DISH":
+      chefHandleDish(cls.dish, cls.entities)
+      return
+    case "DISCOVERY":
+      chefHandleDiscovery(cls.entities)
+      return
+    case "SMALLTALK":
+      botRespond(chefReply(text), () => maybeFollowUpSuggestions(text))
+      return
   }
 
-  // 2) Friendly small talk.
-  if (chefIsSmallTalk(text)) {
-    const reply = chefReply(text)
-    botRespond(reply, () => maybeFollowUpSuggestions(text))
-    return
-  }
+  // UNKNOWN — never the scary message for normal English.
+  // Pure symbols/numbers → friendly guidance immediately (no API call).
+  if (!/[a-z]/i.test(text)) { botRespond(chefGuidingFallback()); return }
 
-  // 3) Couldn't parse locally → try Gemini NLU, with graceful fallback.
+  // Otherwise try the optional NLU endpoint, then fall back gently.
   try {
     const res = await fetch("/api/understand", {
       method: "POST",
@@ -489,17 +499,15 @@ async function handleChefIntent(text) {
     })
     if (!res.ok) throw new Error("nlu " + res.status)
     const data = await res.json().catch(() => ({}))
-    const ent = data && data.entities
-    if (chefHasEntities(ent)) {
-      chefApplyEntities(ent)
+    if (chefHasEntities(data && data.entities)) {
+      chefApplyEntities(data.entities)
       const { msg, doSearch } = chefContextResponse()
       botRespond(msg, doSearch ? () => { chefGoHome(); if (typeof findRecipes === "function") findRecipes() } : null)
     } else {
-      botRespond("Hmm, I didn't quite catch any ingredients there 🤔 Try something like 'I have paneer and rice', or tap a chip below.")
+      botRespond(chefGuidingFallback())
     }
   } catch (_) {
-    // Gemini unavailable → graceful fallback, app keeps working.
-    botRespond("My smart understanding is taking a quick break 😴 — but I can still help! Just tell me your ingredients, like 'paneer, tomato, rice', and I'll find recipes. 🍳")
+    botRespond(chefGuidingFallback())
   }
 }
 
@@ -666,6 +674,9 @@ function handleCookingIntent(text) {
 
   // 4) Softer discovery cues (e.g. "suggest something else") → discovery.
   if (chefIsGenericDiscovery(t)) return switchToDiscovery(text)
+
+  // 4b) A dish / craving (e.g. "I want noodles") → discovery.
+  if (chefDetectDish(t)) return switchToDiscovery(text)
 
   // 5) A fresh ingredient / filter message (e.g. "I have paneer and rice") → discovery.
   if (chefHasEntities(chefUnderstand(text))) return switchToDiscovery(text)
@@ -934,3 +945,132 @@ function chefVoiceCleanup() {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition
   if (!SR) { const m = document.getElementById("chef-mic"); if (m) m.style.display = "none" }
 })()
+
+// ═════════════════════════════════════════════════════════════════════════════
+// INTENT CLASSIFIER (Step 12) — conversational understanding (pure JS, no AI)
+//
+// Turns natural messages into one of: INGREDIENT · DISH · DISCOVERY · SMALLTALK
+// · UNKNOWN. Dish/craving/discovery requests get warm, guiding responses (and a
+// search when we can satisfy them) instead of the old generic fallback.
+// The Recommendation Engine and Cooking Assistant are unchanged.
+// ═════════════════════════════════════════════════════════════════════════════
+
+const capitalize = s => String(s || "").charAt(0).toUpperCase() + String(s || "").slice(1)
+
+const MOOD_PHRASE = {
+  lazy:    "Looking for something quick",
+  healthy: "Something healthy, love it",
+  comfort: "Comfort food, yes please",
+  festive: "Feeling festive",
+  fancy:   "Something a little fancy",
+  snack:   "Snack time"
+}
+
+// Dish / craving catalogue. `seed` = ingredient(s) to search with (null → just
+// ask a follow-up because we can't directly satisfy it from the local DB).
+const CHEF_DISHES = [
+  { match: /noodles|maggi|hakka|chow ?mein/,            label: "noodles",       emoji: "🍜", seed: ["noodles"] },
+  { match: /pasta|spaghetti|penne|macaroni|arrabbiata/, label: "pasta",         emoji: "🍝", seed: ["pasta"] },
+  { match: /sandwich/,                                  label: "sandwich",      emoji: "🥪", seed: ["bread"] },
+  { match: /\btoast\b/,                                 label: "toast",         emoji: "🍞", seed: ["bread"] },
+  { match: /wrap|frankie|kathi|\broll\b/,               label: "wrap",          emoji: "🌯", seed: ["atta"] },
+  { match: /fried rice/,                                label: "fried rice",    emoji: "🍚", seed: ["rice"] },
+  { match: /biryani|pulao/,                             label: "biryani",       emoji: "🍛", seed: ["rice"] },
+  { match: /manchurian|chilli paneer|schezwan|indo[- ]?chinese|chinese/, label: "Indo-Chinese", emoji: "🥢", seed: ["noodles"] },
+  { match: /rajma/,                                     label: "rajma",         emoji: "🍲", seed: ["rajma"] },
+  { match: /chole|chana masala|chickpea/,               label: "chole",         emoji: "🍲", seed: ["chickpeas"] },
+  { match: /dosa|idli|uttapam|vada/,                    label: "South Indian",  emoji: "🥞", seed: ["rice"] },
+  { match: /\bpoha\b/,                                  label: "poha",          emoji: "🍚", seed: ["poha"] },
+  { match: /paratha|thepla|chilla/,                     label: "paratha",       emoji: "🫓", seed: ["atta"] },
+  { match: /\bsoup\b/,                                  label: "soup",          emoji: "🍲", seed: ["tomato"] },
+  { match: /salad|sprout/,                              label: "salad",         emoji: "🥗", seed: ["sprouts"] },
+  { match: /\boats\b/,                                  label: "oats",          emoji: "🥣", seed: ["oats"] },
+  { match: /paneer/,                                    label: "paneer dish",   emoji: "🧀", seed: ["paneer"] },
+  { match: /\bdal\b|tadka|makhani/,                     label: "dal",           emoji: "🍲", seed: ["toor dal"] },
+  { match: /cake|dessert|sweet|mithai|halwa|kheer|something sweet/, label: "something sweet", emoji: "🍮", seed: ["sugar"] },
+  { match: /italian|continental/,                       label: "Italian",       emoji: "🍝", seed: ["pasta"] },
+  // cravings we can't directly satisfy from the local DB → follow-up only
+  { match: /\bpizza\b/,                                 label: "pizza",         emoji: "🍕", seed: null },
+  { match: /\bburger\b/,                                label: "burger",        emoji: "🍔", seed: null }
+]
+
+function chefDetectDish(t) {
+  for (const d of CHEF_DISHES) if (d.match.test(t)) return d
+  return null
+}
+
+function chefIsDiscoveryRequest(t) {
+  return /what (can|should|do) i (cook|make|eat|have)/.test(t)
+    || /\b(recommend|suggest|recipe|recipes|cook|meal|dish|idea|options)\b/.test(t)
+    || /\b(dinner|lunch|breakfast|brunch|snack)\b/.test(t)
+    || /\b(quick|healthy|comfort|easy|tasty|light|fancy|festive)\b/.test(t)
+    || /\bi (want|feel like|am craving|crave|fancy|am in the mood)\b/.test(t)
+    || /something (to eat|tasty|nice|good|different|sweet|spicy)/.test(t)
+}
+
+// Returns { intent, entities?, dish? }
+function chefClassifyIntent(text) {
+  const t = (text || "").toLowerCase().trim()
+  const entities = chefUnderstand(text)
+
+  if (entities.ingredients.length) return { intent: "INGREDIENT", entities }
+
+  const dish = chefDetectDish(t)
+  if (dish) return { intent: "DISH", dish, entities }
+
+  if (chefIsSmallTalk(text)) return { intent: "SMALLTALK" }
+
+  if (chefIsDiscoveryRequest(t) || entities.mood || entities.meal || entities.diet || entities.cuisine)
+    return { intent: "DISCOVERY", entities }
+
+  return { intent: "UNKNOWN" }
+}
+
+// DISH → apply any extra prefs, then either search (if we can satisfy it) or ask.
+function chefHandleDish(dish, entities) {
+  chefApplyEntities(entities) // applies any mood/meal/diet/cuisine found alongside
+
+  if (dish.seed) {
+    dish.seed.forEach(s => {
+      if (!chefContext.ingredients.includes(s)) chefContext.ingredients.push(s)
+      if (typeof addIngredient === "function") addIngredient(s)
+    })
+    botRespond(
+      `${dish.emoji} ${capitalize(dish.label)} — great choice! I've pulled up some ideas behind me. ` +
+      `Tell me what else is in your kitchen and I'll tailor them. 👀`,
+      () => { chefGoHome(); if (typeof findRecipes === "function") findRecipes() }
+    )
+  } else {
+    botRespond(
+      `${dish.emoji} ${capitalize(dish.label)}, yum! I don't have a dedicated ${dish.label} recipe yet — ` +
+      `tell me what ingredients you have and I'll find the closest tasty match. 🧺`
+    )
+  }
+}
+
+// DISCOVERY → if we already know ingredients, search; otherwise ask a tailored
+// follow-up that reflects what we understood (mood / meal).
+function chefHandleDiscovery(entities) {
+  chefApplyEntities(entities)
+  const c = chefContext
+
+  if (c.ingredients.length) {
+    const { msg, doSearch } = chefContextResponse()
+    botRespond(msg, doSearch ? () => { chefGoHome(); if (typeof findRecipes === "function") findRecipes() } : null)
+    return
+  }
+
+  let lead = "Let's find you something delicious!"
+  if (c.mood && MOOD_PHRASE[c.mood]) lead = `${MOOD_EMOJI[c.mood] || "😋"} ${MOOD_PHRASE[c.mood]}!`
+  else if (c.meal && c.meal !== "any") lead = `🍽 ${capitalize(c.meal)} it is!`
+  botRespond(`${lead} What ingredients do you have available? Even 2–3 work — like 'paneer, rice and peas'. 🧺`)
+}
+
+// Friendly last-resort message (replaces the old "smart understanding" line).
+function chefGuidingFallback() {
+  return CHEF_PICK([
+    "I didn't quite catch that 😋 — tell me your ingredients (like 'paneer, rice') or what you're craving!",
+    "Hmm, let's cook something 🍲 — share a few ingredients or a dish you fancy and I'll take it from there.",
+    "Tell me what's in your kitchen, or say something like 'I want noodles' or 'suggest a quick dinner'. 🧺"
+  ])
+}
