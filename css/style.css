@@ -1640,6 +1640,7 @@ html, body { overflow-x: hidden; }
 @media (max-width: 600px) {
   .navbar { padding: 0 12px; gap: 8px; }
   .logo-icon { width: 36px; height: 36px; }
+  .logo-img { height: 36px; }
   .logo-chef, .logo-ai { font-size: 20px; }
 
   .nav-links {
