@@ -264,6 +264,7 @@ body {
 /* ingredient input */
 .ing-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   background: var(--parchment);
   border: 1.5px solid var(--border);
@@ -276,7 +277,7 @@ body {
   box-shadow: 0 0 0 3px rgba(196,98,45,.1);
 }
 .ing-input {
-  flex: 1; border: none; outline: none;
+  flex: 1 1 150px; min-width: 0; border: none; outline: none;
   font-family: 'Outfit', sans-serif;
   font-size: 15px; color: var(--ink);
   background: transparent;
@@ -1630,3 +1631,36 @@ body {
   width:17px; height:17px; accent-color:#C4622D; cursor:pointer; flex:0 0 auto;
 }
 .staples-toggle em{ color:#A8957E; font-style:italic; }
+
+/* ══ MOBILE FIXES (navbar fit + ingredient row) ═══════════════════════ */
+/* Safety net against any stray horizontal scroll on small screens. */
+html, body { overflow-x: hidden; }
+
+/* Navbar: keep all three links visible without clipping "Meal Plan". */
+@media (max-width: 600px) {
+  .navbar { padding: 0 12px; gap: 8px; }
+  .logo-icon { width: 36px; height: 36px; }
+  .logo-chef, .logo-ai { font-size: 20px; }
+
+  .nav-links {
+    gap: 2px;
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-x: auto;            /* scroll instead of clip if still tight */
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link {
+    font-size: 13px;
+    padding: 5px 9px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+  .auth-btn { padding: 4px 10px; font-size: 13px; }
+}
+
+/* Very small phones: stack the Add/Scan buttons under the input. */
+@media (max-width: 480px) {
+  .ing-input { flex: 1 1 100%; }
+  .btn-add, .btn-scan { flex: 1 1 auto; text-align: center; }
+}
