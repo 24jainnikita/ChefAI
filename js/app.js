@@ -202,6 +202,78 @@ function emptyState(icon, title, hint) {
   </div>`
 }
 
+// ══ CHEFAI MATCH — transparency helpers ══════════════
+// All derived purely from the existing search result fields (matchScore,
+// matchedIngredients, missingIngredients, diet, mealType, moods, readyInMinutes).
+// Nothing is recalculated and no extra requests are made.
+function chefMatchMeta(score) {
+  const pct = Math.round((Number(score) || 0) * 100)
+  if (pct >= 90) return { pct, label: "Excellent Match", emoji: "🟢", cls: "exc" }
+  if (pct >= 75) return { pct, label: "Good Match",      emoji: "🟡", cls: "good" }
+  if (pct >= 60) return { pct, label: "Partial Match",   emoji: "🟠", cls: "part" }
+  return { pct, label: "Weak Match", emoji: "⚪", cls: "weak" }
+}
+
+// The match percentage + level + progress bar. Returns "" when no score exists.
+function matchBlockHtml(r) {
+  if (typeof r.matchScore !== "number" || !isFinite(r.matchScore)) return ""
+  const m = chefMatchMeta(r.matchScore)
+  return `
+    <div class="match-block ${m.cls}">
+      <div class="match-top">
+        <span class="match-label">ChefAI Match</span>
+        <span class="match-pct">${m.pct}%</span>
+      </div>
+      <div class="match-bar"><span style="width:${m.pct}%"></span></div>
+      <div class="match-level">${m.emoji} ${m.label}</div>
+    </div>`
+}
+
+const MOOD_WORD = { lazy: "quick", festive: "festive", healthy: "healthy", comfort: "comfort", fancy: "fancy", snack: "snack" }
+
+// Build only TRUE explanation statements from the recipe's data.
+function whyBullets(r) {
+  const out = []
+  const userCount = Array.isArray(ingredients) ? ingredients.length : 0
+  const matched   = Array.isArray(r.matchedIngredients) ? r.matchedIngredients.length : 0
+
+  if (matched > 0) {
+    if (userCount > 0 && matched >= userCount) out.push("Uses all your ingredients")
+    else if (userCount > 0)                    out.push(`Uses ${matched} of your ${userCount} ingredients`)
+    else                                       out.push(`Uses ${matched} of your ingredients`)
+  }
+  if (selectedMood && Array.isArray(r.moods) && r.moods.includes(selectedMood))
+    out.push(`Perfect for your ${MOOD_WORD[selectedMood] || selectedMood} mood`)
+  if (selectedMeal && selectedMeal !== "any" && Array.isArray(r.mealType) && r.mealType.includes(selectedMeal))
+    out.push(`Great for ${selectedMeal}`)
+  if (r.diet)
+    out.push(r.diet.includes("vegan") ? "Vegan" : r.diet.includes("veg") ? "Vegetarian" : "Non-vegetarian")
+  if (r.readyInMinutes)
+    out.push(r.readyInMinutes <= 20 ? `Ready in just ${r.readyInMinutes} minutes` : `Ready in ${r.readyInMinutes} minutes`)
+
+  return out
+}
+
+function whyHtml(r, max) {
+  const bullets = whyBullets(r)
+  if (!bullets.length) return ""
+  const items = (max ? bullets.slice(0, max) : bullets)
+    .map(x => `<li>${escStr(x)}</li>`).join("")
+  return `<div class="why-block"><div class="why-title">Why this recipe?</div><ul class="why-list">${items}</ul></div>`
+}
+
+// Matched / missing ingredient chips for the modal.
+function matchChipsHtml(r) {
+  let html = ""
+  const matched = r.matchedIngredients || []
+  const missing = r.missingIngredients || []
+  if (matched.length)
+    html += `<div class="modal-section">You already have</div><div class="match-chips">${matched.map(n => `<span class="match-chip have">✓ ${escStr(n)}</span>`).join("")}</div>`
+  if (missing.length)
+    html += `<div class="modal-section">You might need</div><div class="match-chips">${missing.map(n => `<span class="match-chip need">+ ${escStr(n)}</span>`).join("")}</div>`
+  return html
+}
+
 // ══ RENDER CARDS ═════════════════════════════════════
 function renderRecipes(recipes, container) {
   container.innerHTML = recipes.map((r, i) => {
@@ -229,6 +301,8 @@ function renderRecipes(recipes, container) {
       </div>
       <div class="card-body">
         <div class="card-title">${r.title}</div>
+        ${matchBlockHtml(r)}
+        ${whyHtml(r, 3)}
         <div class="card-meta">
           ${r.readyInMinutes ? `<span class="badge">⏱ ${r.readyInMinutes} min</span>` : ""}
           ${r.servings ? `<span class="badge">🍽 ${r.servings} serves</span>` : ""}
@@ -275,6 +349,10 @@ async function openRecipe(id) {
         <span class="badge">${dietIcon}</span>
         ${selectedCuis === "indian" ? `<span class="badge">🇮🇳 Indian</span>` : ""}
       </div>
+
+      ${matchBlockHtml(d)}
+      ${whyHtml(d)}
+      ${matchChipsHtml(d)}
 
       ${d.nutrition ? `
       <div class="modal-section">Nutrition per serving</div>

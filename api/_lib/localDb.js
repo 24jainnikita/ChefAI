@@ -112,6 +112,8 @@ function normalize(recipe, index) {
     image:          imageFor(recipe),              // /images/recipes/<slug>.jpg (emoji fallback if missing)
     emoji:          recipe.emoji || "🍽️",
     description:    buildDescription(recipe),       // STATIC metadata description (no AI)
+    mealType:       recipe.mealType || [],          // surfaced for transparency ("Why this recipe?")
+    moods:          recipe.moods || [],             // surfaced for transparency ("Why this recipe?")
     ingredients:    recipe.ingredients || [],      // already { name, amount, unit }
     steps:          recipe.instructions || [],     // frontend renders recipe.steps
     nutrition:      recipe.nutrition || null,
