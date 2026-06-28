@@ -1,0 +1,1977 @@
+[
+  {
+    "title": "Masala Dosa",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 40,
+    "servings": 2,
+    "emoji": "🥞",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "urad dal", "amount": 0.5, "unit": "cup"},
+      {"name": "potato", "amount": 3, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 387, "protein": 9, "carbs": 64, "fat": 10},
+    "instructions": [
+      "Soak rice and urad dal for 4 hours, grind to a smooth batter and ferment overnight.",
+      "Boil and mash the potatoes, then temper mustard seeds, onion and turmeric and mix in the potato.",
+      "Spread the batter thin on a hot griddle and drizzle oil until golden and crisp.",
+      "Place the potato filling inside, fold the dosa and serve hot with chutney and sambar."
+    ]
+  },
+  {
+    "title": "Idli",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "urad dal", "amount": 1, "unit": "cup"},
+      {"name": "salt", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 158, "protein": 6, "carbs": 30, "fat": 1},
+    "instructions": [
+      "Soak rice and urad dal separately for 5 hours, then grind into a thick batter.",
+      "Mix, add salt and ferment overnight until the batter doubles in volume.",
+      "Pour into greased idli moulds and steam for 10-12 minutes until fluffy.",
+      "Serve hot with coconut chutney and sambar."
+    ]
+  },
+  {
+    "title": "Poha",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["lazy", "healthy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "poha", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "potato", "amount": 1, "unit": "small"},
+      {"name": "peanuts", "amount": 0.25, "unit": "cup"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 270, "protein": 6, "carbs": 45, "fat": 8},
+    "instructions": [
+      "Rinse the poha gently and let it drain until soft.",
+      "Temper mustard seeds, peanuts, green chili and onion in oil until golden.",
+      "Add diced potato and turmeric, cover and cook until tender.",
+      "Fold in the poha, season with salt and lemon, and garnish with coriander."
+    ]
+  },
+  {
+    "title": "Upma",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🥣",
+    "ingredients": [
+      {"name": "suji", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "curry leaves", "amount": 8, "unit": "leaf"}
+    ],
+    "nutrition": {"calories": 250, "protein": 6, "carbs": 42, "fat": 7},
+    "instructions": [
+      "Dry roast the suji until lightly fragrant and set aside.",
+      "Temper mustard seeds, curry leaves, green chili, ginger and onion in oil.",
+      "Add 2.5 cups of hot water with salt and bring to a boil.",
+      "Slowly stir in the roasted suji, cover and cook until thick and fluffy."
+    ]
+  },
+  {
+    "title": "Aloo Paratha",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🫓",
+    "ingredients": [
+      {"name": "atta", "amount": 2, "unit": "cup"},
+      {"name": "potato", "amount": 4, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"},
+      {"name": "ghee", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 8, "carbs": 50, "fat": 11},
+    "instructions": [
+      "Knead the atta with water and a little oil into a soft dough and rest for 15 minutes.",
+      "Mash boiled potatoes with onion, green chili, coriander and spices.",
+      "Stuff a dough ball with the filling, seal and roll out gently.",
+      "Cook on a hot tawa with ghee on both sides until golden brown."
+    ]
+  },
+  {
+    "title": "Besan Chilla",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🥘",
+    "ingredients": [
+      {"name": "besan", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "green chili", "amount": 1, "unit": "piece"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 200, "protein": 10, "carbs": 26, "fat": 6},
+    "instructions": [
+      "Whisk besan with water into a smooth, pourable batter.",
+      "Stir in chopped onion, tomato, green chili, turmeric, coriander and salt.",
+      "Pour a ladle onto a hot oiled pan and spread into a thin pancake.",
+      "Cook both sides until golden and serve hot with chutney."
+    ]
+  },
+  {
+    "title": "Vegetable Uttapam",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 25,
+    "servings": 2,
+    "emoji": "🥞",
+    "ingredients": [
+      {"name": "rice", "amount": 1.5, "unit": "cup"},
+      {"name": "urad dal", "amount": 0.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 1, "unit": "small"},
+      {"name": "green chili", "amount": 2, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 230, "protein": 7, "carbs": 42, "fat": 4},
+    "instructions": [
+      "Use fermented dosa batter and pour a thick round onto a hot griddle.",
+      "Sprinkle chopped onion, tomato, capsicum and green chili on top.",
+      "Drizzle oil around the edges and press the toppings gently.",
+      "Flip and cook until both sides are golden, then serve with chutney."
+    ]
+  },
+  {
+    "title": "Medu Vada",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "snack"],
+    "diet": "vegan",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🍩",
+    "ingredients": [
+      {"name": "urad dal", "amount": 1, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "curry leaves", "amount": 10, "unit": "leaf"},
+      {"name": "black pepper", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 280, "protein": 9, "carbs": 30, "fat": 13},
+    "instructions": [
+      "Soak urad dal for 4 hours and grind into a thick fluffy batter.",
+      "Mix in chopped green chili, ginger, curry leaves and crushed pepper.",
+      "Shape into rings with wet hands and slide into hot oil.",
+      "Deep fry until golden and crisp, then serve with sambar and chutney."
+    ]
+  },
+  {
+    "title": "Rava Idli",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegetarian",
+    "moods": ["lazy", "healthy"],
+    "preparationTime": 25,
+    "servings": 3,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "suji", "amount": 1.5, "unit": "cup"},
+      {"name": "curd", "amount": 1, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "curry leaves", "amount": 8, "unit": "leaf"},
+      {"name": "green chili", "amount": 2, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 190, "protein": 6, "carbs": 32, "fat": 5},
+    "instructions": [
+      "Roast suji and mix with curd and grated carrot into a thick batter.",
+      "Temper mustard seeds, curry leaves and green chili and stir in.",
+      "Add a pinch of fruit salt, mix and pour into greased moulds.",
+      "Steam for 12 minutes and serve hot with coconut chutney."
+    ]
+  },
+  {
+    "title": "Methi Thepla",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "lunch"],
+    "diet": "vegan",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🫓",
+    "ingredients": [
+      {"name": "atta", "amount": 2, "unit": "cup"},
+      {"name": "methi", "amount": 1, "unit": "cup"},
+      {"name": "besan", "amount": 2, "unit": "tbsp"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"},
+      {"name": "curd", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 240, "protein": 8, "carbs": 40, "fat": 6},
+    "instructions": [
+      "Mix atta, chopped methi, besan and spices into a firm dough using curd and water.",
+      "Rest for 15 minutes, then divide and roll into thin discs.",
+      "Cook on a hot tawa with a little oil on both sides.",
+      "Press until light brown spots appear and serve with curd or pickle."
+    ]
+  },
+  {
+    "title": "Sabudana Khichdi",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 25,
+    "servings": 2,
+    "emoji": "🥣",
+    "ingredients": [
+      {"name": "sabudana", "amount": 1, "unit": "cup"},
+      {"name": "potato", "amount": 1, "unit": "medium"},
+      {"name": "peanuts", "amount": 0.5, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 310, "protein": 6, "carbs": 52, "fat": 10},
+    "instructions": [
+      "Soak sabudana overnight until soft and drained.",
+      "Roast and coarsely crush the peanuts.",
+      "Temper cumin, green chili and diced potato until the potato is cooked.",
+      "Add sabudana and crushed peanuts, toss gently and finish with lemon."
+    ]
+  },
+  {
+    "title": "Moong Dal Cheela",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🥞",
+    "ingredients": [
+      {"name": "moong dal", "amount": 1, "unit": "cup"},
+      {"name": "green chili", "amount": 1, "unit": "piece"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 210, "protein": 13, "carbs": 30, "fat": 4},
+    "instructions": [
+      "Soak moong dal for 3 hours and grind with green chili and ginger into a batter.",
+      "Stir in chopped onion, coriander and salt.",
+      "Spread a thin layer on a hot oiled pan.",
+      "Cook both sides until golden and serve with green chutney."
+    ]
+  },
+  {
+    "title": "Paneer Paratha",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🫓",
+    "ingredients": [
+      {"name": "atta", "amount": 2, "unit": "cup"},
+      {"name": "paneer", "amount": 1, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"},
+      {"name": "ghee", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 350, "protein": 14, "carbs": 42, "fat": 14},
+    "instructions": [
+      "Knead atta into a soft dough and rest for 15 minutes.",
+      "Crumble paneer and mix with green chili, coriander and spices.",
+      "Stuff a dough ball, seal and roll out gently.",
+      "Cook on a hot tawa with ghee until golden on both sides."
+    ]
+  },
+  {
+    "title": "Semiya Upma",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🍜",
+    "ingredients": [
+      {"name": "vermicelli", "amount": 1.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "peas", "amount": 0.25, "unit": "cup"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "curry leaves", "amount": 8, "unit": "leaf"}
+    ],
+    "nutrition": {"calories": 240, "protein": 6, "carbs": 44, "fat": 5},
+    "instructions": [
+      "Dry roast vermicelli until light golden and set aside.",
+      "Temper mustard seeds, curry leaves and onion, then add carrot and peas.",
+      "Pour in 3 cups of hot water with salt and bring to a boil.",
+      "Stir in the vermicelli, cover and cook until the water is absorbed."
+    ]
+  },
+  {
+    "title": "Pesarattu",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy"],
+    "preparationTime": 25,
+    "servings": 2,
+    "emoji": "🥞",
+    "ingredients": [
+      {"name": "moong dal", "amount": 1.5, "unit": "cup"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 220, "protein": 14, "carbs": 32, "fat": 4},
+    "instructions": [
+      "Soak whole green moong for 5 hours and grind with ginger and chili.",
+      "Add cumin and salt to the batter.",
+      "Spread thin on a hot griddle and top with chopped onion.",
+      "Drizzle oil, cook until crisp and serve with ginger chutney."
+    ]
+  },
+  {
+    "title": "Egg Bhurji",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "non-vegetarian",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🍳",
+    "ingredients": [
+      {"name": "egg", "amount": 4, "unit": "piece"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "red chili powder", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 260, "protein": 16, "carbs": 8, "fat": 18},
+    "instructions": [
+      "Saute onion, green chili and tomato until soft.",
+      "Add turmeric, red chili powder and salt.",
+      "Pour in the beaten eggs and scramble on medium heat.",
+      "Cook until just set and garnish with coriander."
+    ]
+  },
+  {
+    "title": "Masala Omelette",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "non-vegetarian",
+    "moods": ["lazy"],
+    "preparationTime": 10,
+    "servings": 1,
+    "emoji": "🍳",
+    "ingredients": [
+      {"name": "egg", "amount": 2, "unit": "piece"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "green chili", "amount": 1, "unit": "piece"},
+      {"name": "coriander", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 200, "protein": 13, "carbs": 6, "fat": 14},
+    "instructions": [
+      "Beat the eggs with salt and pepper.",
+      "Mix in finely chopped onion, tomato, green chili and coriander.",
+      "Pour onto a hot oiled pan and spread evenly.",
+      "Cook both sides until set and serve with toast."
+    ]
+  },
+  {
+    "title": "Bread Upma",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🍞",
+    "ingredients": [
+      {"name": "bread", "amount": 6, "unit": "slice"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "curry leaves", "amount": 8, "unit": "leaf"}
+    ],
+    "nutrition": {"calories": 250, "protein": 7, "carbs": 44, "fat": 6},
+    "instructions": [
+      "Cut the bread into small cubes.",
+      "Temper mustard seeds, curry leaves and onion, then add tomato and turmeric.",
+      "Toss in the bread cubes and mix until coated.",
+      "Sprinkle lemon and coriander and serve immediately."
+    ]
+  },
+  {
+    "title": "Rava Dosa",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🥞",
+    "ingredients": [
+      {"name": "suji", "amount": 1, "unit": "cup"},
+      {"name": "rice flour", "amount": 0.5, "unit": "cup"},
+      {"name": "atta", "amount": 0.25, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"},
+      {"name": "curry leaves", "amount": 8, "unit": "leaf"}
+    ],
+    "nutrition": {"calories": 230, "protein": 5, "carbs": 42, "fat": 6},
+    "instructions": [
+      "Mix suji, rice flour and atta into a thin watery batter and rest 20 minutes.",
+      "Add cumin, chopped green chili and curry leaves.",
+      "Pour the batter onto a hot griddle from a height to create a lacy pattern.",
+      "Drizzle oil and cook until crisp and golden, then serve with chutney."
+    ]
+  },
+  {
+    "title": "Sooji Halwa",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "snack"],
+    "diet": "vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 20,
+    "servings": 3,
+    "emoji": "🍮",
+    "ingredients": [
+      {"name": "suji", "amount": 1, "unit": "cup"},
+      {"name": "ghee", "amount": 0.5, "unit": "cup"},
+      {"name": "sugar", "amount": 0.75, "unit": "cup"},
+      {"name": "cardamom", "amount": 4, "unit": "pod"},
+      {"name": "cashews", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 420, "protein": 6, "carbs": 58, "fat": 19},
+    "instructions": [
+      "Roast suji in ghee on low heat until golden and aromatic.",
+      "In a separate pot, boil water with sugar and cardamom into a syrup.",
+      "Slowly pour the hot syrup into the suji while stirring to avoid lumps.",
+      "Cook until thick, fold in roasted cashews and serve warm."
+    ]
+  },
+  {
+    "title": "Rajma Chawal",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["comfort", "healthy"],
+    "preparationTime": 50,
+    "servings": 3,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "rajma", "amount": 1, "unit": "cup"},
+      {"name": "rice", "amount": 1.5, "unit": "cup"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 4, "unit": "clove"}
+    ],
+    "nutrition": {"calories": 360, "protein": 14, "carbs": 62, "fat": 6},
+    "instructions": [
+      "Soak rajma overnight and pressure cook until soft.",
+      "Saute onion, ginger and garlic, then add pureed tomato and spices.",
+      "Add the cooked rajma with its water and simmer until thick.",
+      "Serve hot over steamed rice."
+    ]
+  },
+  {
+    "title": "Chana Masala",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 45,
+    "servings": 3,
+    "emoji": "🍛",
+    "ingredients": [
+      {"name": "chickpeas", "amount": 1.5, "unit": "cup"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 13, "carbs": 50, "fat": 7},
+    "instructions": [
+      "Soak chickpeas overnight and pressure cook until tender.",
+      "Make a masala of onion, ginger, garlic and tomato with spices.",
+      "Add the chickpeas and a little cooking water, then simmer.",
+      "Finish with garam masala and serve with bhature or rice."
+    ]
+  },
+  {
+    "title": "Dal Tadka",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "toor dal", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"},
+      {"name": "ghee", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 250, "protein": 12, "carbs": 36, "fat": 7},
+    "instructions": [
+      "Pressure cook toor dal with turmeric and salt until soft.",
+      "Prepare a tadka of ghee, cumin, garlic, onion and tomato.",
+      "Pour the tadka into the cooked dal and simmer for 5 minutes.",
+      "Garnish with coriander and serve with rice or roti."
+    ]
+  },
+  {
+    "title": "Dal Makhani",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 60,
+    "servings": 4,
+    "emoji": "🍛",
+    "ingredients": [
+      {"name": "black dal", "amount": 1, "unit": "cup"},
+      {"name": "rajma", "amount": 0.25, "unit": "cup"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "butter", "amount": 3, "unit": "tbsp"},
+      {"name": "cream", "amount": 0.25, "unit": "cup"},
+      {"name": "ginger", "amount": 1, "unit": "inch"}
+    ],
+    "nutrition": {"calories": 380, "protein": 14, "carbs": 40, "fat": 18},
+    "instructions": [
+      "Soak black dal and rajma overnight, then pressure cook until very soft.",
+      "Simmer with tomato puree, ginger and spices on low heat.",
+      "Stir in butter and cream and cook slowly until rich and creamy.",
+      "Garnish with a swirl of cream and serve with naan."
+    ]
+  },
+  {
+    "title": "Palak Paneer",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🥬",
+    "ingredients": [
+      {"name": "spinach", "amount": 4, "unit": "cup"},
+      {"name": "paneer", "amount": 1.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "cream", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 16, "carbs": 18, "fat": 20},
+    "instructions": [
+      "Blanch the spinach and blend into a smooth puree.",
+      "Saute onion, garlic and tomato with spices.",
+      "Add the spinach puree and simmer for a few minutes.",
+      "Fold in paneer cubes and cream and serve hot."
+    ]
+  },
+  {
+    "title": "Paneer Butter Masala",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 40,
+    "servings": 3,
+    "emoji": "🍛",
+    "ingredients": [
+      {"name": "paneer", "amount": 2, "unit": "cup"},
+      {"name": "tomato", "amount": 4, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "butter", "amount": 3, "unit": "tbsp"},
+      {"name": "cream", "amount": 0.25, "unit": "cup"},
+      {"name": "cashews", "amount": 0.25, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 420, "protein": 16, "carbs": 22, "fat": 28},
+    "instructions": [
+      "Blend tomato, onion and cashews into a smooth puree.",
+      "Cook the puree in butter with spices until the rawness disappears.",
+      "Stir in cream and a pinch of sugar for balance.",
+      "Add paneer cubes, simmer briefly and serve with naan."
+    ]
+  },
+  {
+    "title": "Aloo Gobi",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🥘",
+    "ingredients": [
+      {"name": "potato", "amount": 2, "unit": "medium"},
+      {"name": "cauliflower", "amount": 1, "unit": "small"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 220, "protein": 6, "carbs": 34, "fat": 8},
+    "instructions": [
+      "Temper cumin seeds and saute onion until golden.",
+      "Add tomato, turmeric and spices and cook into a masala.",
+      "Add potato and cauliflower florets and mix to coat.",
+      "Cover and cook on low heat until tender, then garnish with coriander."
+    ]
+  },
+  {
+    "title": "Bhindi Masala",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 25,
+    "servings": 2,
+    "emoji": "🥗",
+    "ingredients": [
+      {"name": "bhindi", "amount": 3, "unit": "cup"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "coriander powder", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 180, "protein": 4, "carbs": 22, "fat": 9},
+    "instructions": [
+      "Wash, dry and chop the bhindi, then saute until the stickiness is gone.",
+      "In the same pan, cook onion until golden.",
+      "Add tomato, turmeric and coriander powder and cook into a masala.",
+      "Return the bhindi, toss to coat and cook until tender."
+    ]
+  },
+  {
+    "title": "Jeera Rice",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["lazy"],
+    "preparationTime": 20,
+    "servings": 3,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "rice", "amount": 1.5, "unit": "cup"},
+      {"name": "cumin seeds", "amount": 1.5, "unit": "tsp"},
+      {"name": "bay leaf", "amount": 1, "unit": "piece"},
+      {"name": "oil", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 280, "protein": 5, "carbs": 56, "fat": 5},
+    "instructions": [
+      "Rinse and soak the rice for 15 minutes.",
+      "Temper cumin seeds and bay leaf in oil until fragrant.",
+      "Add the drained rice and saute gently for a minute.",
+      "Add 3 cups water and salt, cover and cook until fluffy."
+    ]
+  },
+  {
+    "title": "Vegetable Pulao",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["comfort", "healthy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "rice", "amount": 1.5, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "beans", "amount": 0.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 300, "protein": 7, "carbs": 58, "fat": 6},
+    "instructions": [
+      "Saute whole spices and onion until golden.",
+      "Add chopped carrot, beans and peas and saute briefly.",
+      "Add the soaked rice, garam masala, salt and 3 cups water.",
+      "Cover and cook until the rice is fluffy and the vegetables are tender."
+    ]
+  },
+  {
+    "title": "Chicken Curry",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "non-vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 45,
+    "servings": 4,
+    "emoji": "🍗",
+    "ingredients": [
+      {"name": "chicken", "amount": 750, "unit": "g"},
+      {"name": "onion", "amount": 3, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 6, "unit": "clove"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 360, "protein": 32, "carbs": 12, "fat": 20},
+    "instructions": [
+      "Saute onion until golden, then add ginger-garlic paste.",
+      "Add tomato and spices and cook into a thick masala.",
+      "Add the chicken pieces and saute until coated and sealed.",
+      "Add water, cover and simmer until the chicken is cooked and tender."
+    ]
+  },
+  {
+    "title": "Butter Chicken",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "non-vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 50,
+    "servings": 4,
+    "emoji": "🍗",
+    "ingredients": [
+      {"name": "chicken", "amount": 750, "unit": "g"},
+      {"name": "tomato", "amount": 5, "unit": "medium"},
+      {"name": "butter", "amount": 4, "unit": "tbsp"},
+      {"name": "cream", "amount": 0.5, "unit": "cup"},
+      {"name": "curd", "amount": 0.5, "unit": "cup"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 450, "protein": 30, "carbs": 14, "fat": 30},
+    "instructions": [
+      "Marinate chicken in curd and spices, then grill or pan-sear.",
+      "Cook a smooth tomato puree in butter with spices.",
+      "Stir in cream and a touch of sugar.",
+      "Add the cooked chicken, simmer and finish with garam masala."
+    ]
+  },
+  {
+    "title": "Kadhi Pakora",
+    "cuisine": "indian",
+    "mealType": ["lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort"],
+    "preparationTime": 40,
+    "servings": 3,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "besan", "amount": 1, "unit": "cup"},
+      {"name": "curd", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 300, "protein": 11, "carbs": 32, "fat": 14},
+    "instructions": [
+      "Make a batter of besan and onion and deep fry into pakoras.",
+      "Whisk curd with besan, turmeric and water into a thin mixture.",
+      "Simmer the curd mixture with a cumin tadka until it thickens.",
+      "Drop in the pakoras and simmer briefly before serving with rice."
+    ]
+  },
+  {
+    "title": "Baingan Bharta",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["comfort", "healthy"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🍆",
+    "ingredients": [
+      {"name": "brinjal", "amount": 1, "unit": "large"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "green chili", "amount": 2, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 170, "protein": 4, "carbs": 22, "fat": 8},
+    "instructions": [
+      "Roast the brinjal over a flame until charred, then peel and mash.",
+      "Saute onion, garlic and green chili until soft.",
+      "Add tomato and spices and cook into a masala.",
+      "Mix in the mashed brinjal, cook through and garnish with coriander."
+    ]
+  },
+  {
+    "title": "Matar Paneer",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🍛",
+    "ingredients": [
+      {"name": "paneer", "amount": 1.5, "unit": "cup"},
+      {"name": "peas", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 340, "protein": 15, "carbs": 24, "fat": 20},
+    "instructions": [
+      "Make a smooth onion-tomato-ginger masala with spices.",
+      "Add the peas and a little water and cook until tender.",
+      "Add paneer cubes and simmer for a few minutes.",
+      "Finish with garam masala and serve with roti."
+    ]
+  },
+  {
+    "title": "Chana Dal",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "chana dal", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 270, "protein": 14, "carbs": 40, "fat": 6},
+    "instructions": [
+      "Pressure cook chana dal with turmeric and salt until soft.",
+      "Prepare a tadka of cumin, garlic, onion and tomato.",
+      "Mix the tadka into the dal and simmer.",
+      "Garnish with coriander and serve with rice or roti."
+    ]
+  },
+  {
+    "title": "Lemon Rice",
+    "cuisine": "indian",
+    "mealType": ["lunch"],
+    "diet": "vegan",
+    "moods": ["lazy", "healthy"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🍋",
+    "ingredients": [
+      {"name": "rice", "amount": 1.5, "unit": "cup"},
+      {"name": "lemon", "amount": 2, "unit": "piece"},
+      {"name": "peanuts", "amount": 0.25, "unit": "cup"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "curry leaves", "amount": 10, "unit": "leaf"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 290, "protein": 6, "carbs": 52, "fat": 7},
+    "instructions": [
+      "Cook the rice and spread it out to cool.",
+      "Temper mustard seeds, peanuts, curry leaves and turmeric.",
+      "Switch off the heat and add lemon juice and salt.",
+      "Gently fold in the rice until evenly coated."
+    ]
+  },
+  {
+    "title": "Sambar",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 40,
+    "servings": 4,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "toor dal", "amount": 1, "unit": "cup"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "brinjal", "amount": 1, "unit": "small"},
+      {"name": "sambar powder", "amount": 2, "unit": "tbsp"},
+      {"name": "tamarind", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 230, "protein": 11, "carbs": 38, "fat": 4},
+    "instructions": [
+      "Pressure cook toor dal until soft and mash well.",
+      "Boil mixed vegetables with tamarind extract and sambar powder.",
+      "Add the cooked dal and simmer until everything melds.",
+      "Finish with a mustard and curry leaf tadka."
+    ]
+  },
+  {
+    "title": "Vegetable Biryani",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 55,
+    "servings": 4,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "potato", "amount": 1, "unit": "medium"},
+      {"name": "curd", "amount": 0.5, "unit": "cup"},
+      {"name": "biryani masala", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 380, "protein": 9, "carbs": 66, "fat": 9},
+    "instructions": [
+      "Parboil the basmati rice with whole spices and drain.",
+      "Cook the vegetables in a curd and biryani masala gravy.",
+      "Layer the rice over the vegetables and sprinkle fried onions and mint.",
+      "Cover and cook on dum (low heat) for 20 minutes, then gently mix."
+    ]
+  },
+  {
+    "title": "Egg Curry",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "non-vegetarian",
+    "moods": ["comfort"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🍳",
+    "ingredients": [
+      {"name": "egg", "amount": 6, "unit": "piece"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 290, "protein": 18, "carbs": 14, "fat": 18},
+    "instructions": [
+      "Boil and peel the eggs, then lightly fry with turmeric.",
+      "Make an onion-tomato-ginger-garlic masala with spices.",
+      "Add water to form a gravy and simmer.",
+      "Add the eggs, finish with garam masala and serve with rice."
+    ]
+  },
+  {
+    "title": "Paneer Tikka Masala",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 45,
+    "servings": 3,
+    "emoji": "🍛",
+    "ingredients": [
+      {"name": "paneer", "amount": 2, "unit": "cup"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "curd", "amount": 0.5, "unit": "cup"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 400, "protein": 17, "carbs": 24, "fat": 26},
+    "instructions": [
+      "Marinate paneer and capsicum in curd and spices, then grill until charred.",
+      "Cook an onion-tomato masala until thick and glossy.",
+      "Add the grilled paneer and capsicum to the gravy.",
+      "Finish with garam masala and serve with naan."
+    ]
+  },
+  {
+    "title": "Malai Kofta",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 55,
+    "servings": 4,
+    "emoji": "🍛",
+    "ingredients": [
+      {"name": "paneer", "amount": 1, "unit": "cup"},
+      {"name": "potato", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 4, "unit": "medium"},
+      {"name": "cashews", "amount": 0.25, "unit": "cup"},
+      {"name": "cream", "amount": 0.25, "unit": "cup"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 460, "protein": 13, "carbs": 34, "fat": 30},
+    "instructions": [
+      "Mash paneer and potato, shape into balls and deep fry until golden.",
+      "Blend tomato and cashews and cook into a rich gravy with spices.",
+      "Stir in cream for a silky finish.",
+      "Add the koftas just before serving so they stay soft."
+    ]
+  },
+  {
+    "title": "Vegetable Korma",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 40,
+    "servings": 3,
+    "emoji": "🥘",
+    "ingredients": [
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "beans", "amount": 0.5, "unit": "cup"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "potato", "amount": 1, "unit": "medium"},
+      {"name": "coconut", "amount": 0.5, "unit": "cup"},
+      {"name": "cashews", "amount": 0.25, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 320, "protein": 8, "carbs": 30, "fat": 19},
+    "instructions": [
+      "Blend coconut and cashews into a smooth paste.",
+      "Saute onion and spices, then add the mixed vegetables.",
+      "Add the coconut-cashew paste and simmer until creamy.",
+      "Cook until the vegetables are tender and serve with rice or roti."
+    ]
+  },
+  {
+    "title": "Tawa Pulao",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 25,
+    "servings": 2,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "pav bhaji masala", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 330, "protein": 7, "carbs": 60, "fat": 8},
+    "instructions": [
+      "Saute onion, capsicum and tomato on a hot tawa.",
+      "Add peas, pav bhaji masala and salt.",
+      "Fold in cooked rice and toss until well coated.",
+      "Garnish with coriander and serve with lemon."
+    ]
+  },
+  {
+    "title": "Chicken Biryani",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "non-vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 70,
+    "servings": 4,
+    "emoji": "🍗",
+    "ingredients": [
+      {"name": "chicken", "amount": 750, "unit": "g"},
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "curd", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 3, "unit": "medium"},
+      {"name": "biryani masala", "amount": 2, "unit": "tbsp"},
+      {"name": "mint", "amount": 0.5, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 520, "protein": 34, "carbs": 58, "fat": 18},
+    "instructions": [
+      "Marinate chicken in curd, fried onions and biryani masala for an hour.",
+      "Parboil the rice with whole spices and drain.",
+      "Layer marinated chicken with rice, mint and saffron milk.",
+      "Cover and cook on dum for 30 minutes, then gently fluff and serve."
+    ]
+  },
+  {
+    "title": "Tandoori Chicken",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "non-vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 50,
+    "servings": 3,
+    "emoji": "🍗",
+    "ingredients": [
+      {"name": "chicken", "amount": 700, "unit": "g"},
+      {"name": "curd", "amount": 1, "unit": "cup"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 6, "unit": "clove"},
+      {"name": "red chili powder", "amount": 1.5, "unit": "tsp"},
+      {"name": "lemon", "amount": 1, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 320, "protein": 34, "carbs": 8, "fat": 16},
+    "instructions": [
+      "Make deep cuts in the chicken and rub with lemon and salt.",
+      "Marinate in curd, ginger-garlic paste and spices for several hours.",
+      "Grill, bake or air-fry until charred and cooked through.",
+      "Baste with butter and serve with onion rings and mint chutney."
+    ]
+  },
+  {
+    "title": "Kadai Paneer",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🍳",
+    "ingredients": [
+      {"name": "paneer", "amount": 2, "unit": "cup"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "coriander seeds", "amount": 1, "unit": "tbsp"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 360, "protein": 16, "carbs": 20, "fat": 23},
+    "instructions": [
+      "Dry roast and crush coriander seeds and red chili for kadai masala.",
+      "Saute onion and capsicum chunks until just tender.",
+      "Add tomato and the kadai masala and cook into a thick gravy.",
+      "Toss in paneer cubes and finish with crushed kasuri methi."
+    ]
+  },
+  {
+    "title": "Dal Fry",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "toor dal", "amount": 0.5, "unit": "cup"},
+      {"name": "moong dal", "amount": 0.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "ghee", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 260, "protein": 13, "carbs": 38, "fat": 7},
+    "instructions": [
+      "Pressure cook both dals with turmeric and salt.",
+      "Fry onion, garlic and tomato in ghee with spices.",
+      "Add the cooked dal and simmer until well blended.",
+      "Garnish with coriander and serve hot."
+    ]
+  },
+  {
+    "title": "Mixed Vegetable Curry",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegan",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🥘",
+    "ingredients": [
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "beans", "amount": 0.5, "unit": "cup"},
+      {"name": "cauliflower", "amount": 1, "unit": "cup"},
+      {"name": "potato", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 210, "protein": 6, "carbs": 30, "fat": 8},
+    "instructions": [
+      "Saute onion and tomato into a masala with spices.",
+      "Add the chopped mixed vegetables and mix to coat.",
+      "Add water, cover and cook until tender.",
+      "Finish with garam masala and coriander."
+    ]
+  },
+  {
+    "title": "Stuffed Capsicum",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "fancy"],
+    "preparationTime": 35,
+    "servings": 2,
+    "emoji": "🫑",
+    "ingredients": [
+      {"name": "capsicum", "amount": 4, "unit": "medium"},
+      {"name": "potato", "amount": 3, "unit": "medium"},
+      {"name": "paneer", "amount": 0.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 280, "protein": 9, "carbs": 32, "fat": 13},
+    "instructions": [
+      "Slice the tops off the capsicums and remove the seeds.",
+      "Make a spiced filling of mashed potato, paneer and onion.",
+      "Stuff the capsicums tightly with the filling.",
+      "Cook covered on a tawa, turning gently, until the capsicum softens."
+    ]
+  },
+  {
+    "title": "Methi Malai Matar",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🥬",
+    "ingredients": [
+      {"name": "methi", "amount": 2, "unit": "cup"},
+      {"name": "peas", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "cashews", "amount": 0.25, "unit": "cup"},
+      {"name": "cream", "amount": 0.25, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 320, "protein": 9, "carbs": 22, "fat": 22},
+    "instructions": [
+      "Blanch the methi to reduce bitterness.",
+      "Make a white gravy with onion-cashew paste.",
+      "Add peas and methi and cook until tender.",
+      "Stir in cream and a pinch of sugar and simmer briefly."
+    ]
+  },
+  {
+    "title": "Veg Fried Rice",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🍚",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "cabbage", "amount": 1, "unit": "cup"},
+      {"name": "beans", "amount": 0.5, "unit": "cup"},
+      {"name": "soy sauce", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 7, "carbs": 60, "fat": 7},
+    "instructions": [
+      "Use cooked, cooled rice for the best texture.",
+      "Stir-fry the chopped vegetables on high heat until crisp-tender.",
+      "Add soy sauce, pepper and salt.",
+      "Toss in the rice and fry until well combined."
+    ]
+  },
+  {
+    "title": "Mushroom Masala",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegan",
+    "moods": ["comfort", "healthy"],
+    "preparationTime": 30,
+    "servings": 2,
+    "emoji": "🍄",
+    "ingredients": [
+      {"name": "mushroom", "amount": 3, "unit": "cup"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 190, "protein": 7, "carbs": 18, "fat": 10},
+    "instructions": [
+      "Saute the mushrooms until the water evaporates and set aside.",
+      "Cook an onion-tomato-ginger masala with spices.",
+      "Return the mushrooms and toss to coat.",
+      "Add a splash of water, simmer and finish with garam masala."
+    ]
+  },
+  {
+    "title": "Aloo Matar",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegan",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🥔",
+    "ingredients": [
+      {"name": "potato", "amount": 3, "unit": "medium"},
+      {"name": "peas", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 230, "protein": 7, "carbs": 38, "fat": 6},
+    "instructions": [
+      "Temper cumin and saute onion until golden.",
+      "Add tomato, turmeric and spices and cook into a masala.",
+      "Add potato cubes and peas with water.",
+      "Cover and simmer until the potatoes are soft."
+    ]
+  },
+  {
+    "title": "Prawn Masala",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "non-vegetarian",
+    "moods": ["fancy", "festive"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🦐",
+    "ingredients": [
+      {"name": "prawns", "amount": 500, "unit": "g"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 5, "unit": "clove"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 280, "protein": 28, "carbs": 12, "fat": 14},
+    "instructions": [
+      "Clean and devein the prawns and marinate with turmeric and salt.",
+      "Make an onion-tomato-ginger-garlic masala with spices.",
+      "Add the prawns and cook briefly so they stay tender.",
+      "Add a little water, simmer and garnish with coriander."
+    ]
+  },
+  {
+    "title": "Chicken Tikka",
+    "cuisine": "indian",
+    "mealType": ["dinner", "snack"],
+    "diet": "non-vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 45,
+    "servings": 3,
+    "emoji": "🍗",
+    "ingredients": [
+      {"name": "chicken", "amount": 600, "unit": "g"},
+      {"name": "curd", "amount": 0.75, "unit": "cup"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 5, "unit": "clove"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"},
+      {"name": "lemon", "amount": 1, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 300, "protein": 32, "carbs": 8, "fat": 15},
+    "instructions": [
+      "Cut chicken into cubes and marinate in curd, ginger-garlic and spices.",
+      "Rest for at least an hour for the flavours to penetrate.",
+      "Thread onto skewers and grill or pan-sear until charred.",
+      "Squeeze lemon over the top and serve with mint chutney."
+    ]
+  },
+  {
+    "title": "Paneer Bhurji",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegetarian",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "emoji": "🧀",
+    "ingredients": [
+      {"name": "paneer", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 1, "unit": "small"},
+      {"name": "turmeric", "amount": 0.5, "unit": "tsp"},
+      {"name": "green chili", "amount": 2, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 330, "protein": 18, "carbs": 14, "fat": 23},
+    "instructions": [
+      "Saute onion, green chili and capsicum until soft.",
+      "Add tomato, turmeric and spices and cook briefly.",
+      "Crumble in the paneer and toss to combine.",
+      "Cook for a couple of minutes and garnish with coriander."
+    ]
+  },
+  {
+    "title": "Soya Chunk Curry",
+    "cuisine": "indian",
+    "mealType": ["dinner", "lunch"],
+    "diet": "vegan",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🌱",
+    "ingredients": [
+      {"name": "soya chunks", "amount": 1.5, "unit": "cup"},
+      {"name": "onion", "amount": 2, "unit": "medium"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "garlic", "amount": 4, "unit": "clove"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 260, "protein": 22, "carbs": 24, "fat": 8},
+    "instructions": [
+      "Boil the soya chunks, then squeeze out the water.",
+      "Make an onion-tomato-ginger-garlic masala with spices.",
+      "Add the soya chunks and toss to coat.",
+      "Add water, simmer until thick and finish with garam masala."
+    ]
+  },
+  {
+    "title": "Lauki Kofta",
+    "cuisine": "indian",
+    "mealType": ["dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "fancy"],
+    "preparationTime": 45,
+    "servings": 3,
+    "emoji": "🥒",
+    "ingredients": [
+      {"name": "lauki", "amount": 2, "unit": "cup"},
+      {"name": "besan", "amount": 0.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 3, "unit": "medium"},
+      {"name": "cream", "amount": 2, "unit": "tbsp"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 300, "protein": 9, "carbs": 28, "fat": 18},
+    "instructions": [
+      "Grate and squeeze the lauki, then mix with besan and spices.",
+      "Shape into balls and deep fry until golden.",
+      "Cook an onion-tomato gravy with spices and cream.",
+      "Add the koftas just before serving so they stay soft."
+    ]
+  },
+  {
+    "title": "Samosa",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 50,
+    "servings": 4,
+    "emoji": "🥟",
+    "ingredients": [
+      {"name": "atta", "amount": 2, "unit": "cup"},
+      {"name": "potato", "amount": 4, "unit": "medium"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 310, "protein": 6, "carbs": 42, "fat": 14},
+    "instructions": [
+      "Make a stiff dough with flour, oil and water and rest it.",
+      "Cook a spiced filling of mashed potato, peas and green chili.",
+      "Shape the dough into cones, fill and seal the edges.",
+      "Deep fry on low-medium heat until golden and crisp."
+    ]
+  },
+  {
+    "title": "Onion Pakora",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 3,
+    "emoji": "🧅",
+    "ingredients": [
+      {"name": "onion", "amount": 3, "unit": "medium"},
+      {"name": "besan", "amount": 1, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"},
+      {"name": "ajwain", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 240, "protein": 8, "carbs": 28, "fat": 11},
+    "instructions": [
+      "Slice the onions thin and mix with besan, spices and a little water.",
+      "Let the mixture rest so the onions release moisture.",
+      "Drop small clusters into hot oil.",
+      "Fry until golden and crisp and serve with chutney."
+    ]
+  },
+  {
+    "title": "Vada Pav",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 35,
+    "servings": 4,
+    "emoji": "🍔",
+    "ingredients": [
+      {"name": "potato", "amount": 4, "unit": "medium"},
+      {"name": "besan", "amount": 1, "unit": "cup"},
+      {"name": "pav", "amount": 4, "unit": "piece"},
+      {"name": "garlic", "amount": 5, "unit": "clove"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "green chili", "amount": 3, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 350, "protein": 9, "carbs": 52, "fat": 12},
+    "instructions": [
+      "Make a spiced potato mash tempered with mustard, garlic and chili.",
+      "Shape into balls, dip in besan batter and deep fry into vadas.",
+      "Slit the pav and spread garlic and green chutney inside.",
+      "Place a vada in each pav and serve hot."
+    ]
+  },
+  {
+    "title": "Pav Bhaji",
+    "cuisine": "indian",
+    "mealType": ["snack", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 40,
+    "servings": 4,
+    "emoji": "🍲",
+    "ingredients": [
+      {"name": "potato", "amount": 3, "unit": "medium"},
+      {"name": "cauliflower", "amount": 1, "unit": "cup"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "butter", "amount": 4, "unit": "tbsp"},
+      {"name": "pav bhaji masala", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 380, "protein": 9, "carbs": 50, "fat": 17},
+    "instructions": [
+      "Boil and mash potato, cauliflower and peas.",
+      "Saute onion, tomato and capsicum with pav bhaji masala in butter.",
+      "Add the mashed vegetables and cook until thick, mashing as you go.",
+      "Toast the pav in butter and serve with the bhaji and lemon."
+    ]
+  },
+  {
+    "title": "Dhokla",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy", "festive"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🟡",
+    "ingredients": [
+      {"name": "besan", "amount": 1.5, "unit": "cup"},
+      {"name": "lemon", "amount": 1, "unit": "piece"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "mustard seeds", "amount": 1, "unit": "tsp"},
+      {"name": "curry leaves", "amount": 10, "unit": "leaf"},
+      {"name": "sugar", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 200, "protein": 9, "carbs": 30, "fat": 5},
+    "instructions": [
+      "Make a smooth besan batter with lemon, salt and a little sugar.",
+      "Add fruit salt, mix and pour into a greased tray.",
+      "Steam for 15 minutes until spongy, then cut into squares.",
+      "Pour over a tempering of mustard seeds, green chili and curry leaves."
+    ]
+  },
+  {
+    "title": "Aloo Tikki",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 25,
+    "servings": 3,
+    "emoji": "🥔",
+    "ingredients": [
+      {"name": "potato", "amount": 4, "unit": "medium"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 220, "protein": 5, "carbs": 38, "fat": 6},
+    "instructions": [
+      "Mash the boiled potatoes with peas, green chili and spices.",
+      "Shape into round flat patties.",
+      "Shallow fry on a tawa until golden and crisp on both sides.",
+      "Serve with tamarind and mint chutney."
+    ]
+  },
+  {
+    "title": "Bhel Puri",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["lazy", "healthy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🥗",
+    "ingredients": [
+      {"name": "puffed rice", "amount": 3, "unit": "cup"},
+      {"name": "sev", "amount": 0.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "potato", "amount": 1, "unit": "small"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 230, "protein": 5, "carbs": 42, "fat": 6},
+    "instructions": [
+      "Combine puffed rice with chopped onion, tomato and boiled potato.",
+      "Add tamarind and green chutney and toss quickly.",
+      "Top with sev and crushed papdi.",
+      "Garnish with coriander and serve immediately so it stays crisp."
+    ]
+  },
+  {
+    "title": "Sev Puri",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🫓",
+    "ingredients": [
+      {"name": "puri", "amount": 12, "unit": "piece"},
+      {"name": "potato", "amount": 2, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "sev", "amount": 0.5, "unit": "cup"},
+      {"name": "tamarind chutney", "amount": 3, "unit": "tbsp"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 250, "protein": 5, "carbs": 40, "fat": 8},
+    "instructions": [
+      "Arrange the flat puris on a plate.",
+      "Top each with boiled potato and chopped onion.",
+      "Drizzle tamarind and green chutney.",
+      "Sprinkle generously with sev and coriander and serve at once."
+    ]
+  },
+  {
+    "title": "Masala Chai",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 10,
+    "servings": 2,
+    "emoji": "☕",
+    "ingredients": [
+      {"name": "tea leaves", "amount": 2, "unit": "tsp"},
+      {"name": "milk", "amount": 1, "unit": "cup"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "cardamom", "amount": 3, "unit": "pod"},
+      {"name": "sugar", "amount": 2, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 110, "protein": 4, "carbs": 16, "fat": 4},
+    "instructions": [
+      "Boil water with crushed ginger and cardamom.",
+      "Add the tea leaves and let it brew.",
+      "Pour in the milk and sugar and bring to a rolling boil.",
+      "Strain into cups and serve hot."
+    ]
+  },
+  {
+    "title": "Paneer Tikka",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🧀",
+    "ingredients": [
+      {"name": "paneer", "amount": 2, "unit": "cup"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "curd", "amount": 0.5, "unit": "cup"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 300, "protein": 16, "carbs": 12, "fat": 20},
+    "instructions": [
+      "Whisk curd with spices into a thick marinade.",
+      "Coat paneer cubes, capsicum and onion chunks in the marinade.",
+      "Thread onto skewers and grill until charred at the edges.",
+      "Sprinkle chaat masala and lemon and serve hot."
+    ]
+  },
+  {
+    "title": "Veg Cutlet",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["comfort"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🥘",
+    "ingredients": [
+      {"name": "potato", "amount": 3, "unit": "medium"},
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "peas", "amount": 0.5, "unit": "cup"},
+      {"name": "beans", "amount": 0.5, "unit": "cup"},
+      {"name": "bread crumbs", "amount": 1, "unit": "cup"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 240, "protein": 6, "carbs": 40, "fat": 7},
+    "instructions": [
+      "Boil and mash the mixed vegetables with spices.",
+      "Shape into patties and coat in bread crumbs.",
+      "Shallow fry until golden and crisp on both sides.",
+      "Serve hot with ketchup or green chutney."
+    ]
+  },
+  {
+    "title": "Bread Pakora",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 25,
+    "servings": 3,
+    "emoji": "🍞",
+    "ingredients": [
+      {"name": "bread", "amount": 6, "unit": "slice"},
+      {"name": "besan", "amount": 1, "unit": "cup"},
+      {"name": "potato", "amount": 2, "unit": "medium"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"},
+      {"name": "ajwain", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 290, "protein": 8, "carbs": 44, "fat": 10},
+    "instructions": [
+      "Make a spiced mashed potato filling.",
+      "Sandwich the filling between bread slices and cut into triangles.",
+      "Dip in a besan batter seasoned with spices.",
+      "Deep fry until golden and serve hot with chutney."
+    ]
+  },
+  {
+    "title": "Corn Chaat",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🌽",
+    "ingredients": [
+      {"name": "sweet corn", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "lemon", "amount": 1, "unit": "piece"},
+      {"name": "chaat masala", "amount": 1, "unit": "tsp"},
+      {"name": "butter", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 200, "protein": 6, "carbs": 34, "fat": 6},
+    "instructions": [
+      "Boil or steam the corn until tender.",
+      "Toss with butter, chopped onion and tomato.",
+      "Add lemon juice, chaat masala and salt.",
+      "Mix well and serve warm."
+    ]
+  },
+  {
+    "title": "Hara Bhara Kabab",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "festive"],
+    "preparationTime": 30,
+    "servings": 3,
+    "emoji": "🟢",
+    "ingredients": [
+      {"name": "spinach", "amount": 2, "unit": "cup"},
+      {"name": "peas", "amount": 1, "unit": "cup"},
+      {"name": "potato", "amount": 2, "unit": "medium"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "besan", "amount": 3, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 210, "protein": 8, "carbs": 30, "fat": 7},
+    "instructions": [
+      "Blanch the spinach and peas and mash with boiled potato.",
+      "Mix in green chili, besan and spices to bind.",
+      "Shape into patties.",
+      "Shallow fry until golden and serve with mint chutney."
+    ]
+  },
+  {
+    "title": "Chana Chaat",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "emoji": "🥗",
+    "ingredients": [
+      {"name": "chickpeas", "amount": 1.5, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "lemon", "amount": 1, "unit": "piece"},
+      {"name": "chaat masala", "amount": 1, "unit": "tsp"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 250, "protein": 12, "carbs": 40, "fat": 5},
+    "instructions": [
+      "Use boiled chickpeas as the base.",
+      "Add chopped onion, tomato and coriander.",
+      "Season with lemon juice, chaat masala and salt.",
+      "Toss well and serve fresh."
+    ]
+  },
+  {
+    "title": "Mathri",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["festive"],
+    "preparationTime": 40,
+    "servings": 4,
+    "emoji": "🍘",
+    "ingredients": [
+      {"name": "atta", "amount": 2, "unit": "cup"},
+      {"name": "suji", "amount": 0.25, "unit": "cup"},
+      {"name": "ajwain", "amount": 1, "unit": "tsp"},
+      {"name": "black pepper", "amount": 1, "unit": "tsp"},
+      {"name": "oil", "amount": 4, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 280, "protein": 5, "carbs": 38, "fat": 12},
+    "instructions": [
+      "Make a stiff dough with flour, suji, ajwain, pepper and oil.",
+      "Roll out and cut into small discs, then prick with a fork.",
+      "Deep fry on low heat until crisp and pale golden.",
+      "Cool completely and store in an airtight jar."
+    ]
+  },
+  {
+    "title": "Kachori",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegan",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 50,
+    "servings": 4,
+    "emoji": "🥟",
+    "ingredients": [
+      {"name": "atta", "amount": 2, "unit": "cup"},
+      {"name": "moong dal", "amount": 0.75, "unit": "cup"},
+      {"name": "fennel seeds", "amount": 1, "unit": "tsp"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 9, "carbs": 44, "fat": 13},
+    "instructions": [
+      "Soak and coarsely grind the moong dal.",
+      "Cook the dal with fennel and spices into a dry filling.",
+      "Stuff dough balls with the filling and roll out gently.",
+      "Deep fry on low heat until puffed, crisp and golden."
+    ]
+  },
+  {
+    "title": "Veg Frankie",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 30,
+    "servings": 2,
+    "emoji": "🌯",
+    "ingredients": [
+      {"name": "atta", "amount": 1.5, "unit": "cup"},
+      {"name": "potato", "amount": 3, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 1, "unit": "small"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"},
+      {"name": "chaat masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 340, "protein": 8, "carbs": 54, "fat": 11},
+    "instructions": [
+      "Make soft roti from the dough and cook on a tawa.",
+      "Prepare a spiced potato filling and roll into logs.",
+      "Place the filling on the roti with onion and capsicum.",
+      "Sprinkle chaat masala, roll up tightly and serve."
+    ]
+  },
+  {
+    "title": "Chicken 65",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "non-vegetarian",
+    "moods": ["fancy", "festive"],
+    "preparationTime": 35,
+    "servings": 3,
+    "emoji": "🍗",
+    "ingredients": [
+      {"name": "chicken", "amount": 500, "unit": "g"},
+      {"name": "curd", "amount": 0.5, "unit": "cup"},
+      {"name": "rice flour", "amount": 3, "unit": "tbsp"},
+      {"name": "red chili powder", "amount": 1.5, "unit": "tsp"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "curry leaves", "amount": 12, "unit": "leaf"}
+    ],
+    "nutrition": {"calories": 330, "protein": 28, "carbs": 16, "fat": 18},
+    "instructions": [
+      "Marinate chicken cubes in curd, rice flour, ginger and spices.",
+      "Deep fry until crisp and cooked through.",
+      "Temper curry leaves and green chili in a little oil.",
+      "Toss the fried chicken in the tempering and serve hot."
+    ]
+  },
+  {
+    "title": "Dahi Vada",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["festive", "comfort"],
+    "preparationTime": 40,
+    "servings": 3,
+    "emoji": "🥣",
+    "ingredients": [
+      {"name": "urad dal", "amount": 1, "unit": "cup"},
+      {"name": "curd", "amount": 2, "unit": "cup"},
+      {"name": "tamarind chutney", "amount": 3, "unit": "tbsp"},
+      {"name": "cumin powder", "amount": 1, "unit": "tsp"},
+      {"name": "red chili powder", "amount": 0.5, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 260, "protein": 12, "carbs": 34, "fat": 8},
+    "instructions": [
+      "Soak and grind urad dal into a fluffy batter, then deep fry into vadas.",
+      "Soak the fried vadas in water, then gently squeeze.",
+      "Arrange on a plate and cover with whisked sweetened curd.",
+      "Drizzle tamarind chutney and sprinkle cumin and chili powder."
+    ]
+  },
+  {
+    "title": "Akki Roti",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "vegan",
+    "moods": ["healthy", "comfort"],
+    "preparationTime": 25,
+    "servings": 2,
+    "emoji": "🫓",
+    "ingredients": [
+      {"name": "rice flour", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"},
+      {"name": "cumin seeds", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 260, "protein": 5, "carbs": 52, "fat": 5},
+    "instructions": [
+      "Mix rice flour with chopped onion, grated carrot, green chili and coriander.",
+      "Add warm water and salt and knead into a soft dough.",
+      "Pat the dough directly onto a hot tawa into a thin round.",
+      "Drizzle oil, cover and cook both sides until golden, then serve with chutney."
+    ]
+  }
+]

@@ -1,0 +1,83 @@
+# Recipe image filenames — put each .jpg in images/recipes/
+# Total: 80 images
+
+01. Masala Dosa  ->  masala-dosa.jpg
+02. Idli  ->  idli.jpg
+03. Poha  ->  poha.jpg
+04. Upma  ->  upma.jpg
+05. Aloo Paratha  ->  aloo-paratha.jpg
+06. Besan Chilla  ->  besan-chilla.jpg
+07. Vegetable Uttapam  ->  vegetable-uttapam.jpg
+08. Medu Vada  ->  medu-vada.jpg
+09. Rava Idli  ->  rava-idli.jpg
+10. Methi Thepla  ->  methi-thepla.jpg
+11. Sabudana Khichdi  ->  sabudana-khichdi.jpg
+12. Moong Dal Cheela  ->  moong-dal-cheela.jpg
+13. Paneer Paratha  ->  paneer-paratha.jpg
+14. Semiya Upma  ->  semiya-upma.jpg
+15. Pesarattu  ->  pesarattu.jpg
+16. Egg Bhurji  ->  egg-bhurji.jpg
+17. Masala Omelette  ->  masala-omelette.jpg
+18. Bread Upma  ->  bread-upma.jpg
+19. Rava Dosa  ->  rava-dosa.jpg
+20. Sooji Halwa  ->  sooji-halwa.jpg
+21. Rajma Chawal  ->  rajma-chawal.jpg
+22. Chana Masala  ->  chana-masala.jpg
+23. Dal Tadka  ->  dal-tadka.jpg
+24. Dal Makhani  ->  dal-makhani.jpg
+25. Palak Paneer  ->  palak-paneer.jpg
+26. Paneer Butter Masala  ->  paneer-butter-masala.jpg
+27. Aloo Gobi  ->  aloo-gobi.jpg
+28. Bhindi Masala  ->  bhindi-masala.jpg
+29. Jeera Rice  ->  jeera-rice.jpg
+30. Vegetable Pulao  ->  vegetable-pulao.jpg
+31. Chicken Curry  ->  chicken-curry.jpg
+32. Butter Chicken  ->  butter-chicken.jpg
+33. Kadhi Pakora  ->  kadhi-pakora.jpg
+34. Baingan Bharta  ->  baingan-bharta.jpg
+35. Matar Paneer  ->  matar-paneer.jpg
+36. Chana Dal  ->  chana-dal.jpg
+37. Lemon Rice  ->  lemon-rice.jpg
+38. Sambar  ->  sambar.jpg
+39. Vegetable Biryani  ->  vegetable-biryani.jpg
+40. Egg Curry  ->  egg-curry.jpg
+41. Paneer Tikka Masala  ->  paneer-tikka-masala.jpg
+42. Malai Kofta  ->  malai-kofta.jpg
+43. Vegetable Korma  ->  vegetable-korma.jpg
+44. Tawa Pulao  ->  tawa-pulao.jpg
+45. Chicken Biryani  ->  chicken-biryani.jpg
+46. Tandoori Chicken  ->  tandoori-chicken.jpg
+47. Kadai Paneer  ->  kadai-paneer.jpg
+48. Dal Fry  ->  dal-fry.jpg
+49. Mixed Vegetable Curry  ->  mixed-vegetable-curry.jpg
+50. Stuffed Capsicum  ->  stuffed-capsicum.jpg
+51. Methi Malai Matar  ->  methi-malai-matar.jpg
+52. Veg Fried Rice  ->  veg-fried-rice.jpg
+53. Mushroom Masala  ->  mushroom-masala.jpg
+54. Aloo Matar  ->  aloo-matar.jpg
+55. Prawn Masala  ->  prawn-masala.jpg
+56. Chicken Tikka  ->  chicken-tikka.jpg
+57. Paneer Bhurji  ->  paneer-bhurji.jpg
+58. Soya Chunk Curry  ->  soya-chunk-curry.jpg
+59. Lauki Kofta  ->  lauki-kofta.jpg
+60. Samosa  ->  samosa.jpg
+61. Onion Pakora  ->  onion-pakora.jpg
+62. Vada Pav  ->  vada-pav.jpg
+63. Pav Bhaji  ->  pav-bhaji.jpg
+64. Dhokla  ->  dhokla.jpg
+65. Aloo Tikki  ->  aloo-tikki.jpg
+66. Bhel Puri  ->  bhel-puri.jpg
+67. Sev Puri  ->  sev-puri.jpg
+68. Masala Chai  ->  masala-chai.jpg
+69. Paneer Tikka  ->  paneer-tikka.jpg
+70. Veg Cutlet  ->  veg-cutlet.jpg
+71. Bread Pakora  ->  bread-pakora.jpg
+72. Corn Chaat  ->  corn-chaat.jpg
+73. Hara Bhara Kabab  ->  hara-bhara-kabab.jpg
+74. Chana Chaat  ->  chana-chaat.jpg
+75. Mathri  ->  mathri.jpg
+76. Kachori  ->  kachori.jpg
+77. Veg Frankie  ->  veg-frankie.jpg
+78. Chicken 65  ->  chicken-65.jpg
+79. Dahi Vada  ->  dahi-vada.jpg
+80. Akki Roti  ->  akki-roti.jpg

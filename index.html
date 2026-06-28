@@ -99,6 +99,7 @@
           <input id="ing-input" class="ing-input" placeholder="Type an ingredient and press Enter…" autocomplete="off"
             onkeydown="if(event.key==='Enter'||event.key===','){event.preventDefault();addIngredient(this.value);this.value='';}"/>
           <button class="btn-add" onclick="addIngredient(document.getElementById('ing-input').value);document.getElementById('ing-input').value=''">Add</button>
+          <button class="btn-scan" type="button" onclick="openVision()" title="Detect ingredients from a photo">📷 Scan</button>
         </div>
         <div id="tag-container" class="tag-container"></div>
         <p class="field-hint">Press Enter after each ingredient — try paneer, rice, dal, atta, sabzi…</p>
@@ -293,6 +294,45 @@
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div id="modal-body" class="modal-body"></div>
+  </div>
+</div>
+
+<!-- VISION MODAL -->
+<input id="vision-file" type="file" accept="image/*" hidden onchange="handleVisionFile(event)"/>
+<div id="vision-overlay" class="vision-overlay" onclick="closeVision(event)">
+  <div class="vision-box">
+    <button class="modal-close" onclick="closeVision()">✕</button>
+    <h2 class="vision-title">Scan Your <em>Ingredients</em></h2>
+    <p class="vision-sub">Upload a photo of your ingredients — review and edit before searching.</p>
+
+    <div id="vision-upload-area" class="vision-upload-area">
+      <button class="btn-find" type="button" onclick="document.getElementById('vision-file').click()">
+        📷 Upload Image
+      </button>
+      <p class="field-hint">A clear, well-lit photo works best.</p>
+    </div>
+
+    <div id="vision-preview-wrap" class="vision-preview-wrap" style="display:none">
+      <img id="vision-preview" class="vision-preview" alt="Your photo"/>
+    </div>
+
+    <div id="vision-loading" class="vision-loading" style="display:none">
+      <span class="spinner"></span> Analyzing your photo…
+    </div>
+
+    <div id="vision-error" class="vision-error" style="display:none"></div>
+
+    <div id="vision-results" class="vision-results" style="display:none">
+      <div class="vision-table-head">
+        <span>Ingredient</span><span>Qty</span><span>Unit</span><span></span>
+      </div>
+      <div id="vision-rows" class="vision-rows"></div>
+      <button class="vision-add-row" type="button" onclick="addVisionRow()">+ Add ingredient</button>
+      <div class="vision-actions">
+        <button class="m-btn" type="button" onclick="closeVision()">Cancel</button>
+        <button class="m-btn primary" type="button" onclick="confirmVision()">Confirm &amp; Search</button>
+      </div>
+    </div>
   </div>
 </div>
 
