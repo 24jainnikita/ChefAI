@@ -9,6 +9,7 @@
 ![Recommendation First](https://img.shields.io/badge/Architecture-Recommendation--First-6E9F3F?style=flat-square)
 ![AI Fallback](https://img.shields.io/badge/AI-Final%20Fallback%20Only-B8860B?style=flat-square)
 ![Recipes](https://img.shields.io/badge/Curated%20Recipes-100%2B-C4622D?style=flat-square)
+![Multimodal](https://img.shields.io/badge/Chef%20Mimi-Text%20·%20Voice%20·%20Vision-C4622D?style=flat-square)
 ![No Build Step](https://img.shields.io/badge/Frontend-Vanilla%20JS-2C1810?style=flat-square)
 
 ---
@@ -41,17 +42,20 @@ It is **not** "just an AI recipe generator." It is a **recommendation-first kitc
 - 💬 **"Why this recipe?" reasoning** — only true, human-friendly explanations
 - 🧂 **Ingredient normalization** — *capsicum / bell pepper / shimla mirch* all resolve to one canonical name
 
-### AI Layer (used intelligently)
+### AI Companion (Chef Mimi — used intelligently)
+- 🤖 **Multimodal AI Companion (Chef Mimi)** — an animated mascot that's the single entry point: **text, voice, vision & conversation**
+- 🎤 **Voice input** — speak your request; client-side speech recognition feeds the same pipeline as typing
+- 🧠 **Conversational intent understanding** — recognizes ingredients, dish cravings, and discovery requests (*"I want noodles"*, *"something quick"*, *"what should I cook?"*)
+- 🔀 **Conversation state & mode switching** — automatically flips between **Discovery** and **Cooking** modes based on intent, with chat dividers and a *Back to Discover* control
+- 👩‍🍳 **Cooking Assistant Mode** — substitutions, scaling, steps, storage, reheating, spice level & side dishes for the open recipe
 - ✨ **AI-Generated Custom Recipes** — final fallback only, on explicit user request
-- 🤖 **AI Kitchen Companion (Chef Mimi)** — a friendly mascot chat assistant
-- 🗣️ **Natural-language ingredient extraction** — *"I have paneer and tomatoes, something quick"*
-- 👩‍🍳 **Cooking Assistant Mode** — substitutions, scaling, steps, storage, reheating, side dishes for the selected recipe
 
 ### Vision
 - 📷 **Vision-based ingredient detection** — snap or upload a photo of your ingredients
 - 📸 **Native camera capture** — rear camera on mobile, webcam on desktop
 - 🖼️ **Image upload** — with client-side compression
 - 🔢 **Ingredient quantity detection** — editable before searching
+- 🎙️ **Reachable from Chef Mimi** — a single camera icon in the chat opens the same Vision flow (no duplicated logic)
 
 ### Kitchen & Personalization
 - 🗄️ **Pantry management** — rich categories + cloud-saved pantry
@@ -78,12 +82,17 @@ ChefAI's defining feature is that **recommendation comes first** and **AI is the
 flowchart TD
     A[👤 User] --> B{Input Method}
     B -->|Type| C[Manual Input]
+    B -->|Speak| V[🎤 Voice]
     B -->|Photo| D[Vision Detection]
-    B -->|Chat| E[AI Companion]
+    B -->|Chat| E[🤖 Chef Mimi]
+
+    V --> E
+    E --> E1{Intent}
+    E1 -->|Ingredient / Dish / Discovery| F
+    E1 -->|Cooking question| M
 
     C --> F[Structured User Intent<br/>ingredients · mood · diet · cuisine · meal]
     D --> F
-    E --> F
 
     F --> G[🧮 Recommendation Engine]
     G --> H[(📚 Kitchen Knowledge Base)]
@@ -103,7 +112,8 @@ flowchart TD
 **Plain-text view:**
 
 ```
-User → (Manual / Vision / AI Companion)
+User → (Text / Voice / Vision / Chat with Chef Mimi)
+     → Intent understanding (Ingredient · Dish · Discovery · Cooking)
      → Structured User Intent
      → Recommendation Engine → Kitchen Knowledge Base + Spoonacular
      → ChefAI Match
@@ -141,6 +151,8 @@ ChefAI deliberately does **not** route every request through an LLM. The recomme
 | **Serverless** | Vercel Serverless Functions |
 | **LLM (assist)** | Google Gemini API (`gemini-2.0-flash`) |
 | **Vision** | Google Gemini Vision (multimodal) |
+| **Voice** | Web Speech API (client-side, no paid speech service) |
+| **NLU** | Custom JavaScript intent classifier (no LLM required) |
 | **Global recipes** | Spoonacular API |
 | **Auth** | Firebase Authentication (Google) |
 | **Database** | Cloud Firestore (favourites & pantry) |
@@ -184,7 +196,7 @@ chefai/
 │   └── substitutions.json        ← common ingredient swaps
 ├── js/                           ← frontend
 │   ├── app.js                    ← UI, search, cards, modal, ChefAI Match, vision UI
-│   ├── chef.js                   ← AI Companion + conversation intelligence + cooking mode
+│   ├── chef.js                   ← Chef Mimi: multimodal input (voice/vision), intent classifier, modes
 │   ├── api.js                    ← frontend API client
 │   └── firebase.js               ← auth, favourites & pantry sync
 ├── css/
@@ -224,11 +236,11 @@ Every recipe shows a **match percentage**, a **level** (🟢 Excellent / 🟡 Go
 ### 👁️ Vision-Based Ingredient Recognition
 Upload or **capture a live photo** of your ingredients. Gemini Vision returns a structured, **editable** ingredient list (with quantities) that flows into the *same* recommendation pipeline.
 
-### 🤖 AI Companion (Chef Mimi)
-An animated mascot chat assistant that understands **natural language** (*"I have rice and egg, something quick"*), auto-fills filters, and triggers a search — with a built-in local parser so it works even when AI is unavailable.
+### 🤖 Multimodal AI Companion (Chef Mimi)
+The single entry point to ChefAI. Chef Mimi accepts **text, voice (Web Speech API), vision, and free-form conversation**, and a pure-JS **intent classifier** understands ingredients, dish cravings, and discovery requests — *"I want noodles"*, *"something quick"*, *"what should I cook?"* — instead of failing. It **switches modes automatically** between Discovery and Cooking based on what you ask, keeps chat history with clear dividers, and works even when AI is unavailable.
 
 ### 👩‍🍳 Cooking Assistant
-Once you open a recipe, the companion switches into cooking mode: substitutions, healthier/vegan versions, serving scaling, spice tuning, step explanations, storage, reheating and side-dish ideas — all grounded in the selected recipe.
+Open a recipe and the companion enters cooking mode: substitutions, healthier/vegan versions, serving scaling, spice tuning, step explanations, storage, reheating and side-dish ideas — all grounded in the selected recipe. Ask *"suggest another recipe"* and it returns to Discovery automatically.
 
 ### ✨ AI Custom Recipe Generation
 The **final fallback**. When no recipe scores well, ChefAI offers (never forces) a freshly generated recipe built from *your* ingredients, cached to avoid repeat API calls, and rendered in the same card/modal as every other recipe.
@@ -243,7 +255,7 @@ The **final fallback**. When no recipe scores well, ChefAI offers (never forces)
 | Feature | Preview |
 |---|---|
 | 🔍 Vision Ingredient Detection | *screenshot coming soon* |
-| 🤖 AI Companion (Chef Mimi) | *screenshot coming soon* |
+| 🤖 Chef Mimi (Text · 🎤 Voice · 📷 Vision) | *screenshot coming soon* |
 | 🟢 ChefAI Match (Explainable) | *screenshot coming soon* |
 | 👩‍🍳 Cooking Assistant | *screenshot coming soon* |
 | ✨ AI Recipe Generation | *screenshot coming soon* |
@@ -254,6 +266,7 @@ The **final fallback**. When no recipe scores well, ChefAI offers (never forces)
 
 - 🧮 **The Recommendation Engine runs locally** — instant, in-memory scoring, no model round-trip.
 - 📚 **Existing recipes require no AI** — the vast majority of searches are fully served by the knowledge base.
+- 🗣️ **Voice & intent run client-side** — speech recognition and the intent classifier are pure browser/JS, no server calls.
 - ✨ **AI is only used when necessary** — vision/chat on demand, custom generation only on explicit click.
 - 🗃️ **Caching reduces API usage** — both recommendation results and AI-generated recipes are cached, so identical requests don't re-hit the APIs.
 
