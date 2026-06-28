@@ -28,35 +28,24 @@ function toggleStaples(el) {
 })()
 
 // ══ CLICK SOUND ══════════════════════════════════════
+const clickSound = new Audio("/assets/sounds/click.mp3");
+clickSound.preload = "auto";
+clickSound.volume = 0.5;
+
+// Button click sound
 function playClick() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)()
-    const o = ctx.createOscillator()
-    const g = ctx.createGain()
-    o.connect(g); g.connect(ctx.destination)
-    o.frequency.setValueAtTime(880, ctx.currentTime)
-    o.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.08)
-    g.gain.setValueAtTime(0.15, ctx.currentTime)
-    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12)
-    o.start(ctx.currentTime)
-    o.stop(ctx.currentTime + 0.12)
-  } catch(e) {}
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
+  } catch (e) {}
 }
 
+// Add ingredient sound (uses the same MP3)
 function playAdd() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)()
-    const o = ctx.createOscillator()
-    const g = ctx.createGain()
-    o.connect(g); g.connect(ctx.destination)
-    o.type = "sine"
-    o.frequency.setValueAtTime(523, ctx.currentTime)
-    o.frequency.setValueAtTime(659, ctx.currentTime + 0.08)
-    g.gain.setValueAtTime(0.12, ctx.currentTime)
-    g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18)
-    o.start(ctx.currentTime)
-    o.stop(ctx.currentTime + 0.18)
-  } catch(e) {}
+    clickSound.currentTime = 0;
+    clickSound.play().catch(() => {});
+  } catch (e) {}
 }
 
 // ══ PAGE SWITCHING ═══════════════════════════════════
