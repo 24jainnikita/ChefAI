@@ -1706,3 +1706,47 @@ html, body { overflow-x: hidden; }
 }
 .match-chip.have{ background:#EAF3DF; color:#4F7A2C; border-color:#CFE3B6; }
 .match-chip.need{ background:#FBEDE4; color:#9A4A22; border-color:#F0CDB6; }
+
+/* ══ AI FALLBACK — generate custom recipe ═════════════════════════════ */
+/* Suggestion card spans the whole results grid. */
+.generate-card{
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #FFF8EF, #FBEFE0);
+  border: 1.5px dashed #D9A86C;
+  border-radius: 18px;
+  padding: 26px 22px;
+  text-align: center;
+}
+.generate-inner{ max-width: 460px; margin: 0 auto; }
+.generate-spark{ font-size: 30px; margin-bottom: 6px; }
+.generate-title{
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 23px; font-weight: 700; color: #2C1810; margin: 0 0 6px;
+}
+.generate-sub{
+  font-family: 'Outfit', sans-serif; font-size: 14px; color: #7A6A58;
+  margin: 0 0 16px; line-height: 1.5;
+}
+.generate-btn{ display: inline-flex; align-items: center; gap: 8px; }
+
+/* AI badge on recipe cards */
+.ai-badge{
+  position: absolute; top: 10px; left: 10px;
+  background: rgba(44,24,16,.78); color: #FFE9C7;
+  font-family: 'Outfit', sans-serif; font-size: 11px; font-weight: 600;
+  padding: 4px 9px; border-radius: 12px; backdrop-filter: blur(2px);
+  letter-spacing: .02em;
+}
+
+/* AI note in the modal */
+.ai-note{
+  display: flex; flex-direction: column; gap: 3px;
+  background: #FBF0E2; border: 1px solid #EAD6BC; border-radius: 12px;
+  padding: 12px 14px; margin: 4px 0 6px;
+  font-family: 'Outfit', sans-serif;
+}
+.ai-note-tag{ font-size: 12.5px; font-weight: 700; color: #9A4A22; }
+.ai-note-text{ font-size: 13px; color: #6B5A47; font-style: italic; }
+
+/* optional additional ingredients */
+.ing-list-opt li{ color: #7A6A58; }
