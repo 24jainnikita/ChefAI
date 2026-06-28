@@ -71,6 +71,10 @@ function chefInit() {
 
   renderQuickChips()
 
+  // Default visual state: Discovery mode.
+  const st0 = document.querySelector(".chef-status")
+  if (st0) st0.innerHTML = `<span class="chef-dot"></span> 🔍 Discover recipes`
+
   // Restore prior conversation if any.
   try {
     const saved = JSON.parse(localStorage.getItem(CHEF_STORE) || "[]")
@@ -151,10 +155,24 @@ function pushMessage(who, text) {
 function renderMessage(who, text, time, animate) {
   const wrap = document.getElementById("chef-messages")
   const el = document.createElement("div")
+  if (who === "divider") {
+    el.className = "chef-divider"
+    el.innerHTML = `<span>${escHtml(text)}</span>`
+    wrap.appendChild(el)
+    chefScroll()
+    return
+  }
   el.className = `chef-msg ${who}`
   el.innerHTML = `<div class="chef-bubble">${escHtml(text)}</div><span class="chef-time">${escHtml(time)}</span>`
   wrap.appendChild(el)
   chefScroll()
+}
+
+// Lightweight system divider in the chat (kept in history, never erases messages).
+function pushDivider(text) {
+  chefHistory.push({ who: "divider", text })
+  saveHistory()
+  renderMessage("divider", text, "", true)
 }
 
 // ── Typing indicator ─────────────────────────────────────────────────────────
@@ -532,7 +550,10 @@ function chefEnterCookingMode(r) {
   }
 
   const st = document.querySelector(".chef-status")
-  if (st) st.innerHTML = `<span class="chef-dot"></span> 👩‍🍳 cooking: ${escHtml(chefTruncate(chefCookingRecipe.title, 22))}`
+  if (st) st.innerHTML = `<span class="chef-dot"></span> 👩‍🍳 Cooking · ${escHtml(chefTruncate(chefCookingRecipe.title, 20))}`
+
+  const chat = document.getElementById("chef-chat")
+  if (chat) chat.classList.add("cooking")
 
   renderCookingChips()
 
@@ -540,6 +561,7 @@ function chefEnterCookingMode(r) {
   if (chefLastCookedTitle !== chefCookingRecipe.title) {
     chefLastCookedTitle = chefCookingRecipe.title
     chefGreeted = true // suppress the generic greeting
+    pushDivider(`${r.emoji || "🍛"} Started cooking · ${chefCookingRecipe.title}`)
     pushMessage("bot", `Yum — let's make ${chefCookingRecipe.title}! 👩‍🍳 I'm in cooking mode now. Ask me about substitutions, a vegan twist, scaling servings, spice level, storage, reheating, side dishes — or say "explain the steps".`)
     clearSuggestions()
     showSuggestions(["Explain the steps 📖", "Make it vegan 🌱", "Scale to 4 servings 🍽", "What can I serve with it? 🥗"])
@@ -556,9 +578,22 @@ function chefEnterCookingMode(r) {
 function chefExitCookingMode() {
   chefMode = "general"
   chefCookingRecipe = null
+  chefLastCookedTitle = null
   const st = document.querySelector(".chef-status")
-  if (st) st.innerHTML = `<span class="chef-dot"></span> online · here to help`
+  if (st) st.innerHTML = `<span class="chef-dot"></span> 🔍 Discover recipes`
+  const chat = document.getElementById("chef-chat")
+  if (chat) chat.classList.remove("cooking")
   renderQuickChips()
+}
+
+// Manual / automatic return to Discovery. Keeps chat history, drops a divider.
+// silent=true → divider only (the caller will produce the next reply);
+// silent=false → also show a friendly confirmation (manual "Back to Discover").
+function chefBackToDiscover(silent) {
+  const wasCooking = (chefMode === "cooking")
+  chefExitCookingMode()
+  if (wasCooking) pushDivider("⟵ Back to Discover")
+  if (!silent) botRespond("Back to discovery! 🔍 Tell me your ingredients or what you'd like to cook, and I'll find recipes.")
 }
 
 // Quick chips while cooking.
@@ -575,22 +610,67 @@ function renderCookingChips() {
   )
 }
 
+// ── Intent detection (pure JS, no AI) ────────────────────────────────────────
+// Strong signals that the user wants to leave cooking and discover new recipes.
+function chefIsStrongDiscovery(t) {
+  return /(another|other|different|new)\s+(recipe|dish|meal|idea)/.test(t)
+    || /\bfind\b[\s\S]*\b(recipe|recipes|meal|dish)\b/.test(t)
+    || /what (can|should) i (cook|make|eat)/.test(t)
+    || /\b(start over|reset|clear|new search|search again|back to discover|discover recipes)\b/.test(t)
+    || /change (the )?recipe/.test(t)
+}
+// Softer discovery cues (checked AFTER cooking queries so "suggest a side dish" stays).
+function chefIsGenericDiscovery(t) {
+  return /\b(recommend|suggest)\b/.test(t)
+    || /something (else|different|new|tasty|nice|good|healthy|quick)/.test(t)
+    || /\b(discover|go back)\b/.test(t)
+}
+// Genuine questions about the currently-open recipe (stay in cooking mode).
+function chefIsCookingQuery(t) {
+  return /scale|\bserving|\bserves\b|\bportion|double|twice|halve|\bhalf\b|for \d+/.test(t)
+    || /\bvegan\b|healthier|lighter|less oil|less cream|low[\s-]?cal/.test(t)
+    || /substitut|replace|swap|instead of|don'?t have|out of/.test(t)
+    || /spic|spicy|mild|chilli|chili|too hot|tone down/.test(t)
+    || /\bstor|fridge|leftover|preserve/.test(t)
+    || /reheat|warm (it )?up|microwave/.test(t)
+    || /side dish|serve with|accompan|\bpair\b|go(es)? with/.test(t)
+    || /\bstep\b|\bsteps\b|how do i|how to|method|instruction|explain|walk me|guide me/.test(t)
+    || /\btip\b|\btips\b|advice|trick/.test(t)
+    || /nutrition|calorie|protein|carb|\bfat\b/.test(t)
+}
+
+// Exit cooking and continue the normal recommendation flow with this message.
+function switchToDiscovery(text) {
+  chefBackToDiscover(true)          // silent: just drop a divider + switch mode
+  return _chefGeneralIntent(text)   // run the existing discovery / recommendation flow
+}
+
 // ── Cooking intent router ─────────────────────────────────────────────────────
 function handleCookingIntent(text) {
   const t = text.toLowerCase()
 
-  // Leave cooking mode to start a fresh search.
-  if (/new search|another recipe|different recipe|start over|find (me )?recipe|search again|go back to search|exit cooking/.test(t)) {
-    chefExitCookingMode()
-    botRespond("Sure thing! 🍳 Back to recipe search — tell me what you'd like to cook or what's in your kitchen.")
-    return
-  }
-  // Pure greetings / thanks stay playful.
+  // 1) Clear "I want a new recipe" / reset → back to discovery automatically.
+  if (chefIsStrongDiscovery(t)) return switchToDiscovery(text)
+
+  // 2) Greetings / thanks stay playful.
   if (/^\s*(hi|hello|hey|yo|namaste|thanks|thank you|thank u|thx|ty)\b/.test(t)) {
     botRespond(chefReply(text))
     return
   }
-  // Everything else is answered about the selected recipe.
+
+  // 3) Genuine question about the open recipe → stay in cooking mode.
+  if (chefIsCookingQuery(t)) {
+    botRespond(chefCookingReply(text, chefCookingRecipe))
+    return
+  }
+
+  // 4) Softer discovery cues (e.g. "suggest something else") → discovery.
+  if (chefIsGenericDiscovery(t)) return switchToDiscovery(text)
+
+  // 5) A fresh ingredient / filter message (e.g. "I have paneer and rice") → discovery.
+  if (chefHasEntities(chefUnderstand(text))) return switchToDiscovery(text)
+
+  // 6) Otherwise, keep helping with the current recipe.
   botRespond(chefCookingReply(text, chefCookingRecipe))
 }
 

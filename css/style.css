@@ -1750,3 +1750,20 @@ html, body { overflow-x: hidden; }
 
 /* optional additional ingredients */
 .ing-list-opt li{ color: #7A6A58; }
+
+/* ══ CHEF MIMI — conversation state (dividers + mode switch) ══════════ */
+/* System divider in the chat history. */
+.chef-divider{
+  display:flex; align-items:center; gap:10px;
+  margin:6px 2px; color:#A8957E;
+  font-family:'Outfit',sans-serif; font-size:11px; font-weight:600;
+  letter-spacing:.04em; text-transform:uppercase;
+}
+.chef-divider::before, .chef-divider::after{
+  content:""; flex:1; height:1px; background:#EADFCD;
+}
+.chef-divider span{ white-space:nowrap; }
+
+/* "Back to Discover" appears only while cooking. */
+.chef-back{ display:none; }
+.chef-chat.cooking .chef-back{ display:inline-flex; align-items:center; justify-content:center; }
