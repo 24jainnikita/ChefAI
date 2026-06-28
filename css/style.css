@@ -1599,3 +1599,34 @@ body {
   .chef-chat{ width:calc(100vw - 28px); height:calc(100vh - 120px); }
   .chef-launcher{ width:88px; height:98px; }
 }
+
+/* ══ VISION — SCAN PANTRY (live camera) ═══════════════════════════════ */
+.vision-actions-top{
+  display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
+}
+.vision-cam-btn{ background:#7A9E4A !important; }
+.vision-cam-btn:hover{ background:#688A3C !important; }
+
+.vision-camera{ margin:8px 0 4px; text-align:center; }
+.vision-video{
+  width:100%; max-height:300px; border-radius:14px;
+  border:1px solid #E8DCC8; background:#000; object-fit:cover;
+}
+.vision-cam-controls{
+  display:flex; gap:10px; justify-content:center; margin-top:12px;
+}
+@media (max-width:480px){
+  .vision-actions-top{ flex-direction:column; }
+}
+
+/* ══ ASSUME KITCHEN STAPLES TOGGLE ════════════════════════════════════ */
+.staples-toggle{
+  display:flex; align-items:center; gap:9px;
+  margin:6px 0 14px;
+  font-family:'Outfit',sans-serif; font-size:13px; color:#5C4A38;
+  cursor:pointer; user-select:none;
+}
+.staples-toggle input{
+  width:17px; height:17px; accent-color:#C4622D; cursor:pointer; flex:0 0 auto;
+}
+.staples-toggle em{ color:#A8957E; font-style:italic; }

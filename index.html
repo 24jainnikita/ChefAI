@@ -102,25 +102,17 @@
           <button class="btn-scan" type="button" onclick="openVision()" title="Detect ingredients from a photo">📷 Scan</button>
         </div>
         <div id="tag-container" class="tag-container"></div>
-        <p class="field-hint">Press Enter after each ingredient — try paneer, rice, dal, atta, sabzi…</p>
+        <p class="field-hint">Press Enter after each ingredient — try paneer, rice, bread, mayonnaise, capsicum…</p>
 
-        <div class="quick-label">Quick add from your pantry:</div>
+        <label class="staples-toggle">
+          <input type="checkbox" id="staples-toggle" checked onchange="toggleStaples(this)"/>
+          <span>Assume basic kitchen staples <em>(salt, oil, turmeric, chilli, garam masala…)</em></span>
+        </label>
+
+        <div class="quick-label">Quick add from your kitchen:</div>
         <div class="quick-cats">
           <div class="quick-cat">
-            <div class="qcat-title" onclick="toggleCat(this)">🥛 Dairy &amp; Eggs</div>
-            <div class="qcat-items">
-              <span class="qi" onclick="quickAdd(this)">Paneer</span>
-              <span class="qi" onclick="quickAdd(this)">Milk</span>
-              <span class="qi" onclick="quickAdd(this)">Curd</span>
-              <span class="qi" onclick="quickAdd(this)">Butter</span>
-              <span class="qi" onclick="quickAdd(this)">Ghee</span>
-              <span class="qi" onclick="quickAdd(this)">Cheese</span>
-              <span class="qi" onclick="quickAdd(this)">Egg</span>
-              <span class="qi" onclick="quickAdd(this)">Cream</span>
-            </div>
-          </div>
-          <div class="quick-cat">
-            <div class="qcat-title" onclick="toggleCat(this)">🥦 Vegetables</div>
+            <div class="qcat-title" onclick="toggleCat(this)">🥬 Fresh Produce</div>
             <div class="qcat-items">
               <span class="qi" onclick="quickAdd(this)">Onion</span>
               <span class="qi" onclick="quickAdd(this)">Tomato</span>
@@ -130,46 +122,107 @@
               <span class="qi" onclick="quickAdd(this)">Spinach</span>
               <span class="qi" onclick="quickAdd(this)">Cauliflower</span>
               <span class="qi" onclick="quickAdd(this)">Peas</span>
-              <span class="qi" onclick="quickAdd(this)">Brinjal</span>
               <span class="qi" onclick="quickAdd(this)">Cabbage</span>
-              <span class="qi" onclick="quickAdd(this)">Beans</span>
+              <span class="qi" onclick="quickAdd(this)">Cucumber</span>
               <span class="qi" onclick="quickAdd(this)">Mushroom</span>
+              <span class="qi" onclick="quickAdd(this)">Spring onion</span>
+              <span class="qi" onclick="quickAdd(this)">Lemon</span>
             </div>
           </div>
           <div class="quick-cat">
-            <div class="qcat-title" onclick="toggleCat(this)">🌾 Grains &amp; Dal</div>
+            <div class="qcat-title" onclick="toggleCat(this)">🧀 Dairy &amp; Eggs</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Paneer</span>
+              <span class="qi" onclick="quickAdd(this)">Milk</span>
+              <span class="qi" onclick="quickAdd(this)">Curd</span>
+              <span class="qi" onclick="quickAdd(this)">Butter</span>
+              <span class="qi" onclick="quickAdd(this)">Ghee</span>
+              <span class="qi" onclick="quickAdd(this)">Cheese</span>
+              <span class="qi" onclick="quickAdd(this)">Cream</span>
+              <span class="qi" onclick="quickAdd(this)">Egg</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🌾 Grains &amp; Bakery</div>
             <div class="qcat-items">
               <span class="qi" onclick="quickAdd(this)">Rice</span>
               <span class="qi" onclick="quickAdd(this)">Atta</span>
+              <span class="qi" onclick="quickAdd(this)">Bread</span>
+              <span class="qi" onclick="quickAdd(this)">Poha</span>
+              <span class="qi" onclick="quickAdd(this)">Suji</span>
+              <span class="qi" onclick="quickAdd(this)">Oats</span>
+              <span class="qi" onclick="quickAdd(this)">Pasta</span>
+              <span class="qi" onclick="quickAdd(this)">Noodles</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🫘 Pulses &amp; Beans</div>
+            <div class="qcat-items">
               <span class="qi" onclick="quickAdd(this)">Moong dal</span>
               <span class="qi" onclick="quickAdd(this)">Toor dal</span>
               <span class="qi" onclick="quickAdd(this)">Chana dal</span>
               <span class="qi" onclick="quickAdd(this)">Rajma</span>
               <span class="qi" onclick="quickAdd(this)">Chickpeas</span>
-              <span class="qi" onclick="quickAdd(this)">Poha</span>
-              <span class="qi" onclick="quickAdd(this)">Suji</span>
-              <span class="qi" onclick="quickAdd(this)">Bread</span>
+              <span class="qi" onclick="quickAdd(this)">Besan</span>
+              <span class="qi" onclick="quickAdd(this)">Sprouts</span>
             </div>
           </div>
           <div class="quick-cat">
-            <div class="qcat-title" onclick="toggleCat(this)">🍗 Meat &amp; Fish</div>
+            <div class="qcat-title" onclick="toggleCat(this)">🥩 Protein</div>
             <div class="qcat-items">
               <span class="qi" onclick="quickAdd(this)">Chicken</span>
               <span class="qi" onclick="quickAdd(this)">Mutton</span>
               <span class="qi" onclick="quickAdd(this)">Fish</span>
               <span class="qi" onclick="quickAdd(this)">Prawns</span>
+              <span class="qi" onclick="quickAdd(this)">Tofu</span>
+              <span class="qi" onclick="quickAdd(this)">Soya chunks</span>
             </div>
           </div>
           <div class="quick-cat">
-            <div class="qcat-title" onclick="toggleCat(this)">🍋 Fruits &amp; Others</div>
+            <div class="qcat-title" onclick="toggleCat(this)">🧂 Pantry Essentials</div>
             <div class="qcat-items">
-              <span class="qi" onclick="quickAdd(this)">Lemon</span>
-              <span class="qi" onclick="quickAdd(this)">Banana</span>
-              <span class="qi" onclick="quickAdd(this)">Coconut</span>
+              <span class="qi" onclick="quickAdd(this)">Salt</span>
+              <span class="qi" onclick="quickAdd(this)">Oil</span>
+              <span class="qi" onclick="quickAdd(this)">Sugar</span>
+              <span class="qi" onclick="quickAdd(this)">Turmeric</span>
+              <span class="qi" onclick="quickAdd(this)">Red chili powder</span>
+              <span class="qi" onclick="quickAdd(this)">Coriander powder</span>
+              <span class="qi" onclick="quickAdd(this)">Garam masala</span>
+              <span class="qi" onclick="quickAdd(this)">Cumin</span>
+              <span class="qi" onclick="quickAdd(this)">Black pepper</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🥫 Sauces &amp; Condiments</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Mayonnaise</span>
+              <span class="qi" onclick="quickAdd(this)">Tomato ketchup</span>
+              <span class="qi" onclick="quickAdd(this)">Soy sauce</span>
+              <span class="qi" onclick="quickAdd(this)">Schezwan sauce</span>
+              <span class="qi" onclick="quickAdd(this)">Chilli sauce</span>
+              <span class="qi" onclick="quickAdd(this)">Vinegar</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🌿 Herbs &amp; Seasonings</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Coriander</span>
+              <span class="qi" onclick="quickAdd(this)">Mint</span>
+              <span class="qi" onclick="quickAdd(this)">Green chili</span>
               <span class="qi" onclick="quickAdd(this)">Ginger</span>
               <span class="qi" onclick="quickAdd(this)">Garlic</span>
-              <span class="qi" onclick="quickAdd(this)">Green chili</span>
-              <span class="qi" onclick="quickAdd(this)">Coriander</span>
+              <span class="qi" onclick="quickAdd(this)">Curry leaves</span>
+              <span class="qi" onclick="quickAdd(this)">Methi</span>
+            </div>
+          </div>
+          <div class="quick-cat">
+            <div class="qcat-title" onclick="toggleCat(this)">🥜 Nuts &amp; Seeds</div>
+            <div class="qcat-items">
+              <span class="qi" onclick="quickAdd(this)">Cashews</span>
+              <span class="qi" onclick="quickAdd(this)">Peanuts</span>
+              <span class="qi" onclick="quickAdd(this)">Almonds</span>
+              <span class="qi" onclick="quickAdd(this)">Coconut</span>
+              <span class="qi" onclick="quickAdd(this)">Sesame seeds</span>
             </div>
           </div>
         </div>
@@ -306,10 +359,23 @@
     <p class="vision-sub">Upload a photo of your ingredients — review and edit before searching.</p>
 
     <div id="vision-upload-area" class="vision-upload-area">
-      <button class="btn-find" type="button" onclick="document.getElementById('vision-file').click()">
-        📷 Upload Image
-      </button>
-      <p class="field-hint">A clear, well-lit photo works best.</p>
+      <div class="vision-actions-top">
+        <button class="btn-find" type="button" onclick="document.getElementById('vision-file').click()">
+          📷 Upload Image
+        </button>
+        <button class="btn-find vision-cam-btn" type="button" onclick="startCamera()">
+          📸 Scan Pantry
+        </button>
+      </div>
+      <p class="field-hint">Upload a photo or scan your pantry live — a clear, well-lit shot works best.</p>
+    </div>
+
+    <div id="vision-camera" class="vision-camera" style="display:none">
+      <video id="vision-video" class="vision-video" playsinline autoplay muted></video>
+      <div class="vision-cam-controls">
+        <button class="m-btn" type="button" onclick="cancelCamera()">Cancel</button>
+        <button class="m-btn primary" type="button" onclick="captureCameraPhoto()">📸 Capture</button>
+      </div>
     </div>
 
     <div id="vision-preview-wrap" class="vision-preview-wrap" style="display:none">

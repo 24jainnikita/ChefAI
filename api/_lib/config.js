@@ -38,11 +38,13 @@ const MEAL_MAP = {
   any:       ""
 }
 
-// Staples assumed to always be on hand — passed to Gemini so it doesn't treat
-// them as "missing" ingredients.
+// Staples assumed to always be on hand — treated as available by the matcher so
+// they're never counted as "missing". Aligned with the "Assume Basic Kitchen
+// Staples" option in the UI.
 const PANTRY = [
   "salt", "water", "oil", "sugar", "black pepper",
-  "turmeric", "red chili powder", "cumin seeds", "mustard seeds", "hing", "curry leaves"
+  "turmeric", "red chili powder", "coriander powder", "garam masala",
+  "cumin seeds", "mustard seeds", "hing", "curry leaves"
 ]
 
 // Indian ingredient names → Spoonacular-friendly equivalents. Spoonacular's

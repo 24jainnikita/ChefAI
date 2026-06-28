@@ -24,6 +24,7 @@
 
 const { getRecipes } = require("./_lib/recipeEngine")
 const { formatRecipeResponse, formatError } = require("./_lib/formatter")
+const { normalizeList, normalizeQuantities } = require("./_lib/normalize")
 const cache = require("./_lib/cache")
 
 module.exports = async (req, res) => {
@@ -59,7 +60,15 @@ module.exports = async (req, res) => {
     return res.status(400).json(formatError("Ingredients are required"))
   }
 
-  const params = { ingredients, pantry, quantities, mood, cuisine, diet, meal }
+  // Normalize ingredient names to canonical forms so the engine matches on a
+  // single representation (e.g. "bell pepper"/"shimla mirch" → "capsicum").
+  // This does not change the scoring algorithm — only the names it compares.
+  const params = {
+    ingredients: normalizeList(ingredients),
+    pantry:      normalizeList(pantry),
+    quantities:  normalizeQuantities(quantities),
+    mood, cuisine, diet, meal
+  }
 
   // ── Cache lookup ──────────────────────────────────────────────────────────
   const cacheKey = cache.buildKey(params)

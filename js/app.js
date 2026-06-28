@@ -9,6 +9,24 @@ let currentServings = 2
 let baseServings    = 2
 let currentRecipe   = null
 
+// ══ KITCHEN STAPLES (assumed pantry) ═════════════════
+// Mirrors the documented basic-staples list. When the toggle is on, these are
+// sent as pantry items so recipes are never penalised for needing them.
+const KITCHEN_STAPLES = [
+  "salt", "oil", "water", "turmeric", "red chili powder",
+  "coriander powder", "garam masala", "cumin", "black pepper"
+]
+let assumeStaples = JSON.parse(localStorage.getItem("chefai-staples") ?? "true")
+function toggleStaples(el) {
+  assumeStaples = !!(el && el.checked)
+  localStorage.setItem("chefai-staples", JSON.stringify(assumeStaples))
+}
+// Sync the checkbox with the saved preference (scripts run after the DOM).
+;(function () {
+  const c = document.getElementById("staples-toggle")
+  if (c) c.checked = assumeStaples
+})()
+
 // ══ CLICK SOUND ══════════════════════════════════════
 function playClick() {
   try {
@@ -158,7 +176,8 @@ async function findRecipes() {
   document.getElementById("results-section")?.scrollIntoView({ behavior:"smooth", block:"start" })
 
   try {
-    const recipes = await searchRecipes(ingredients, selectedMood, selectedCuis, selectedDiet, selectedMeal)
+    const pantry = assumeStaples ? KITCHEN_STAPLES : []
+    const recipes = await searchRecipes(ingredients, selectedMood, selectedCuis, selectedDiet, selectedMeal, pantry)
     cacheRecipes(recipes)
 
     if (!recipes || recipes.length === 0) {
@@ -561,13 +580,17 @@ function openVision() {
 
 function closeVision(e) {
   if (e && e.target !== document.getElementById("vision-overlay")) return
+  stopCamera()
   document.getElementById("vision-overlay").classList.remove("open")
   document.body.style.overflow = ""
 }
 
 // Reset modal sections back to the starting state.
 function resetVision() {
+  stopCamera()
   document.getElementById("vision-upload-area").style.display = ""
+  const cam = document.getElementById("vision-camera")
+  if (cam) cam.style.display = "none"
   document.getElementById("vision-preview-wrap").style.display = "none"
   document.getElementById("vision-loading").style.display = "none"
   document.getElementById("vision-results").style.display = "none"
@@ -617,7 +640,7 @@ function compressImage(file, maxDim = 1024, quality = 0.7) {
   })
 }
 
-// File chosen → compress → preview → POST /api/vision → editable table.
+// File chosen → compress → run the SHARED detection pipeline.
 async function handleVisionFile(event) {
   const file = event.target.files && event.target.files[0]
   event.target.value = "" // allow re-selecting the same file later
@@ -631,11 +654,21 @@ async function handleVisionFile(event) {
     showVisionError("Couldn't read that image. Try another photo.")
     return
   }
+  runVisionDetection(dataUrl)
+}
 
-  // Preview + loading state.
+// ── SHARED Vision pipeline ───────────────────────────────────────────────────
+// Both Upload Image and Scan Pantry (camera) funnel a compressed JPEG data URL
+// through here, so there is exactly ONE Vision detection path and ONE request
+// format ({ image: dataUrl }) hitting the existing /api/vision endpoint.
+async function runVisionDetection(dataUrl) {
+  stopCamera() // ensure the live camera is off once we have a frame
+
   document.getElementById("vision-preview").src = dataUrl
   document.getElementById("vision-preview-wrap").style.display = "block"
   document.getElementById("vision-upload-area").style.display = "none"
+  const cam = document.getElementById("vision-camera")
+  if (cam) cam.style.display = "none"
   document.getElementById("vision-results").style.display = "none"
   document.getElementById("vision-loading").style.display = "flex"
 
@@ -664,6 +697,87 @@ async function handleVisionFile(event) {
     document.getElementById("vision-loading").style.display = "none"
     showVisionError("Couldn't reach Vision right now. You can add ingredients manually.")
   }
+}
+
+// ── Native camera capture (Scan Pantry) ──────────────────────────────────────
+// Opens the device camera (rear-facing on mobile), shows a live preview, and on
+// capture produces a compressed JPEG that reuses the SHARED pipeline above.
+let visionStream = null
+
+async function startCamera() {
+  playClick()
+  showVisionError("")
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    showVisionError("Live camera isn't supported on this browser. Please use Upload Image instead.")
+    return
+  }
+
+  document.getElementById("vision-upload-area").style.display = "none"
+  document.getElementById("vision-preview-wrap").style.display = "none"
+  document.getElementById("vision-results").style.display = "none"
+  const camWrap = document.getElementById("vision-camera")
+  camWrap.style.display = "block"
+
+  const video = document.getElementById("vision-video")
+  try {
+    // Prefer the rear camera on phones; fall back to any camera.
+    visionStream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: "environment" } },
+      audio: false
+    })
+    video.srcObject = visionStream
+    await video.play().catch(() => {})
+  } catch (err) {
+    camWrap.style.display = "none"
+    document.getElementById("vision-upload-area").style.display = "" // graceful fallback to upload
+    const name = err && err.name
+    if (name === "NotAllowedError" || name === "SecurityError") {
+      showVisionError("Camera permission was denied. Allow it in your browser settings, or just use Upload Image.")
+    } else if (name === "NotFoundError" || name === "DevicesNotFoundError" || name === "OverconstrainedError") {
+      showVisionError("No camera found on this device — no worries, use Upload Image instead.")
+    } else {
+      showVisionError("Couldn't start the camera. Please use Upload Image instead.")
+    }
+  }
+}
+
+function captureCameraPhoto() {
+  playClick()
+  const video = document.getElementById("vision-video")
+  if (!video || !video.videoWidth) {
+    showVisionError("Camera isn't ready yet — give it a second and try again.")
+    return
+  }
+  const maxDim = 1024
+  let w = video.videoWidth, h = video.videoHeight
+  if (w > h && w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim }
+  else if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim }
+
+  const canvas = document.createElement("canvas")
+  canvas.width = w; canvas.height = h
+  canvas.getContext("2d").drawImage(video, 0, 0, w, h)
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.7) // compress before upload
+
+  stopCamera()
+  runVisionDetection(dataUrl) // same pipeline as Upload Image
+}
+
+function cancelCamera() {
+  playClick()
+  stopCamera()
+  const cam = document.getElementById("vision-camera")
+  if (cam) cam.style.display = "none"
+  document.getElementById("vision-upload-area").style.display = ""
+}
+
+function stopCamera() {
+  if (visionStream) {
+    visionStream.getTracks().forEach(t => t.stop())
+    visionStream = null
+  }
+  const video = document.getElementById("vision-video")
+  if (video) video.srcObject = null
 }
 
 function visionRowHtml(name, qty, unit) {

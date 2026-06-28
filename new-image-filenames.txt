@@ -1,0 +1,29 @@
+# NEW recipe images (Step 5.5) — put each .jpg in images/recipes/
+# Total: 26 new images
+
+01. Veg Mayo Sandwich  ->  veg-mayo-sandwich.jpg
+02. Cheese Corn Sandwich  ->  cheese-corn-sandwich.jpg
+03. Paneer Sandwich  ->  paneer-sandwich.jpg
+04. Grilled Vegetable Sandwich  ->  grilled-vegetable-sandwich.jpg
+05. Open Veg Toast  ->  open-veg-toast.jpg
+06. Cheese Garlic Toast  ->  cheese-garlic-toast.jpg
+07. Garlic Bread  ->  garlic-bread.jpg
+08. Chilli Cheese Toast  ->  chilli-cheese-toast.jpg
+09. Paneer Wrap  ->  paneer-wrap.jpg
+10. Veg Wrap  ->  veg-wrap.jpg
+11. Pasta Arrabbiata  ->  pasta-arrabbiata.jpg
+12. White Sauce Pasta  ->  white-sauce-pasta.jpg
+13. Masala Pasta  ->  masala-pasta.jpg
+14. Egg Fried Rice  ->  egg-fried-rice.jpg
+15. Veg Noodles  ->  veg-noodles.jpg
+16. Schezwan Noodles  ->  schezwan-noodles.jpg
+17. Veg Manchurian  ->  veg-manchurian.jpg
+18. Chilli Paneer  ->  chilli-paneer.jpg
+19. Schezwan Fried Rice  ->  schezwan-fried-rice.jpg
+20. Masala Maggi  ->  masala-maggi.jpg
+21. Masala Oats  ->  masala-oats.jpg
+22. Curd Rice  ->  curd-rice.jpg
+23. Sprouts Salad  ->  sprouts-salad.jpg
+24. Cheese Omelette  ->  cheese-omelette.jpg
+25. Bread Omelette  ->  bread-omelette.jpg
+26. Tomato Soup  ->  tomato-soup.jpg

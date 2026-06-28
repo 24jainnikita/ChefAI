@@ -17,6 +17,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 const path = require("path")
+const { normalizeName } = require("./normalize")
 
 // Load the dataset once per warm serverless instance.
 let RECIPES = []
@@ -29,8 +30,14 @@ try {
 
 // Pre-pair each recipe with its array index. The index is the source of the
 // stable negative id used during normalization, so it must travel with the
-// recipe through filtering and sorting.
-const CANDIDATES = RECIPES.map((recipe, index) => ({ recipe, index }))
+// recipe through filtering and sorting. We also canonicalize each recipe's
+// ingredient names once (idempotent) so engine matching uses normalized names.
+const CANDIDATES = RECIPES.map((recipe, index) => {
+  if (Array.isArray(recipe.ingredients)) {
+    recipe.ingredients.forEach(i => { if (i && i.name) i.name = normalizeName(i.name) })
+  }
+  return { recipe, index }
+})
 
 // Folder (served statically by Vercel from the repo root) for recipe photos.
 const IMAGE_DIR = "/images/recipes"

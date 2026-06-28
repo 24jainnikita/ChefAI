@@ -1973,5 +1973,773 @@
       "Pat the dough directly onto a hot tawa into a thin round.",
       "Drizzle oil, cover and cook both sides until golden, then serve with chutney."
     ]
+  },
+  {
+    "title": "Veg Mayo Sandwich",
+    "emoji": "🥪",
+    "image": "/images/recipes/veg-mayo-sandwich.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["lazy", "snack", "comfort"],
+    "preparationTime": 10,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "cucumber", "amount": 0.5, "unit": "piece"},
+      {"name": "mayonnaise", "amount": 3, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 280, "protein": 7, "carbs": 38, "fat": 11},
+    "instructions": [
+      "Whisk the mayonnaise with a pinch of salt and pepper.",
+      "Thinly slice the tomato, capsicum, onion and cucumber.",
+      "Spread mayo on the bread and layer the veggies.",
+      "Close, grill or toast lightly, slice diagonally and serve."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "butter"],
+    "commonSubstitutions": ["mayonnaise -> hung curd", "bread -> multigrain bread"],
+    "tags": ["sandwich", "quick", "snack", "no-cook", "kid-friendly"]
+  },
+  {
+    "title": "Cheese Corn Sandwich",
+    "emoji": "🌽",
+    "image": "/images/recipes/cheese-corn-sandwich.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "snack", "lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "sweet corn", "amount": 1, "unit": "cup"},
+      {"name": "cheese", "amount": 0.5, "unit": "cup"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "mayonnaise", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 340, "protein": 12, "carbs": 40, "fat": 15},
+    "instructions": [
+      "Boil the sweet corn until tender and drain.",
+      "Mix corn with grated cheese, chopped capsicum, mayo, salt and pepper.",
+      "Spread the filling between bread slices.",
+      "Grill until golden and the cheese melts; serve hot."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "butter"],
+    "commonSubstitutions": ["mayonnaise -> curd", "cheese -> paneer"],
+    "tags": ["sandwich", "cheesy", "snack", "kid-friendly"]
+  },
+  {
+    "title": "Paneer Sandwich",
+    "emoji": "🥪",
+    "image": "/images/recipes/paneer-sandwich.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "healthy", "snack"],
+    "preparationTime": 15,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "paneer", "amount": 1, "unit": "cup"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 360, "protein": 16, "carbs": 38, "fat": 16},
+    "instructions": [
+      "Crumble or grate the paneer and mix with chopped onion, capsicum, tomato and coriander.",
+      "Season with salt, pepper and a little red chili powder.",
+      "Stuff the filling between bread slices.",
+      "Grill with a little butter until crisp and golden."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "red chili powder", "butter"],
+    "commonSubstitutions": ["paneer -> tofu", "bread -> multigrain bread"],
+    "tags": ["sandwich", "high-protein", "snack", "vegetarian"]
+  },
+  {
+    "title": "Grilled Vegetable Sandwich",
+    "emoji": "🥪",
+    "image": "/images/recipes/grilled-vegetable-sandwich.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast", "lunch"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "healthy", "snack"],
+    "preparationTime": 20,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "potato", "amount": 1, "unit": "medium"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "cheese", "amount": 0.25, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 330, "protein": 10, "carbs": 46, "fat": 12},
+    "instructions": [
+      "Boil and slice the potato; thinly slice tomato, capsicum and onion.",
+      "Butter the bread and sprinkle a little chaat masala.",
+      "Layer the veggies and cheese between slices.",
+      "Grill in a sandwich press until crisp and golden, then serve with chutney."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "butter"],
+    "commonSubstitutions": ["cheese -> paneer", "bread -> brown bread"],
+    "tags": ["sandwich", "grilled", "street-food", "snack"]
+  },
+  {
+    "title": "Open Veg Toast",
+    "emoji": "🍞",
+    "image": "/images/recipes/open-veg-toast.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast"],
+    "diet": "vegetarian",
+    "moods": ["lazy", "healthy", "snack"],
+    "preparationTime": 12,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "tomato", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "cheese", "amount": 0.5, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 300, "protein": 11, "carbs": 36, "fat": 12},
+    "instructions": [
+      "Finely chop the tomato, capsicum and onion.",
+      "Top each bread slice with the veggies and grated cheese.",
+      "Sprinkle salt, pepper and a pinch of oregano or chili.",
+      "Toast in an oven or air-fryer until the cheese bubbles."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "butter"],
+    "commonSubstitutions": ["cheese -> paneer", "bread -> multigrain bread"],
+    "tags": ["toast", "open-toast", "quick", "snack"]
+  },
+  {
+    "title": "Cheese Garlic Toast",
+    "emoji": "🧄",
+    "image": "/images/recipes/cheese-garlic-toast.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "snack", "fancy"],
+    "preparationTime": 12,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "garlic", "amount": 5, "unit": "clove"},
+      {"name": "butter", "amount": 3, "unit": "tbsp"},
+      {"name": "cheese", "amount": 0.5, "unit": "cup"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 10, "carbs": 34, "fat": 16},
+    "instructions": [
+      "Mash the garlic into softened butter with chopped coriander.",
+      "Spread generously over the bread.",
+      "Top with grated cheese.",
+      "Toast or bake until golden and the cheese melts."
+    ],
+    "pantryIngredients": ["salt", "black pepper"],
+    "commonSubstitutions": ["cheese -> mozzarella", "coriander -> parsley"],
+    "tags": ["toast", "cheesy", "garlic", "snack", "continental"]
+  },
+  {
+    "title": "Garlic Bread",
+    "emoji": "🥖",
+    "image": "/images/recipes/garlic-bread.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "snack", "fancy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 1, "unit": "loaf"},
+      {"name": "garlic", "amount": 6, "unit": "clove"},
+      {"name": "butter", "amount": 4, "unit": "tbsp"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 310, "protein": 8, "carbs": 40, "fat": 13},
+    "instructions": [
+      "Mix minced garlic and chopped coriander into softened butter.",
+      "Slit a baguette or thick bread without cutting all the way through.",
+      "Spread the garlic butter into the slits and on top.",
+      "Bake at 180°C for 8–10 minutes until crisp and golden."
+    ],
+    "pantryIngredients": ["salt"],
+    "commonSubstitutions": ["coriander -> parsley", "butter -> olive oil"],
+    "tags": ["bakery", "garlic", "continental", "snack"]
+  }
+,
+  {
+    "title": "Chilli Cheese Toast",
+    "emoji": "🌶️",
+    "image": "/images/recipes/chilli-cheese-toast.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "snack"],
+    "preparationTime": 12,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 4, "unit": "slice"},
+      {"name": "cheese", "amount": 0.75, "unit": "cup"},
+      {"name": "green chili", "amount": 2, "unit": "piece"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "butter", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 330, "protein": 13, "carbs": 34, "fat": 16},
+    "instructions": [
+      "Mix grated cheese with finely chopped green chili and capsicum.",
+      "Butter the bread and spread the cheese mixture on top.",
+      "Toast or grill until the cheese melts and bubbles.",
+      "Slice and serve hot."
+    ],
+    "pantryIngredients": ["salt", "black pepper"],
+    "commonSubstitutions": ["cheese -> paneer", "green chili -> red chili powder"],
+    "tags": ["toast", "cheesy", "spicy", "snack"]
+  },
+  {
+    "title": "Paneer Wrap",
+    "emoji": "🌯",
+    "image": "/images/recipes/paneer-wrap.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "snack", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "comfort", "lazy"],
+    "preparationTime": 20,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "atta", "amount": 1.5, "unit": "cup"},
+      {"name": "paneer", "amount": 1, "unit": "cup"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "curd", "amount": 3, "unit": "tbsp"},
+      {"name": "mayonnaise", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 380, "protein": 17, "carbs": 44, "fat": 15},
+    "instructions": [
+      "Knead atta into a soft dough and roll into thin rotis; cook on a tawa.",
+      "Marinate paneer strips in curd and spices, then sauté with onion and capsicum.",
+      "Spread mayo on the roti and add the paneer filling.",
+      "Roll up tightly, wrap in foil and serve."
+    ],
+    "pantryIngredients": ["salt", "oil", "red chili powder", "garam masala"],
+    "commonSubstitutions": ["paneer -> tofu", "atta -> tortilla", "mayonnaise -> curd"],
+    "tags": ["wrap", "roll", "high-protein", "lunch"]
+  },
+  {
+    "title": "Veg Wrap",
+    "emoji": "🌯",
+    "image": "/images/recipes/veg-wrap.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "snack"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 18,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "atta", "amount": 1.5, "unit": "cup"},
+      {"name": "cabbage", "amount": 1, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "mayonnaise", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 8, "carbs": 50, "fat": 10},
+    "instructions": [
+      "Make thin rotis from the atta dough.",
+      "Shred the cabbage, carrot, capsicum and onion into a slaw.",
+      "Toss the slaw with mayo, salt and pepper.",
+      "Fill the roti, roll up and serve fresh."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["mayonnaise -> curd", "atta -> tortilla"],
+    "tags": ["wrap", "roll", "healthy", "quick"]
+  },
+  {
+    "title": "Pasta Arrabbiata",
+    "emoji": "🍝",
+    "image": "/images/recipes/pasta-arrabbiata.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "fancy"],
+    "preparationTime": 25,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "pasta", "amount": 2, "unit": "cup"},
+      {"name": "tomato", "amount": 4, "unit": "medium"},
+      {"name": "garlic", "amount": 5, "unit": "clove"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "red chili powder", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 360, "protein": 11, "carbs": 64, "fat": 8},
+    "instructions": [
+      "Boil the pasta until al dente, reserving a little water.",
+      "Sauté garlic and onion in oil, then add pureed tomatoes and chili flakes.",
+      "Simmer into a spicy red sauce and season with salt.",
+      "Toss the pasta through the sauce and serve hot."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper", "sugar"],
+    "commonSubstitutions": ["pasta -> penne", "red chili powder -> chili flakes"],
+    "tags": ["pasta", "italian", "continental", "spicy"]
+  },
+  {
+    "title": "White Sauce Pasta",
+    "emoji": "🍝",
+    "image": "/images/recipes/white-sauce-pasta.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "fancy"],
+    "preparationTime": 30,
+    "servings": 2,
+    "difficulty": "medium",
+    "ingredients": [
+      {"name": "pasta", "amount": 2, "unit": "cup"},
+      {"name": "milk", "amount": 2, "unit": "cup"},
+      {"name": "flour", "amount": 2, "unit": "tbsp"},
+      {"name": "butter", "amount": 2, "unit": "tbsp"},
+      {"name": "cheese", "amount": 0.5, "unit": "cup"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"}
+    ],
+    "nutrition": {"calories": 440, "protein": 16, "carbs": 58, "fat": 18},
+    "instructions": [
+      "Boil the pasta until al dente.",
+      "Make a roux with butter and flour, then whisk in milk to a smooth sauce.",
+      "Stir in cheese, salt, pepper and sautéed capsicum.",
+      "Fold in the pasta and serve creamy and hot."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "oil"],
+    "commonSubstitutions": ["milk -> plant milk", "flour -> cornflour", "cheese -> mozzarella"],
+    "tags": ["pasta", "creamy", "continental", "comfort"]
+  },
+  {
+    "title": "Masala Pasta",
+    "emoji": "🍝",
+    "image": "/images/recipes/masala-pasta.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner", "snack"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 25,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "pasta", "amount": 2, "unit": "cup"},
+      {"name": "tomato", "amount": 2, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "garam masala", "amount": 1, "unit": "tsp"}
+    ],
+    "nutrition": {"calories": 350, "protein": 10, "carbs": 62, "fat": 8},
+    "instructions": [
+      "Boil the pasta and drain.",
+      "Sauté onion, capsicum and tomato with Indian spices.",
+      "Add the garam masala and a splash of water to form a masala.",
+      "Toss the pasta through and garnish with coriander."
+    ],
+    "pantryIngredients": ["salt", "oil", "turmeric", "red chili powder"],
+    "commonSubstitutions": ["pasta -> macaroni", "garam masala -> pav bhaji masala"],
+    "tags": ["pasta", "fusion", "desi", "quick"]
+  },
+  {
+    "title": "Egg Fried Rice",
+    "emoji": "🍚",
+    "image": "/images/recipes/egg-fried-rice.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "non-vegetarian",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "egg", "amount": 2, "unit": "piece"},
+      {"name": "spring onion", "amount": 0.5, "unit": "cup"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "soy sauce", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 360, "protein": 14, "carbs": 58, "fat": 9},
+    "instructions": [
+      "Use cooked, cooled rice for the best texture.",
+      "Scramble the eggs in hot oil and set aside.",
+      "Stir-fry chopped carrot, capsicum and spring onion on high heat.",
+      "Add rice, egg, soy sauce, salt and pepper; toss and serve."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["soy sauce -> tamari", "egg -> tofu"],
+    "tags": ["indo-chinese", "fried-rice", "high-protein", "quick"]
+  },
+  {
+    "title": "Veg Noodles",
+    "emoji": "🍜",
+    "image": "/images/recipes/veg-noodles.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner", "snack"],
+    "diet": "vegan",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 20,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "noodles", "amount": 2, "unit": "cup"},
+      {"name": "cabbage", "amount": 1, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "spring onion", "amount": 0.5, "unit": "cup"},
+      {"name": "soy sauce", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 320, "protein": 8, "carbs": 56, "fat": 8},
+    "instructions": [
+      "Boil the noodles, drain and toss with a little oil.",
+      "Stir-fry the shredded vegetables on high heat until crisp-tender.",
+      "Add soy sauce, vinegar, salt and pepper.",
+      "Toss in the noodles and serve hot."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["noodles -> hakka noodles", "soy sauce -> tamari"],
+    "tags": ["indo-chinese", "noodles", "quick", "street-food"]
+  }
+,
+  {
+    "title": "Schezwan Noodles",
+    "emoji": "🍜",
+    "image": "/images/recipes/schezwan-noodles.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner", "snack"],
+    "diet": "vegan",
+    "moods": ["comfort", "festive"],
+    "preparationTime": 22,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "noodles", "amount": 2, "unit": "cup"},
+      {"name": "schezwan sauce", "amount": 2, "unit": "tbsp"},
+      {"name": "cabbage", "amount": 1, "unit": "cup"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "spring onion", "amount": 0.5, "unit": "cup"},
+      {"name": "garlic", "amount": 4, "unit": "clove"}
+    ],
+    "nutrition": {"calories": 350, "protein": 9, "carbs": 58, "fat": 10},
+    "instructions": [
+      "Boil and drain the noodles.",
+      "Sauté garlic, then stir-fry the shredded vegetables on high heat.",
+      "Add schezwan sauce, a splash of soy sauce and salt.",
+      "Toss in the noodles until coated and serve hot."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["schezwan sauce -> chilli sauce", "noodles -> hakka noodles"],
+    "tags": ["indo-chinese", "noodles", "spicy", "street-food"]
+  },
+  {
+    "title": "Veg Manchurian",
+    "emoji": "🟤",
+    "image": "/images/recipes/veg-manchurian.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner", "snack"],
+    "diet": "vegetarian",
+    "moods": ["festive", "fancy"],
+    "preparationTime": 35,
+    "servings": 3,
+    "difficulty": "medium",
+    "ingredients": [
+      {"name": "cabbage", "amount": 2, "unit": "cup"},
+      {"name": "carrot", "amount": 1, "unit": "medium"},
+      {"name": "besan", "amount": 0.5, "unit": "cup"},
+      {"name": "soy sauce", "amount": 2, "unit": "tbsp"},
+      {"name": "garlic", "amount": 5, "unit": "clove"},
+      {"name": "spring onion", "amount": 0.5, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 300, "protein": 10, "carbs": 40, "fat": 11},
+    "instructions": [
+      "Grate cabbage and carrot, mix with besan and a little flour, shape into balls and deep fry.",
+      "Sauté garlic and spring onion in oil.",
+      "Add soy sauce, chilli sauce, a little cornflour slurry and water for the gravy.",
+      "Toss in the fried balls just before serving so they stay crisp."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["besan -> cornflour", "soy sauce -> tamari"],
+    "tags": ["indo-chinese", "starter", "festive"]
+  },
+  {
+    "title": "Chilli Paneer",
+    "emoji": "🌶️",
+    "image": "/images/recipes/chilli-paneer.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner", "snack"],
+    "diet": "vegetarian",
+    "moods": ["festive", "fancy", "comfort"],
+    "preparationTime": 30,
+    "servings": 3,
+    "difficulty": "medium",
+    "ingredients": [
+      {"name": "paneer", "amount": 2, "unit": "cup"},
+      {"name": "capsicum", "amount": 1, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "medium"},
+      {"name": "soy sauce", "amount": 2, "unit": "tbsp"},
+      {"name": "chilli sauce", "amount": 1, "unit": "tbsp"},
+      {"name": "garlic", "amount": 5, "unit": "clove"}
+    ],
+    "nutrition": {"calories": 380, "protein": 18, "carbs": 22, "fat": 24},
+    "instructions": [
+      "Toss paneer cubes in cornflour and pan-fry until golden.",
+      "Sauté garlic, onion and capsicum chunks on high heat.",
+      "Add soy sauce, chilli sauce, salt and a little water.",
+      "Toss in the paneer and spring onion; serve hot."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["paneer -> tofu", "chilli sauce -> schezwan sauce"],
+    "tags": ["indo-chinese", "high-protein", "spicy", "starter"]
+  },
+  {
+    "title": "Schezwan Fried Rice",
+    "emoji": "🍚",
+    "image": "/images/recipes/schezwan-fried-rice.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegan",
+    "moods": ["comfort", "lazy"],
+    "preparationTime": 20,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "rice", "amount": 2, "unit": "cup"},
+      {"name": "schezwan sauce", "amount": 2, "unit": "tbsp"},
+      {"name": "capsicum", "amount": 0.5, "unit": "medium"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "spring onion", "amount": 0.5, "unit": "cup"},
+      {"name": "cabbage", "amount": 0.5, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 340, "protein": 8, "carbs": 62, "fat": 8},
+    "instructions": [
+      "Use cooked, cooled rice.",
+      "Stir-fry the chopped vegetables on high heat.",
+      "Add schezwan sauce, salt and pepper.",
+      "Toss in the rice until well coated and serve hot."
+    ],
+    "pantryIngredients": ["salt", "oil", "black pepper"],
+    "commonSubstitutions": ["schezwan sauce -> chilli sauce", "rice -> leftover rice"],
+    "tags": ["indo-chinese", "fried-rice", "spicy", "quick"]
+  },
+  {
+    "title": "Masala Maggi",
+    "emoji": "🍜",
+    "image": "/images/recipes/masala-maggi.jpg",
+    "cuisine": "indian",
+    "mealType": ["snack", "breakfast"],
+    "diet": "vegetarian",
+    "moods": ["lazy", "comfort", "snack"],
+    "preparationTime": 12,
+    "servings": 1,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "noodles", "amount": 1, "unit": "pack"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "capsicum", "amount": 0.25, "unit": "medium"},
+      {"name": "peas", "amount": 0.25, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 350, "protein": 8, "carbs": 52, "fat": 13},
+    "instructions": [
+      "Sauté chopped onion, tomato, capsicum and peas in a little oil.",
+      "Add water and the noodles with the masala sachet.",
+      "Cook until the water is absorbed and the noodles are soft.",
+      "Garnish with coriander and a squeeze of lemon."
+    ],
+    "pantryIngredients": ["oil", "turmeric", "red chili powder"],
+    "commonSubstitutions": ["noodles -> any instant noodles", "peas -> sweet corn"],
+    "tags": ["quick", "10-minute", "comfort", "student-special"]
+  },
+  {
+    "title": "Masala Oats",
+    "emoji": "🥣",
+    "image": "/images/recipes/masala-oats.jpg",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "snack"],
+    "diet": "vegetarian",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 15,
+    "servings": 1,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "oats", "amount": 1, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "carrot", "amount": 1, "unit": "small"},
+      {"name": "peas", "amount": 0.25, "unit": "cup"}
+    ],
+    "nutrition": {"calories": 240, "protein": 9, "carbs": 38, "fat": 6},
+    "instructions": [
+      "Temper cumin and sauté onion, tomato, carrot and peas.",
+      "Add turmeric, salt and a little water.",
+      "Stir in the oats and cook 3–4 minutes until soft.",
+      "Finish with coriander and lemon."
+    ],
+    "pantryIngredients": ["salt", "oil", "turmeric", "cumin seeds"],
+    "commonSubstitutions": ["oats -> broken wheat", "peas -> sweet corn"],
+    "tags": ["healthy", "high-fibre", "low-calorie", "quick"]
+  },
+  {
+    "title": "Curd Rice",
+    "emoji": "🍚",
+    "image": "/images/recipes/curd-rice.jpg",
+    "cuisine": "indian",
+    "mealType": ["lunch", "dinner"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "healthy", "lazy"],
+    "preparationTime": 15,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "rice", "amount": 1.5, "unit": "cup"},
+      {"name": "curd", "amount": 1.5, "unit": "cup"},
+      {"name": "ginger", "amount": 1, "unit": "inch"},
+      {"name": "green chili", "amount": 1, "unit": "piece"},
+      {"name": "curry leaves", "amount": 8, "unit": "leaf"}
+    ],
+    "nutrition": {"calories": 280, "protein": 8, "carbs": 50, "fat": 5},
+    "instructions": [
+      "Mash soft-cooked rice and let it cool.",
+      "Mix in the curd, salt and a little milk for creaminess.",
+      "Temper mustard seeds, curry leaves, ginger and green chili.",
+      "Stir the tempering through and serve chilled or at room temperature."
+    ],
+    "pantryIngredients": ["salt", "oil", "mustard seeds"],
+    "commonSubstitutions": ["curd -> coconut yogurt", "rice -> leftover rice"],
+    "tags": ["comfort", "cooling", "south-indian", "quick"]
+  }
+,
+  {
+    "title": "Sprouts Salad",
+    "emoji": "🥗",
+    "image": "/images/recipes/sprouts-salad.jpg",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "snack"],
+    "diet": "vegan",
+    "moods": ["healthy", "lazy"],
+    "preparationTime": 10,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "sprouts", "amount": 2, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "tomato", "amount": 1, "unit": "small"},
+      {"name": "cucumber", "amount": 0.5, "unit": "piece"},
+      {"name": "lemon", "amount": 1, "unit": "piece"},
+      {"name": "coriander", "amount": 2, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 180, "protein": 12, "carbs": 28, "fat": 3},
+    "instructions": [
+      "Lightly steam the moong sprouts if you prefer them soft.",
+      "Chop the onion, tomato, cucumber and coriander.",
+      "Toss everything with lemon juice, salt and chaat masala.",
+      "Serve fresh and crunchy."
+    ],
+    "pantryIngredients": ["salt", "black pepper"],
+    "commonSubstitutions": ["sprouts -> boiled chickpeas", "lemon -> lime"],
+    "tags": ["healthy", "high-protein", "low-calorie", "no-cook", "salad"]
+  },
+  {
+    "title": "Cheese Omelette",
+    "emoji": "🍳",
+    "image": "/images/recipes/cheese-omelette.jpg",
+    "cuisine": "indian",
+    "mealType": ["breakfast"],
+    "diet": "non-vegetarian",
+    "moods": ["lazy", "comfort"],
+    "preparationTime": 10,
+    "servings": 1,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "egg", "amount": 2, "unit": "piece"},
+      {"name": "cheese", "amount": 0.25, "unit": "cup"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "capsicum", "amount": 0.25, "unit": "medium"}
+    ],
+    "nutrition": {"calories": 280, "protein": 18, "carbs": 6, "fat": 20},
+    "instructions": [
+      "Beat the eggs with salt and pepper.",
+      "Sauté chopped onion and capsicum, then pour in the eggs.",
+      "Sprinkle grated cheese over one half.",
+      "Fold over once set and serve hot."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "oil"],
+    "commonSubstitutions": ["cheese -> paneer", "egg -> besan batter"],
+    "tags": ["breakfast", "high-protein", "quick", "cheesy"]
+  },
+  {
+    "title": "Bread Omelette",
+    "emoji": "🍳",
+    "image": "/images/recipes/bread-omelette.jpg",
+    "cuisine": "indian",
+    "mealType": ["breakfast", "snack"],
+    "diet": "non-vegetarian",
+    "moods": ["lazy", "comfort", "snack"],
+    "preparationTime": 12,
+    "servings": 1,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "bread", "amount": 2, "unit": "slice"},
+      {"name": "egg", "amount": 2, "unit": "piece"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "capsicum", "amount": 0.25, "unit": "medium"},
+      {"name": "green chili", "amount": 1, "unit": "piece"}
+    ],
+    "nutrition": {"calories": 300, "protein": 16, "carbs": 28, "fat": 14},
+    "instructions": [
+      "Beat the eggs with chopped onion, capsicum, green chili, salt and pepper.",
+      "Pour into a hot oiled pan.",
+      "Place the bread slices on top and press gently.",
+      "Flip to coat both sides in egg and cook until golden; serve hot."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "oil"],
+    "commonSubstitutions": ["bread -> multigrain bread", "egg -> besan batter"],
+    "tags": ["breakfast", "street-food", "high-protein", "quick"]
+  },
+  {
+    "title": "Tomato Soup",
+    "emoji": "🍅",
+    "image": "/images/recipes/tomato-soup.jpg",
+    "cuisine": "indian",
+    "mealType": ["dinner", "snack"],
+    "diet": "vegetarian",
+    "moods": ["comfort", "healthy", "fancy"],
+    "preparationTime": 25,
+    "servings": 2,
+    "difficulty": "easy",
+    "ingredients": [
+      {"name": "tomato", "amount": 5, "unit": "medium"},
+      {"name": "onion", "amount": 1, "unit": "small"},
+      {"name": "garlic", "amount": 3, "unit": "clove"},
+      {"name": "butter", "amount": 1, "unit": "tbsp"},
+      {"name": "cream", "amount": 1, "unit": "tbsp"}
+    ],
+    "nutrition": {"calories": 160, "protein": 4, "carbs": 20, "fat": 8},
+    "instructions": [
+      "Simmer tomato, onion and garlic with water until very soft.",
+      "Blend smooth and strain back into the pan.",
+      "Season with salt, pepper and a little sugar; warm through with butter.",
+      "Swirl in cream and serve hot with croutons."
+    ],
+    "pantryIngredients": ["salt", "black pepper", "sugar"],
+    "commonSubstitutions": ["cream -> coconut cream", "butter -> oil"],
+    "tags": ["soup", "comfort", "low-calorie", "continental"]
   }
 ]

@@ -20,11 +20,11 @@ async function getRecipeDetail(id) {
 }
 
 // ══ MAIN SEARCH — calls your Vercel backend ═══════════
-async function searchRecipes(ingredients, mood, cuisine, diet, meal) {
+async function searchRecipes(ingredients, mood, cuisine, diet, meal, pantry = []) {
   const res = await fetch("/api/recipes", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ingredients, mood, cuisine, diet, meal })
+    body: JSON.stringify({ ingredients, mood, cuisine, diet, meal, pantry })
   })
 
   if (!res.ok) {
