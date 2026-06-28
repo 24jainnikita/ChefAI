@@ -826,3 +826,111 @@ if (typeof openRecipe === "function") {
   }
   if (typeof window !== "undefined") window.openRecipe = openRecipe
 }
+
+// ═════════════════════════════════════════════════════════════════════════════
+// MULTIMODAL INPUT (Step 11) — Voice + Vision launcher
+//
+// Adds two extra ways to talk to Chef Mimi, both feeding the EXISTING pipeline:
+//   🎤 Voice  → browser SpeechRecognition → transcript → chefUserSay() (same as typing)
+//   📷 Vision → opens the EXISTING vision modal (openVision) → existing /api/vision
+//
+// No new backend, no new AI provider, no duplicated Vision UI or logic.
+// ═════════════════════════════════════════════════════════════════════════════
+
+// ── Vision launcher ──────────────────────────────────────────────────────────
+// Reuses the app's existing vision modal (camera + upload + confirmation table).
+function chefVisionTrigger() {
+  // During cooking, scanning means "start a new ingredient search" — confirm first.
+  if (chefMode === "cooking" && chefCookingRecipe) {
+    const ok = window.confirm("Would you like to start a new ingredient search? This will leave cooking mode.")
+    if (!ok) return
+    chefBackToDiscover(true) // exit cooking → discovery (keeps history, drops a divider)
+  }
+  // Hide the chat panel so the existing vision modal is fully visible, then open it.
+  minimizeChef()
+  if (typeof openVision === "function") openVision()
+  else showToast("Vision isn't available right now")
+}
+
+// ── Voice input (client-side Web Speech API only) ────────────────────────────
+let chefRecognition = null
+let chefListening = false
+
+function chefToggleVoice() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+  if (!SR) { showToast("🎤 Voice input isn't supported in this browser"); return }
+  if (chefListening) { stopChefVoice(); return }
+  startChefVoice(SR)
+}
+
+function startChefVoice(SR) {
+  const input = document.getElementById("chef-input")
+  const mic   = document.getElementById("chef-mic")
+  let finalText = ""
+
+  try {
+    chefRecognition = new SR()
+    chefRecognition.lang = "en-IN"          // English (India); recogniser is fully client-side
+    chefRecognition.interimResults = true
+    chefRecognition.continuous = false       // auto-stops after a natural pause
+    chefRecognition.maxAlternatives = 1
+
+    chefListening = true
+    if (mic) mic.classList.add("listening")
+    if (input) { input.dataset.ph = input.placeholder; input.placeholder = "Listening…"; }
+    document.getElementById("chef-companion")?.classList.add("open") // make sure chat is visible
+
+    chefRecognition.onresult = e => {
+      let interim = ""
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const tr = e.results[i][0].transcript
+        if (e.results[i].isFinal) finalText += tr
+        else interim += tr
+      }
+      if (input) input.value = (finalText + interim).trim()
+    }
+
+    chefRecognition.onerror = e => {
+      chefVoiceCleanup()
+      chefRecognition = null
+      if (e.error === "not-allowed" || e.error === "service-not-allowed")
+        showToast("🎤 Microphone permission denied")
+      else if (e.error !== "aborted")
+        showToast("🎤 Couldn't hear that — try again")
+    }
+
+    chefRecognition.onend = () => {
+      const text = (finalText || (input ? input.value : "")).trim()
+      chefVoiceCleanup()
+      chefRecognition = null
+      if (text) { if (input) input.value = ""; chefUserSay(text) } // same path as typed input
+    }
+
+    chefRecognition.start()
+  } catch (err) {
+    chefVoiceCleanup()
+    chefRecognition = null
+    showToast("🎤 Couldn't start voice input")
+  }
+}
+
+// User pressed the mic again (or we need to stop) → end recognition; onend sends text.
+function stopChefVoice() {
+  if (chefRecognition) { try { chefRecognition.stop() } catch (_) {} }
+  else chefVoiceCleanup()
+}
+
+// Reset the listening UI (mic glow + placeholder).
+function chefVoiceCleanup() {
+  chefListening = false
+  const mic = document.getElementById("chef-mic")
+  if (mic) mic.classList.remove("listening")
+  const input = document.getElementById("chef-input")
+  if (input && input.dataset.ph !== undefined) { input.placeholder = input.dataset.ph; delete input.dataset.ph }
+}
+
+// Hide the mic button if the browser has no SpeechRecognition support.
+;(function () {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+  if (!SR) { const m = document.getElementById("chef-mic"); if (m) m.style.display = "none" }
+})()

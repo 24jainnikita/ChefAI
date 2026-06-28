@@ -416,9 +416,11 @@
     <div class="chef-quickchips" id="chef-quickchips"></div>
 
     <div class="chef-input-row">
-      <input id="chef-input" class="chef-input" placeholder="Ask Chef Mimi anything…" autocomplete="off"
+      <input id="chef-input" class="chef-input" placeholder="Ask Chef Mimi…" autocomplete="off"
         onkeydown="if(event.key==='Enter'){event.preventDefault();chefSend();}"/>
-      <button class="chef-send" onclick="chefSend()" aria-label="Send" title="Send">➤</button>
+      <button class="chef-icon-btn" id="chef-cam" type="button" onclick="chefVisionTrigger()" aria-label="Scan or upload ingredients" title="Scan ingredients">📷</button>
+      <button class="chef-icon-btn" id="chef-mic" type="button" onclick="chefToggleVoice()" aria-label="Speak to Chef Mimi" title="Voice input">🎤</button>
+      <button class="chef-send" onclick="chefSend()" aria-label="Send message" title="Send">➤</button>
     </div>
   </div>
 
