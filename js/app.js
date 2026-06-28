@@ -27,6 +27,9 @@ function toggleStaples(el) {
   if (c) c.checked = assumeStaples
 })()
 
+// Remembers the last search so the AI fallback can reuse the exact same inputs.
+let lastSearch = null
+
 // ══ CLICK SOUND ══════════════════════════════════════
 const clickSound = new Audio("/assets/sounds/click.mp3");
 clickSound.preload = "auto";
@@ -166,17 +169,25 @@ async function findRecipes() {
 
   try {
     const pantry = assumeStaples ? KITCHEN_STAPLES : []
+    lastSearch = {
+      ingredients: [...ingredients], pantry, quantities: {},
+      mood: selectedMood, cuisine: selectedCuis, diet: selectedDiet, meal: selectedMeal
+    }
     const recipes = await searchRecipes(ingredients, selectedMood, selectedCuis, selectedDiet, selectedMeal, pantry)
     cacheRecipes(recipes)
 
     if (!recipes || recipes.length === 0) {
-      lbl.textContent = "No results"
-      grid.innerHTML  = emptyState("🍽️","No recipes found","Try adding more ingredients or changing filters")
+      lbl.textContent = "No strong match"
+      grid.innerHTML  = emptyState("🍽️","No close matches found","Try the custom recipe option below, or tweak your ingredients")
+      appendGenerateCard()
       return
     }
 
     lbl.textContent = `${recipes.length} recipes crafted for you`
     renderRecipes(recipes, grid)
+
+    // AI is offered ONLY when nothing scored a Good/Excellent match.
+    if (!hasStrongMatch(recipes)) appendGenerateCard()
 
   } catch(err) {
     lbl.textContent = "Error"
@@ -275,24 +286,25 @@ function matchChipsHtml(r) {
 }
 
 // ══ RENDER CARDS ═════════════════════════════════════
-function renderRecipes(recipes, container) {
-  container.innerHTML = recipes.map((r, i) => {
-    const fav      = favourites.some(f => f.id === r.id)
-    const dietIcon = r.diet?.includes("vegan") ? "🌱" :
-                     r.diet?.includes("veg")   ? "🟢" : "🔴"
-    const imgHtml  = r.image
-      ? `<img src="${r.image}" alt="${escStr(r.title)}"
-           onload="this.style.opacity=1"
-           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
-           style="opacity:0;transition:opacity .4s;width:100%;height:100%;object-fit:cover" loading="lazy"/>
-         <div class="card-img-fallback">${r.emoji || "🍽️"}</div>`
-      : `<div class="card-img-fallback" style="display:flex">${r.emoji || "🍽️"}</div>`
+function recipeCardHtml(r, i) {
+  const fav      = favourites.some(f => f.id === r.id)
+  const dietIcon = r.diet?.includes("vegan") ? "🌱" :
+                   r.diet?.includes("veg")   ? "🟢" : "🔴"
+  const imgHtml  = r.image
+    ? `<img src="${r.image}" alt="${escStr(r.title)}"
+         onload="this.style.opacity=1"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+         style="opacity:0;transition:opacity .4s;width:100%;height:100%;object-fit:cover" loading="lazy"/>
+       <div class="card-img-fallback">${r.emoji || "🍽️"}</div>`
+    : `<div class="card-img-fallback" style="display:flex">${r.emoji || "🍽️"}</div>`
+  const aiBadge = r.aiGenerated ? `<span class="ai-badge">✨ AI Generated</span>` : ""
 
-    return `
+  return `
     <div class="recipe-card" style="animation-delay:${i*.07}s" onclick="openRecipe(${r.id})">
       <div class="card-img">
         ${imgHtml}
         <span class="diet-dot" title="${r.diet || ""}">${dietIcon}</span>
+        ${aiBadge}
         <button class="card-heart ${fav?"loved":""}"
           onclick="event.stopPropagation();quickFav(${r.id},'${escStr(r.title)}',${JSON.stringify(r.image||"")},this)"
           title="${fav?"Remove":"Save"}">
@@ -310,8 +322,68 @@ function renderRecipes(recipes, container) {
         </div>
       </div>
     </div>`
-  }).join("")
 }
+
+function renderRecipes(recipes, container) {
+  container.innerHTML = recipes.map((r, i) => recipeCardHtml(r, i)).join("")
+}
+
+// ══ AI FALLBACK — offer a custom recipe only after weak matches ═══════
+// A result is "strong" if any recipe is a Good (≥75%) or Excellent (≥90%) match.
+function hasStrongMatch(recipes) {
+  return recipes.some(r => typeof r.matchScore === "number" && r.matchScore >= 0.75)
+}
+
+// Suggestion card shown when no strong match exists (does NOT call AI yet).
+function appendGenerateCard() {
+  const grid = document.getElementById("recipe-grid")
+  if (!grid || document.getElementById("generate-card")) return
+  grid.insertAdjacentHTML("beforeend", `
+    <div class="generate-card" id="generate-card">
+      <div class="generate-inner">
+        <div class="generate-spark">✨</div>
+        <p class="generate-title">Couldn't find the perfect recipe?</p>
+        <p class="generate-sub">I can create a completely new recipe from your ingredients and preferences.</p>
+        <button class="btn-find generate-btn" type="button" onclick="generateCustomRecipe(this)">✨ Generate Custom Recipe</button>
+      </div>
+    </div>`)
+}
+
+// Called ONLY when the user clicks the button. One click → one recipe.
+async function generateCustomRecipe(btn) {
+  if (!lastSearch) return
+  btn.disabled = true
+  btn.innerHTML = `<span class="spinner"></span> Creating your recipe…`
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(lastSearch)
+    })
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok || !data.recipe) throw new Error((data && data.error) || "generation failed")
+
+    const recipe = data.recipe
+    cacheRecipes([recipe])
+    const card = document.getElementById("generate-card")
+    if (card) card.remove()
+    const grid = document.getElementById("recipe-grid")
+    grid.insertAdjacentHTML("afterbegin", recipeCardHtml(recipe, 0))
+    const lbl = document.getElementById("results-label")
+    if (lbl) lbl.textContent = "Your custom recipe is ready ✨"
+    showToast("✨ Created a custom recipe just for you!")
+  } catch (err) {
+    const card = document.getElementById("generate-card")
+    if (card) {
+      card.querySelector(".generate-inner").innerHTML =
+        `<div class="generate-spark">😔</div>
+         <p class="generate-title">Couldn't create a recipe right now</p>
+         <p class="generate-sub">I'm unable to generate a custom recipe at the moment. You can still explore the recipes ChefAI recommended above.</p>`
+    }
+    console.error("Generate failed:", err.message)
+  }
+}
+
 
 // ══ MODAL ════════════════════════════════════════════
 async function openRecipe(id) {
@@ -351,6 +423,7 @@ async function openRecipe(id) {
       </div>
 
       ${matchBlockHtml(d)}
+      ${d.aiGenerated ? `<div class="ai-note"><span class="ai-note-tag">✨ AI Generated</span><span class="ai-note-text">Created for you because no strong recipe match was available.</span></div>` : ""}
       ${whyHtml(d)}
       ${matchChipsHtml(d)}
 
@@ -375,6 +448,12 @@ async function openRecipe(id) {
       <div class="modal-section">Ingredients</div>
       <ul class="ing-list" id="modal-ing-list">
         ${renderIngList(d.ingredients, currentServings, baseServings)}
+      </ul>` : ""}
+
+      ${d.optionalIngredients?.length ? `
+      <div class="modal-section">Optional additional ingredients</div>
+      <ul class="ing-list ing-list-opt">
+        ${d.optionalIngredients.map(i => `<li>${i.amount ? `<strong>${i.amount} ${i.unit||""}</strong>` : ""} ${i.name}</li>`).join("")}
       </ul>` : ""}
 
       ${d.steps?.length ? `
