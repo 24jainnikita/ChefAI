@@ -64,7 +64,7 @@ async function callGemini(base64, mimeType, key) {
         }],
         generationConfig: { temperature: 0.2, maxOutputTokens: 1024 }
       })
-    })
+    }, 0) // retries = 0 → one call per key (no 3s backoff). Backup key is the fallback.
     if (!res.ok) return null
     return await res.json()
   } catch {

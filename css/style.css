@@ -1325,3 +1325,277 @@ body {
   object-fit: cover;
   vertical-align: middle;
 }
+
+/* ══ VISION / PHOTO SCAN ══════════════════════════════════════════════ */
+.btn-scan{
+  border:1px solid #C4622D;
+  background:#FFF;
+  color:#C4622D;
+  font-family:'Outfit',sans-serif;
+  font-weight:600;
+  font-size:14px;
+  padding:0 16px;
+  border-radius:10px;
+  cursor:pointer;
+  white-space:nowrap;
+  transition:background .2s,color .2s;
+}
+.btn-scan:hover{ background:#C4622D; color:#FFF; }
+
+.vision-overlay{
+  position:fixed; inset:0;
+  background:rgba(44,24,16,.55);
+  backdrop-filter:blur(3px);
+  display:flex; align-items:flex-start; justify-content:center;
+  padding:40px 16px;
+  opacity:0; visibility:hidden;
+  transition:opacity .25s;
+  z-index:1000;
+  overflow-y:auto;
+}
+.vision-overlay.open{ opacity:1; visibility:visible; }
+
+.vision-box{
+  position:relative;
+  background:#FFFDF8;
+  border:1px solid #E8DCC8;
+  border-radius:18px;
+  width:100%; max-width:560px;
+  padding:32px 28px 28px;
+  box-shadow:0 24px 60px rgba(44,24,16,.25);
+}
+.vision-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px; font-weight:700;
+  color:#2C1810; margin:0 0 4px;
+}
+.vision-title em{ color:#C4622D; font-style:italic; }
+.vision-sub{
+  font-family:'Outfit',sans-serif;
+  font-size:14px; color:#7A6A58; margin:0 0 20px;
+}
+
+.vision-upload-area{ text-align:center; padding:14px 0; }
+
+.vision-preview-wrap{ margin:8px 0 16px; text-align:center; }
+.vision-preview{
+  max-width:100%; max-height:220px;
+  border-radius:12px; border:1px solid #E8DCC8;
+  object-fit:contain;
+}
+
+.vision-loading{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  font-family:'Outfit',sans-serif; font-size:15px; color:#C4622D;
+  padding:18px 0;
+}
+
+.vision-error{
+  font-family:'Outfit',sans-serif; font-size:14px; color:#9A3412;
+  background:#FDEDE6; border:1px solid #F3C9B6;
+  border-radius:10px; padding:12px 14px; margin:8px 0;
+}
+.vision-error .vision-manual-btn{
+  display:inline-block; margin-top:8px;
+  background:none; border:none; color:#C4622D;
+  font-weight:600; cursor:pointer; text-decoration:underline;
+  font-family:'Outfit',sans-serif; font-size:14px; padding:0;
+}
+
+.vision-table-head,
+.vision-row{
+  display:grid;
+  grid-template-columns:1fr 70px 90px 32px;
+  gap:8px; align-items:center;
+}
+.vision-table-head{
+  font-family:'Outfit',sans-serif; font-size:12px; font-weight:600;
+  text-transform:uppercase; letter-spacing:.05em; color:#A08A72;
+  padding:0 2px 8px;
+}
+.vision-rows{ display:flex; flex-direction:column; gap:8px; }
+.vision-row input{
+  width:100%;
+  font-family:'Outfit',sans-serif; font-size:14px;
+  padding:8px 10px;
+  border:1px solid #E0D4C0; border-radius:8px;
+  background:#FFF; color:#2C1810;
+}
+.vision-row input:focus{ outline:none; border-color:#C4622D; }
+.vrow-del{
+  border:none; background:#F4ECE0; color:#9A3412;
+  border-radius:8px; cursor:pointer; height:34px; font-size:13px;
+}
+.vrow-del:hover{ background:#F3C9B6; }
+
+.vision-add-row{
+  margin:14px 0 4px;
+  background:none; border:1px dashed #C4A882; color:#7A6A58;
+  border-radius:8px; padding:8px 12px; cursor:pointer;
+  font-family:'Outfit',sans-serif; font-size:13px; font-weight:500;
+}
+.vision-add-row:hover{ border-color:#C4622D; color:#C4622D; }
+
+.vision-actions{
+  display:flex; gap:10px; justify-content:flex-end;
+  margin-top:18px; padding-top:16px;
+  border-top:1px solid #EEE4D4;
+}
+
+/* ══ CHEFAI COMPANION — MASCOT + CHAT ══════════════════════════════════ */
+.chef-companion{
+  position:fixed; right:24px; bottom:24px;
+  z-index:1500;
+  font-family:'Outfit',sans-serif;
+}
+
+/* ── floating mascot launcher ── */
+.chef-launcher{
+  position:relative;
+  width:104px; height:116px;
+  border:none; background:none; cursor:pointer; padding:0;
+  transition:transform .28s cubic-bezier(.34,1.56,.64,1), opacity .25s;
+  filter:drop-shadow(0 10px 16px rgba(44,24,16,.22));
+}
+.chef-launcher:hover{ transform:translateY(-5px) scale(1.05); }
+.chef-mascot-slot{ display:block; width:100%; height:100%; }
+.chef-svg{ width:100%; height:100%; display:block; overflow:visible; }
+
+/* speech bubble */
+.chef-speech{
+  position:absolute; bottom:104px; right:0;
+  background:#FFFDF8; color:#2C1810;
+  border:1.5px solid #E8DCC8; border-radius:14px 14px 4px 14px;
+  padding:8px 12px; font-size:13px; font-weight:500; white-space:nowrap;
+  box-shadow:0 8px 20px rgba(44,24,16,.16);
+  opacity:0; transform:translateY(6px) scale(.9); transform-origin:bottom right;
+  transition:opacity .25s, transform .25s; pointer-events:none;
+}
+.chef-launcher:hover .chef-speech,
+.chef-speech.peek{ opacity:1; transform:translateY(0) scale(1); }
+
+/* ── mascot animations ── */
+.chef-launcher .chef-svg{ animation:chefFloat 3.6s ease-in-out infinite; }
+.chef-head{ transform-box:fill-box; transform-origin:center bottom; animation:chefBreathe 3.6s ease-in-out infinite; }
+.chef-eye{ transform-box:fill-box; transform-origin:center; animation:chefBlink 4.6s ease-in-out infinite; }
+.chef-arm{ transform-box:fill-box; transform-origin:bottom center; }
+.chef-smile{ transform-box:fill-box; transform-origin:center; transition:transform .25s; }
+.chef-launcher:hover .chef-arm{ animation:chefWave .62s ease-in-out infinite; }
+.chef-launcher:hover .chef-smile{ transform:scale(1.14); }
+
+@keyframes chefFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-7px); } }
+@keyframes chefBreathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.04); } }
+@keyframes chefBlink{ 0%,92%,100%{ transform:scaleY(1); } 96%{ transform:scaleY(.1); } }
+@keyframes chefWave{ 0%,100%{ transform:rotate(-6deg); } 50%{ transform:rotate(20deg); } }
+
+/* ── chat window (grows from the character) ── */
+.chef-chat{
+  position:absolute; right:0; bottom:0;
+  width:360px; height:560px; max-height:calc(100vh - 48px);
+  display:flex; flex-direction:column;
+  background:#FFFDF8; border:1px solid #E8DCC8; border-radius:22px;
+  box-shadow:0 24px 60px rgba(44,24,16,.28);
+  overflow:hidden;
+  transform-origin:bottom right; transform:scale(.18) translateY(20px);
+  opacity:0; pointer-events:none;
+  transition:transform .34s cubic-bezier(.34,1.4,.64,1), opacity .26s;
+}
+.chef-companion.open .chef-chat{ transform:scale(1) translateY(0); opacity:1; pointer-events:auto; }
+.chef-companion.open .chef-launcher{ opacity:0; pointer-events:none; transform:scale(.35); }
+
+/* header with mini mascot attached */
+.chef-header{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 12px 12px 14px;
+  background:linear-gradient(135deg,#C4622D,#A84A22);
+  color:#FFF8EF;
+}
+.chef-mini{ width:46px; height:50px; flex:0 0 auto; }
+.chef-mini .chef-svg{ animation:chefFloat 3.6s ease-in-out infinite; }
+.chef-id{ display:flex; flex-direction:column; line-height:1.25; flex:1; }
+.chef-name{ font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:700; }
+.chef-status{ font-size:11px; opacity:.9; display:flex; align-items:center; gap:5px; }
+.chef-dot{ width:7px; height:7px; border-radius:50%; background:#8BE38B; box-shadow:0 0 0 0 rgba(139,227,139,.7); animation:chefPulse 2s infinite; }
+@keyframes chefPulse{ 0%{ box-shadow:0 0 0 0 rgba(139,227,139,.6);} 70%{ box-shadow:0 0 0 7px rgba(139,227,139,0);} 100%{ box-shadow:0 0 0 0 rgba(139,227,139,0);} }
+.chef-controls{ display:flex; gap:4px; }
+.chef-ctrl{
+  width:30px; height:30px; border:none; border-radius:9px; cursor:pointer;
+  background:rgba(255,255,255,.16); color:#FFF; font-size:16px; line-height:1;
+  transition:background .2s;
+}
+.chef-ctrl:hover{ background:rgba(255,255,255,.32); }
+
+/* messages */
+.chef-messages{
+  flex:1; overflow-y:auto; padding:16px 14px 6px;
+  display:flex; flex-direction:column; gap:12px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(196,98,45,.05), transparent 40%),
+    #FFFDF8;
+  scroll-behavior:smooth;
+}
+.chef-msg{ display:flex; flex-direction:column; max-width:84%; }
+.chef-msg.bot{ align-self:flex-start; align-items:flex-start; }
+.chef-msg.user{ align-self:flex-end; align-items:flex-end; }
+.chef-bubble{
+  padding:10px 13px; border-radius:16px; font-size:14px; line-height:1.5;
+  word-wrap:break-word; white-space:pre-wrap;
+}
+.chef-msg.bot .chef-bubble{ background:#F4ECDF; color:#2C1810; border-bottom-left-radius:5px; }
+.chef-msg.user .chef-bubble{ background:#C4622D; color:#FFF8EF; border-bottom-right-radius:5px; }
+.chef-time{ font-size:10.5px; color:#A8957E; margin:4px 4px 0; }
+
+/* typing indicator */
+.chef-typing{ display:flex; gap:4px; padding:12px 14px; }
+.chef-typing span{
+  width:7px; height:7px; border-radius:50%; background:#C4622D; opacity:.5;
+  animation:chefTyping 1.2s infinite ease-in-out;
+}
+.chef-typing span:nth-child(2){ animation-delay:.18s; }
+.chef-typing span:nth-child(3){ animation-delay:.36s; }
+@keyframes chefTyping{ 0%,60%,100%{ transform:translateY(0); opacity:.4; } 30%{ transform:translateY(-5px); opacity:1; } }
+
+/* suggested prompts (in-chat) */
+.chef-suggestions{ display:flex; flex-wrap:wrap; gap:7px; margin-top:4px; }
+.chef-sugg{
+  background:#FFF; border:1.5px solid #E2D2BC; color:#9A4A22;
+  border-radius:14px; padding:7px 12px; font-size:12.5px; font-weight:500;
+  cursor:pointer; font-family:'Outfit',sans-serif; transition:all .18s;
+}
+.chef-sugg:hover{ background:#C4622D; color:#FFF; border-color:#C4622D; }
+
+/* quick action chips (persistent bar) */
+.chef-quickchips{
+  display:flex; gap:7px; padding:8px 12px; overflow-x:auto;
+  border-top:1px solid #EEE4D4; background:#FBF5EA;
+}
+.chef-quickchips::-webkit-scrollbar{ height:0; }
+.chef-chip{
+  white-space:nowrap; flex:0 0 auto;
+  background:#FFF; border:1.5px solid #E2D2BC; color:#5C4A38;
+  border-radius:20px; padding:6px 12px; font-size:12.5px; font-weight:500;
+  cursor:pointer; font-family:'Outfit',sans-serif; transition:all .18s;
+}
+.chef-chip:hover{ background:#F0C27B; border-color:#C99A52; color:#2C1810; }
+
+/* input */
+.chef-input-row{ display:flex; gap:8px; padding:12px; border-top:1px solid #EEE4D4; }
+.chef-input{
+  flex:1; border:1.5px solid #E0D4C0; border-radius:22px;
+  padding:11px 15px; font-size:14px; font-family:'Outfit',sans-serif;
+  color:#2C1810; background:#FFF;
+}
+.chef-input:focus{ outline:none; border-color:#C4622D; }
+.chef-send{
+  width:44px; height:44px; flex:0 0 auto; border:none; border-radius:50%;
+  background:#C4622D; color:#FFF; font-size:16px; cursor:pointer;
+  transition:transform .15s, background .2s;
+}
+.chef-send:hover{ background:#A84A22; transform:scale(1.07); }
+
+/* responsive */
+@media (max-width:480px){
+  .chef-companion{ right:14px; bottom:14px; }
+  .chef-chat{ width:calc(100vw - 28px); height:calc(100vh - 120px); }
+  .chef-launcher{ width:88px; height:98px; }
+}

@@ -537,3 +537,187 @@ function handleAuthClick() {
     signInWithGoogle()
   }
 }
+
+// ══ VISION — PHOTO INGREDIENT DETECTION ══════════════════════════════
+// Detects ingredients from a photo, lets the user review/edit them, then
+// feeds the confirmed names into the EXISTING manual flow (addIngredient +
+// findRecipes). No new search pipeline is created.
+
+// Escape a value for safe use inside an HTML attribute.
+function escAttr(s) {
+  return String(s === null || s === undefined ? "" : s)
+    .replace(/&/g, "&amp;").replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;").replace(/>/g, "&gt;")
+}
+
+// Open the vision modal in its initial (upload) state.
+function openVision() {
+  playClick()
+  resetVision()
+  const ov = document.getElementById("vision-overlay")
+  ov.classList.add("open")
+  document.body.style.overflow = "hidden"
+}
+
+function closeVision(e) {
+  if (e && e.target !== document.getElementById("vision-overlay")) return
+  document.getElementById("vision-overlay").classList.remove("open")
+  document.body.style.overflow = ""
+}
+
+// Reset modal sections back to the starting state.
+function resetVision() {
+  document.getElementById("vision-upload-area").style.display = ""
+  document.getElementById("vision-preview-wrap").style.display = "none"
+  document.getElementById("vision-loading").style.display = "none"
+  document.getElementById("vision-results").style.display = "none"
+  document.getElementById("vision-rows").innerHTML = ""
+  showVisionError("")
+  document.getElementById("vision-preview").src = ""
+}
+
+// Show (or clear) the error panel. When shown, include a one-click escape to
+// manual entry so the recipe-search flow is never blocked.
+function showVisionError(msg) {
+  const el = document.getElementById("vision-error")
+  if (!msg) { el.style.display = "none"; el.innerHTML = ""; return }
+  el.innerHTML = `${msg}<br/><button class="vision-manual-btn" type="button" onclick="visionToManual()">Enter ingredients manually</button>`
+  el.style.display = "block"
+}
+
+function visionToManual() {
+  closeVision()
+  document.getElementById("ing-input").focus()
+  showToast("✍️ Add your ingredients manually")
+}
+
+// Downscale + compress the chosen image to a JPEG data URL before upload.
+function compressImage(file, maxDim = 1024, quality = 0.7) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onerror = reject
+    reader.onload = e => {
+      const img = new Image()
+      img.onerror = reject
+      img.onload = () => {
+        let { width, height } = img
+        if (width > height && width > maxDim) {
+          height = Math.round(height * maxDim / width); width = maxDim
+        } else if (height > maxDim) {
+          width = Math.round(width * maxDim / height); height = maxDim
+        }
+        const canvas = document.createElement("canvas")
+        canvas.width = width; canvas.height = height
+        canvas.getContext("2d").drawImage(img, 0, 0, width, height)
+        resolve(canvas.toDataURL("image/jpeg", quality))
+      }
+      img.src = e.target.result
+    }
+    reader.readAsDataURL(file)
+  })
+}
+
+// File chosen → compress → preview → POST /api/vision → editable table.
+async function handleVisionFile(event) {
+  const file = event.target.files && event.target.files[0]
+  event.target.value = "" // allow re-selecting the same file later
+  if (!file) return
+
+  showVisionError("")
+  let dataUrl
+  try {
+    dataUrl = await compressImage(file)
+  } catch (_) {
+    showVisionError("Couldn't read that image. Try another photo.")
+    return
+  }
+
+  // Preview + loading state.
+  document.getElementById("vision-preview").src = dataUrl
+  document.getElementById("vision-preview-wrap").style.display = "block"
+  document.getElementById("vision-upload-area").style.display = "none"
+  document.getElementById("vision-results").style.display = "none"
+  document.getElementById("vision-loading").style.display = "flex"
+
+  try {
+    const res = await fetch("/api/vision", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ image: dataUrl })
+    })
+    const data = await res.json().catch(() => ({}))
+    document.getElementById("vision-loading").style.display = "none"
+
+    if (!res.ok) {
+      showVisionError((data && data.error) || "Vision couldn't process that image.")
+      return
+    }
+    const ings = (data && data.ingredients) || []
+    if (!ings.length) {
+      showVisionError("No ingredients detected. Try a clearer photo, or add them manually.")
+      return
+    }
+
+    renderVisionRows(ings)
+    document.getElementById("vision-results").style.display = "block"
+  } catch (err) {
+    document.getElementById("vision-loading").style.display = "none"
+    showVisionError("Couldn't reach Vision right now. You can add ingredients manually.")
+  }
+}
+
+function visionRowHtml(name, qty, unit) {
+  const q = (qty === null || qty === undefined) ? "" : qty
+  return `<div class="vision-row">
+    <input class="vrow-name" value="${escAttr(name)}" placeholder="ingredient"/>
+    <input class="vrow-qty" value="${escAttr(q)}" placeholder="—" inputmode="decimal"/>
+    <input class="vrow-unit" value="${escAttr(unit || "")}" placeholder="unit"/>
+    <button class="vrow-del" type="button" title="Remove" onclick="this.closest('.vision-row').remove()">✕</button>
+  </div>`
+}
+
+function renderVisionRows(ings) {
+  document.getElementById("vision-rows").innerHTML =
+    ings.map(i => visionRowHtml(i.name, i.quantity, i.unit)).join("")
+}
+
+function addVisionRow() {
+  playClick()
+  document.getElementById("vision-rows").insertAdjacentHTML("beforeend", visionRowHtml("", "", ""))
+}
+
+// Confirm → push edited ingredient NAMES into the existing flow and search.
+// mode "once" → use for this search only.
+// mode "save" → also persist to the user's Firestore pantry (merge, no overwrite).
+function confirmVision(mode) {
+  const rows = [...document.querySelectorAll("#vision-rows .vision-row")]
+  const names = []
+  rows.forEach(r => {
+    const n = r.querySelector(".vrow-name").value.trim().toLowerCase()
+    if (n) names.push(n)
+  })
+  if (!names.length) {
+    showVisionError("Add at least one ingredient before searching.")
+    return
+  }
+  playClick()
+
+  if (mode === "save") {
+    if (typeof currentUser !== "undefined" && currentUser && typeof savePantryToFirestore === "function") {
+      savePantryToFirestore(names).then(ok =>
+        showToast(ok ? "🫙 Saved to your pantry!" : "Couldn't save pantry — used for this search")
+      )
+    } else {
+      showToast("Sign in to save your pantry — using these once")
+    }
+  }
+
+  names.forEach(n => addIngredient(n)) // existing manual-entry helper (dedupes + renders tags)
+  closeVision()
+  findRecipes()                        // reuse the existing recipe-search pipeline
+}
+
+// Close the vision modal on Escape too.
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeVision()
+})

@@ -28,6 +28,14 @@ const providers = {
 // Active provider (could later be driven by an env var or request param).
 let activeProvider = geminiProvider.name
 
+// Reasoning is ON by default (preserves full AI for demos / production). Set the
+// env var ENABLE_REASONING=false to skip the Reasoning Engine entirely — useful
+// during development to conserve Gemini quota and prioritise it for Vision.
+// The implementation is never removed; only the call is gated.
+function isReasoningEnabled() {
+  return String(process.env.ENABLE_REASONING || "").toLowerCase() !== "false"
+}
+
 // Register or replace a provider implementation.
 function registerProvider(provider) {
   if (!provider || !provider.name || typeof provider.enhance !== "function") {
@@ -45,6 +53,12 @@ function useProvider(name) {
 // Always resolves to { recipes, moodTip }. If the provider is unavailable or
 // throws, returns the input recipes unchanged with an empty moodTip.
 async function enhance(recipes, context = {}, keys = {}) {
+  // Feature flag: when reasoning is disabled, skip the engine entirely and
+  // return the JavaScript-ranked recipes untouched (no Gemini call at all).
+  if (!isReasoningEnabled()) {
+    return { recipes, moodTip: "" }
+  }
+
   const provider = providers[activeProvider]
   if (!provider || !provider.isAvailable(keys)) {
     return { recipes, moodTip: "" }

@@ -136,3 +136,51 @@ async function saveUserProfile(user) {
     console.error("Profile save failed:", err.message)
   }
 }
+
+// ══ SAVE INGREDIENTS TO PANTRY (Firestore) ════════════════
+// Merge-writes each confirmed ingredient as its own doc in the user's pantry
+// subcollection. Per-item docs with { merge:true } ADD to the pantry without
+// ever overwriting existing pantry data.
+async function savePantryToFirestore(items) {
+  if (!currentUser || !items || !items.length) return false
+  try {
+    const batch = db.batch()
+    items.forEach(name => {
+      const clean = String(name).trim().toLowerCase()
+      if (!clean) return
+      const id = clean.replace(/[\/#?.\[\]]/g, "-").slice(0, 120) // Firestore-safe doc id
+      const ref = db
+        .collection("users")
+        .doc(currentUser.uid)
+        .collection("pantry")
+        .doc(id)
+      batch.set(ref, {
+        name:    clean,
+        savedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true })
+    })
+    await batch.commit()
+    return true
+  } catch (err) {
+    console.error("Pantry save failed:", err.message)
+    return false
+  }
+}
+
+// ══ LOAD PANTRY FROM FIRESTORE ════════════════════════════
+// Returns an array of saved ingredient names (newest first), or [] on failure.
+async function loadPantryFromFirestore() {
+  if (!currentUser) return []
+  try {
+    const snapshot = await db
+      .collection("users")
+      .doc(currentUser.uid)
+      .collection("pantry")
+      .orderBy("savedAt", "desc")
+      .get()
+    return snapshot.docs.map(doc => doc.data().name).filter(Boolean)
+  } catch (err) {
+    console.error("Pantry load failed:", err.message)
+    return []
+  }
+}
