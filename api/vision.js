@@ -64,7 +64,12 @@ module.exports = async (req, res) => {
     return res.status(200).json({ ingredients: result.ingredients })
   } catch (err) {
     console.error("Vision error:", err.message)
-    // 502: detection attempted but failed. Client should fall back to manual.
-    return res.status(502).json(formatError(err.message || "Vision detection failed"))
+    const is429 = err.message?.includes("429")
+    return res
+      .status(is429 ? 429 : 502)
+      .json(formatError(is429
+        ? "Vision quota exhausted — try again in a minute or add ingredients manually"
+        : err.message || "Vision detection failed"
+      ))
   }
 }

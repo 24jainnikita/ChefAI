@@ -478,6 +478,9 @@ async function handleChefIntent(text) {
     case "DISH":
       chefHandleDish(cls.dish, cls.entities)
       return
+    case "DIRECT_RECIPE":
+      chefHandleDirectRecipe(cls.directQuery)
+      return
     case "DISCOVERY":
       chefHandleDiscovery(cls.entities)
       return
@@ -677,6 +680,14 @@ function handleCookingIntent(text) {
 
   // 4b) A dish / craving (e.g. "I want noodles") → discovery.
   if (chefDetectDish(t)) return switchToDiscovery(text)
+
+  // 4c) Direct recipe request while cooking → exit cooking, load new recipe.
+  const directQ = chefDetectDirectRecipe(t)
+  if (directQ) {
+    chefBackToDiscover(true)
+    chefHandleDirectRecipe(directQ)
+    return
+  }
 
   // 5) A fresh ingredient / filter message (e.g. "I have paneer and rice") → discovery.
   if (chefHasEntities(chefUnderstand(text))) return switchToDiscovery(text)
@@ -1008,12 +1019,18 @@ function chefIsDiscoveryRequest(t) {
     || /something (to eat|tasty|nice|good|different|sweet|spicy)/.test(t)
 }
 
-// Returns { intent, entities?, dish? }
+// Returns { intent, entities?, dish?, directQuery? }
 function chefClassifyIntent(text) {
   const t = (text || "").toLowerCase().trim()
   const entities = chefUnderstand(text)
 
   if (entities.ingredients.length) return { intent: "INGREDIENT", entities }
+
+  // DIRECT_RECIPE: user explicitly asks for a specific named recipe.
+  // Checked BEFORE generic DISH so "give me the recipe for fried rice" routes
+  // here and not to the ingredient-based recommendation flow.
+  const directQuery = chefDetectDirectRecipe(t)
+  if (directQuery) return { intent: "DIRECT_RECIPE", directQuery }
 
   const dish = chefDetectDish(t)
   if (dish) return { intent: "DISH", dish, entities }
@@ -1073,4 +1090,73 @@ function chefGuidingFallback() {
     "Hmm, let's cook something 🍲 — share a few ingredients or a dish you fancy and I'll take it from there.",
     "Tell me what's in your kitchen, or say something like 'I want noodles' or 'suggest a quick dinner'. 🧺"
   ])
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+// DIRECT RECIPE FLOW
+// Detects "give me the recipe for X" intent and fetches the recipe from the
+// backend (Local DB → Spoonacular → Gemini). Opens the existing recipe modal
+// and enters Cooking Mode exactly like any other recipe. Zero new UI.
+// ═════════════════════════════════════════════════════════════════════════════
+
+// Phrases that signal a direct recipe request.
+const DIRECT_RECIPE_RE = /(?:give me(?: the)?|show me(?: the)?|get me(?: the)?|i want(?: the)?|find(?: the)?|look up(?: the)?|what(?:'s| is)(?: the)?|teach me(?: (how to cook|to (make|cook|prepare)))?|how (?:do i|do you|to) (?:make|cook|prepare)|(?:can you )?(?:make|cook|prepare)(?: me)?|recipe for|recipe of|steps for|method for|how(?:'s| is)(?: the)?)\s+(.{3,60})/i
+
+// Returns the extracted dish name string, or null if this isn't a direct request.
+function chefDetectDirectRecipe(t) {
+  const m = t.match(DIRECT_RECIPE_RE)
+  if (!m) return null
+  const dish = m[m.length - 1]
+    .replace(/^(recipe\s+for|recipe\s+of|for|of|about|on)\s+/i, "")  // strip leading prepositions / "recipe for"
+    .replace(/\b(recipe|dish|food|meal|it|that|one|please|now)\b/gi, "")
+    .replace(/\b(with|using|from|by)\b.*/gi, "")  // stop at "with X" — that's ingredients
+    .replace(/\s+/g, " ")
+    .trim()
+  return dish.length >= 2 ? dish : null
+}
+
+// ── Handler: fetch + open the existing recipe modal ──────────────────────────
+async function chefHandleDirectRecipe(dishName) {
+  if (!dishName) return
+
+  chefBotTyping()
+
+  try {
+    const res = await fetch("/api/recipe-by-name", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: dishName })
+    })
+
+    const data = await res.json().catch(() => ({}))
+    hideTyping()
+
+    if (!res.ok || !data.recipe) {
+      // 404 → guide the user toward ingredient-based search.
+      const msg = res.status === 404
+        ? `I couldn't find a recipe specifically for "${dishName}". Try adding it as an ingredient and I'll find the closest match! 🧺`
+        : `Hmm, something went wrong fetching that recipe. Try searching with ingredients instead. 🍳`
+      chefBotSay(msg)
+      return
+    }
+
+    const recipe = data.recipe
+    const source = recipe.aiGenerated ? "✨ AI-generated" : recipe.source === "local" ? "📚 from my cookbook" : "🌍 from Spoonacular"
+
+    chefBotSay(`Here's the ${recipe.emoji || "🍽️"} **${recipe.title}** recipe (${source})! Opening it now — I'll switch to Cooking Mode so you can ask me anything about it. 👩‍🍳`)
+
+    // Cache the recipe using the existing api.js helper so openRecipe() can find it.
+    if (typeof cacheRecipes === "function") cacheRecipes([recipe])
+
+    // Open the existing recipe modal (same as clicking a recipe card).
+    if (typeof openRecipe === "function") {
+      // Small delay so the chat message renders before the modal opens.
+      setTimeout(() => openRecipe(recipe.id), 320)
+    }
+
+  } catch (err) {
+    hideTyping()
+    chefBotSay(`I couldn't fetch that recipe right now. You can also search with ingredients using the search panel. 🍳`)
+    console.error("chefHandleDirectRecipe:", err.message)
+  }
 }

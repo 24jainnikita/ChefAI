@@ -36,10 +36,19 @@ Rules: list only clearly visible edible ingredients; use singular lowercase name
 async function detect({ data, mimeType = "image/jpeg" } = {}, keys = {}) {
   if (!data) throw new Error("No image data provided")
 
-  let response = await callGemini(data, mimeType, keys.geminiKey)
-  if (!response && keys.geminiBackupKey) {
-    response = await callGemini(data, mimeType, keys.geminiBackupKey)
+  let response = null
+  try {
+    response = await callGemini(data, mimeType, keys.geminiKey)
+  } catch (err) {
+    // Primary key hit 429 — try backup before giving up.
+    if (err.message?.includes("429") && keys.geminiBackupKey) {
+      try { response = await callGemini(data, mimeType, keys.geminiBackupKey) }
+      catch (err2) { throw new Error("429: Vision quota exhausted on both keys") }
+    } else {
+      throw err
+    }
   }
+
   if (!response) throw new Error("Vision provider unavailable")
 
   const parsed = parseJson(response)
@@ -64,10 +73,18 @@ async function callGemini(base64, mimeType, key) {
         }],
         generationConfig: { temperature: 0.2, maxOutputTokens: 1024 }
       })
-    }, 0) // retries = 0 → one call per key (no 3s backoff). Backup key is the fallback.
-    if (!res.ok) return null
+    }, 0)
+    if (!res.ok) {
+      let detail = ""
+      try { detail = (await res.text()).slice(0, 600) } catch {}
+      console.error(`[geminiVision] Gemini HTTP ${res.status}:`, detail)
+      if (res.status === 429) throw new Error("429: vision quota exhausted")
+      return null
+    }
     return await res.json()
-  } catch {
+  } catch (err) {
+    if (err.message?.includes("429")) throw err
+    console.error("[geminiVision] callGemini threw:", err.message)
     return null
   }
 }

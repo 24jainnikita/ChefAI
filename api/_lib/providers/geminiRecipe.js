@@ -44,9 +44,21 @@ Keep it concise and realistic.`
 async function generate(params, keys = {}) {
   const prompt = buildPrompt(params)
 
-  let data = await callGemini(prompt, keys.geminiKey)
-  if (!data && keys.geminiBackupKey) data = await callGemini(prompt, keys.geminiBackupKey)
-  if (!data) throw new Error("Recipe generation is unavailable right now")
+  let data = null
+try {
+  data = await callGemini(prompt, keys.geminiKey)
+} catch (err) {
+  if (err.message?.includes("429") && keys.geminiBackupKey) {
+    try {
+      data = await callGemini(prompt, keys.geminiBackupKey)
+    } catch (err2) {
+      throw new Error("429: Both Gemini keys are quota exhausted. Try again in a minute.")
+    }
+  } else {
+    throw err
+  }
+}
+if (!data) throw new Error("Recipe generation is unavailable right now")
 
   const parsed = parseJson(data)
   if (!parsed || !parsed.title) throw new Error("Could not generate a valid recipe")
@@ -64,10 +76,13 @@ async function callGemini(prompt, key) {
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.7, maxOutputTokens: 1200 }
       })
-    }, 0) // one call per key — quota friendly
+    }, 0)
+    if (res.status === 429) throw new Error("429: quota exhausted")
     if (!res.ok) return null
     return await res.json()
-  } catch {
+  } catch (err) {
+    // Re-throw quota errors so generate() can surface them properly
+    if (err.message?.includes("429")) throw err
     return null
   }
 }

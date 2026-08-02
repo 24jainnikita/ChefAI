@@ -376,9 +376,10 @@ async function generateCustomRecipe(btn) {
     const card = document.getElementById("generate-card")
     if (card) {
       card.querySelector(".generate-inner").innerHTML =
-        `<div class="generate-spark">😔</div>
-         <p class="generate-title">Couldn't create a recipe right now</p>
-         <p class="generate-sub">I'm unable to generate a custom recipe at the moment. You can still explore the recipes ChefAI recommended above.</p>`
+  `<div class="generate-spark">😔</div>
+   <p class="generate-title">Couldn't create a recipe right now</p>
+   <p class="generate-sub">AI quota may be temporarily exhausted. Try again in 30 seconds.</p>
+   <button class="btn-find generate-btn" type="button" onclick="generateCustomRecipe(this)" style="margin-top:12px">↩ Try again</button>`
     }
     console.error("Generate failed:", err.message)
   }
