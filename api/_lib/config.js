@@ -14,8 +14,8 @@
 // Provider endpoints
 const SPOONACULAR_BASE = "https://api.spoonacular.com"
 
-// gemini-2.5-flash — current free-tier GA model with multimodal support
-const GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
+// gemini-2.0-flash-lite — current free-tier GA model
+const GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent"
 
 // Mood → Spoonacular query hints (sort order, calorie/time/protein bounds, type)
 const MOOD_MAP = {
