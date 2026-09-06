@@ -14,11 +14,8 @@
 // Provider endpoints
 const SPOONACULAR_BASE = "https://api.spoonacular.com"
 
-// gemini-2.0-flash and gemini-2.5-flash are shut down / restricted for new users.
-// Using gemini-3.5-flash-lite — the current free-tier GA model with multimodal
-// and text-generation support identical to the prior Flash family.
-const GEMINI_BASE =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent"
+// gemini-2.5-flash — current free-tier GA model with multimodal support
+const GEMINI_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent"
 
 // Mood → Spoonacular query hints (sort order, calorie/time/protein bounds, type)
 const MOOD_MAP = {

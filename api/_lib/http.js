@@ -11,7 +11,7 @@
 // `res.status` without try/catch noise.
 // ─────────────────────────────────────────────────────────────────────────────
 
-const DEFAULT_TIMEOUT_MS = 4000
+const DEFAULT_TIMEOUT_MS = 25000
 const RETRY_BACKOFF_MS = 1000
 
 async function fetchWithRetry(url, options, retries = 1) {

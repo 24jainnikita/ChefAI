@@ -1,7 +1,7 @@
 /* ══ RESET & DESIGN TOKENS ════════════════════════════════════════════
    ChefAI — Vintage Cookbook Design System
    Palette: aged parchment · india ink · terracotta · deep forest · oxidised gold
-   Typography: Cormorant Garamond (display) · Outfit (body) · Caveat (handwritten)
+   Typography: Cormorant Garamond (display) · Outfit (body) · Outfit (handwritten)
    ══════════════════════════════════════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -62,6 +62,15 @@
   --space-section: 32px;
 }
 
+/* Page visibility — required for tab switching */
+.page {
+  display: none;
+}
+.page.active {
+  display: block;
+  animation: fadeUp .3s ease;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--paper-worn); }
@@ -99,7 +108,7 @@ h1, h2, h3 {
 
 /* Handwritten accent class — use for marginal notes, tags, Chef Mimi chat */
 .hand {
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', cursive;
   font-weight: 600;
   letter-spacing: .01em;
 }
@@ -193,7 +202,7 @@ h1, h2, h3 {
 }
 
 .nav-pill {
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 13px;
   font-weight: 600;
   color: var(--ink-lt);
@@ -236,7 +245,7 @@ h1, h2, h3 {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', cursive;
   font-size: 14px;
   font-weight: 600;
   color: var(--ink-lt);
@@ -307,7 +316,7 @@ h1, h2, h3 {
   background: var(--paper-worn);
   border: 1px solid var(--paper-aged);
   border-radius: var(--r-pill);
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 17px;
   font-weight: 600;
   color: var(--ink-lt);
@@ -339,7 +348,7 @@ h1, h2, h3 {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: var(--ink-mid);
@@ -405,7 +414,7 @@ h1, h2, h3 {
   border: 1px solid var(--paper-aged);
   border-radius: var(--r-pill);
   padding: 5px 13px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 15px;
   font-weight: 600;
   animation: tagPop .18s cubic-bezier(.34,1.56,.64,1);
@@ -423,7 +432,7 @@ h1, h2, h3 {
 .tag-x:hover { color: var(--terra); }
 
 .field-hint {
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 14px;
   color: var(--ink-ghost);
 }
@@ -432,7 +441,7 @@ h1, h2, h3 {
 .staples-toggle {
   display: flex; align-items: center; gap: 9px;
   margin: 6px 0 14px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 14px; color: var(--ink-lt);
   cursor: pointer; user-select: none;
 }
@@ -440,12 +449,14 @@ h1, h2, h3 {
   width: 17px; height: 17px;
   accent-color: var(--terra); cursor: pointer; flex: 0 0 auto;
 }
-.staples-toggle em { color: var(--ink-ghost); font-style: italic; }
+.staples-toggle em { color: var(--ink-ghost); font-style: normal; }
 
 /* Quick-add pantry categories */
 .quick-label {
-  font-family: 'Caveat', cursive;
-  font-size: 15px; font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
   color: var(--ink-lt);
   margin-top: 2px;
 }
@@ -460,12 +471,16 @@ h1, h2, h3 {
 
 .qcat-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 14px; font-weight: 600;
+  font-size: 15px;
+  font-weight: 600;
+  font-style: normal;
   color: var(--ink-lt);
   padding: 10px 16px;
   cursor: pointer;
   background: var(--paper-worn);
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   transition: background .15s;
   user-select: none;
   letter-spacing: .15px;
@@ -475,20 +490,24 @@ h1, h2, h3 {
 .qcat-title.open::after { transform: rotate(180deg); }
 
 .qcat-items {
-  display: none; flex-wrap: wrap; gap: 7px;
+  display: none;
+  flex-wrap: wrap;
+  gap: 7px;
   padding: 12px 14px;
   background: #FFFEF8;
 }
 .qcat-items.open { display: flex; }
 
 .qi {
-  font-family: 'Caveat', cursive;
-  font-size: 14px; font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  font-style: normal;
   color: var(--ink-mid);
   background: var(--paper);
   border: 1px solid var(--paper-aged);
   border-radius: var(--r-pill);
-  padding: 5px 14px;
+  padding: 6px 14px;
   cursor: pointer;
   transition: all .15s;
   user-select: none;
@@ -604,7 +623,6 @@ h1, h2, h3 {
 }
 .btn-find:active { transform: scale(.98); }
 .btn-find.loading { opacity: .7; pointer-events: none; }
-  gap: 7px;
 /* ══ RESULTS ═════════════════════════════════════════ */
 .results-wrap {
   max-width: 860px;
@@ -614,11 +632,24 @@ h1, h2, h3 {
 .results-header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
 .rh-line { flex: 1; height: 1px; background: var(--paper-aged); }
 .rh-text  {
-  font-family: 'Caveat', cursive;
+  font-family: 'Outfit', sans-serif;
   font-size: 15px; font-weight: 700; color: var(--gold);
   letter-spacing: .8px; white-space: nowrap;
 }
-.recipe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .recipe-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .recipe-grid { grid-template-columns: 1fr; }
+}
 
 /* Skeleton */
 .skeleton {
@@ -652,8 +683,8 @@ h1, h2, h3 {
 .recipe-card::before { content:''; position:absolute; inset:0; border-radius:var(--r-card); background:linear-gradient(135deg,rgba(154,110,8,.05) 0%,transparent 60%); opacity:0; transition:opacity .3s; pointer-events:none; z-index:0; }
 .recipe-card:hover::before { opacity: 1; }
 
-.card-img { position: relative; height: 162px; background: var(--paper-worn); overflow: hidden; }
-.card-img img { width:100%; height:100%; object-fit:cover; transition:transform .42s; display:block; }
+.card-img { position: relative; height: 140px; background: var(--paper-worn); overflow: hidden; }
+.card-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .42s; }
 .recipe-card:hover .card-img img { transform: scale(1.07); }
 .card-img-fallback { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-size:52px; background:var(--paper-worn); }
 .diet-dot { position:absolute; top:10px; left:10px; font-size:13px; background:rgba(255,254,248,.94); border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; backdrop-filter:blur(4px); box-shadow:0 1px 5px rgba(28,18,10,.10); border:1px solid rgba(224,207,160,.6); }
@@ -661,8 +692,8 @@ h1, h2, h3 {
 .card-heart:hover { transform:scale(1.18); border-color:var(--terra); }
 .card-heart.loved { background:var(--terra); color:#FFF5EC; border-color:var(--terra); }
 
-.card-body { padding: 14px 16px 16px; }
-.card-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; color:var(--ink); line-height:1.28; margin-bottom:10px; letter-spacing:-.1px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; }
+.card-body { padding: 10px 12px 12px; }
+.card-title { font-family:'Cormorant Garamond',serif; font-size:16px; font-weight:700; color:var(--ink); line-height:1.28; margin-bottom:6px; letter-spacing:-.1px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:1; line-clamp:1; overflow:hidden; }
 .card-meta { display:flex; flex-wrap:wrap; gap:5px; }
 .badge { font-family:'Outfit',sans-serif; font-size:11px; font-weight:500; padding:3px 9px; border-radius:var(--r-pill); border:1px solid var(--paper-aged); color:var(--ink-lt); background:var(--paper-worn); }
 .badge-used    { background:#E8F0E0; color:#274A14; border-color:#BDD8A0; }
@@ -678,10 +709,10 @@ h1, h2, h3 {
 .planner-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(108px,1fr)); gap:12px; max-width:860px; margin:0 auto; padding:0 48px 18px; }
 .plan-day { background:#FFFEF8; border:1.5px solid var(--paper-aged); border-radius:var(--r); padding:14px 12px; min-height:96px; transition:border-color .18s,box-shadow .18s; box-shadow:0 1px 4px rgba(28,18,10,.05); }
 .plan-day:hover { border-color:var(--terra); box-shadow:0 3px 14px rgba(184,92,44,.10); }
-.plan-day-name { font-family:'Caveat',cursive; font-size:13px; font-weight:700; color:var(--terra); text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; }
+.plan-day-name { font-family:'Outfit', sans-serif; font-size:13px; font-weight:700; color:var(--terra); text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; }
 .plan-slot { font-family:'Outfit',sans-serif; font-size:13px; color:var(--ink-ghost); font-style:italic; line-height:1.4; }
 .plan-slot.filled { color:var(--ink); font-style:normal; font-weight:500; font-size:12px; }
-.planner-note { max-width:860px; margin:0 auto; padding:0 48px 44px; font-family:'Caveat',cursive; font-size:15px; color:var(--ink-lt); }
+.planner-note { max-width:860px; margin:0 auto; padding:0 48px 44px; font-family:'Outfit',sans-serif; font-size:15px; color:var(--ink-lt); }
 
 /* ══ MODAL ═══════════════════════════════════════════ */
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(28,18,10,.62); z-index:200; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(6px); }
@@ -696,7 +727,7 @@ h1, h2, h3 {
 .modal-img-fallback { width:100%; height:220px; background:var(--paper-worn); border-radius:var(--r); margin-bottom:20px; display:flex; align-items:center; justify-content:center; font-size:68px; }
 .modal-title { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:700; color:var(--ink); line-height:1.22; margin-bottom:12px; letter-spacing:-.2px; }
 .modal-badges { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
-.modal-section { font-family:'Caveat',cursive; font-size:15px; font-weight:700; color:var(--gold); letter-spacing:.4px; margin:22px 0 12px; display:flex; align-items:center; gap:10px; }
+.modal-section { font-family:'Outfit', sans-serif; font-size:15px; font-weight:700; color:var(--gold); letter-spacing:.4px; margin:22px 0 12px; display:flex; align-items:center; gap:10px; }
 .modal-section::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--paper-aged),transparent); }
 
 /* nutrition */
@@ -732,7 +763,7 @@ h1, h2, h3 {
 .m-btn.primary:hover { background:var(--terra-dk); transform:translateY(-1px); }
 
 /* ══ TOAST ═══════════════════════════════════════════ */
-.toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(18px); background:var(--ink); color:var(--paper); padding:12px 28px; border-radius:var(--r-pill); font-family:'Caveat',cursive; font-size:16px; font-weight:600; opacity:0; pointer-events:none; transition:all .25s; z-index:300; white-space:nowrap; border:1px solid rgba(224,207,160,.3); box-shadow:0 6px 24px rgba(28,18,10,.24); }
+.toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(18px); background:var(--ink); color:var(--paper); padding:12px 28px; border-radius:var(--r-pill); font-family:'Outfit',cursive; font-size:16px; font-weight:600; opacity:0; pointer-events:none; transition:all .25s; z-index:300; white-space:nowrap; border:1px solid rgba(224,207,160,.3); box-shadow:0 6px 24px rgba(28,18,10,.24); }
 .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
 /* ══ SPINNER ═════════════════════════════════════════ */
@@ -818,7 +849,7 @@ h1, h2, h3 {
 
 /* Card image — polaroid style */
 .card-img {
-  height: 152px !important;
+  height: 140px !important;
   border-bottom: 1px solid #D4B87A;
   position: relative;
 }
@@ -829,7 +860,7 @@ h1, h2, h3 {
 
 /* Card body */
 .card-body {
-  padding: 14px 16px 16px !important;
+  padding: 10px 12px 12px !important;
   background: transparent;
   position: relative;
   z-index: 2;
@@ -1433,6 +1464,10 @@ html, body { overflow-x: hidden; }
 }
 
 /* ══ CHEFAI MATCH — transparency UI ═══════════════════════════════════ */
+/* Hide match + why blocks on cards — show only in the modal */
+.recipe-card .match-block,
+.recipe-card .why-block { display: none; }
+
 .match-block{ margin:10px 0 4px; font-family:'Outfit',sans-serif; }
 .match-top{ display:flex; align-items:baseline; justify-content:space-between; }
 .match-label{ font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:#A8957E; }

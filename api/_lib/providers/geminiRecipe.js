@@ -40,51 +40,62 @@ Reply with ONLY valid JSON, no markdown:
 Keep it concise and realistic.`
 }
 
-// ── interface: generate one recipe ───────────────────────────────────────────
 async function generate(params, keys = {}) {
   const prompt = buildPrompt(params)
 
   let data = null
-try {
-  data = await callGemini(prompt, keys.geminiKey)
-} catch (err) {
-  if (err.message?.includes("429") && keys.geminiBackupKey) {
-    try {
-      data = await callGemini(prompt, keys.geminiBackupKey)
-    } catch (err2) {
-      throw new Error("429: Both Gemini keys are quota exhausted. Try again in a minute.")
+  try {
+    data = await callGemini(prompt, keys.geminiKey)
+  } catch (err) {
+    // On 429 try the backup key if available
+    if (err.message?.includes("429") && keys.geminiBackupKey) {
+      try {
+        data = await callGemini(prompt, keys.geminiBackupKey)
+      } catch (err2) {
+        throw new Error("429: Both Gemini keys are quota-exhausted. Try again in a minute.")
+      }
+    } else {
+      // Re-throw with the real error so the endpoint can log and return it
+      throw err
     }
-  } else {
-    throw err
   }
-}
-if (!data) throw new Error("Recipe generation is unavailable right now")
+
+  if (!data) throw new Error("Gemini returned an empty response")
 
   const parsed = parseJson(data)
-  if (!parsed || !parsed.title) throw new Error("Could not generate a valid recipe")
+  if (!parsed || !parsed.title) throw new Error("Could not parse a valid recipe from Gemini response")
 
   return shape(parsed)
 }
 
 async function callGemini(prompt, key) {
-  if (!key) return null
+  if (!key) throw new Error("GEMINI_KEY is not set — add it to Vercel environment variables")
+  let res
   try {
-    const res = await fetchWithRetry(`${GEMINI_BASE}?key=${key}`, {
+    res = await fetchWithRetry(`${GEMINI_BASE}?key=${key}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.7, maxOutputTokens: 1200 }
       })
-    }, 0)
-    if (res.status === 429) throw new Error("429: quota exhausted")
-    if (!res.ok) return null
-    return await res.json()
+    }, 1)
   } catch (err) {
-    // Re-throw quota errors so generate() can surface them properly
-    if (err.message?.includes("429")) throw err
-    return null
+    throw new Error(`Gemini network error: ${err.message}`)
   }
+
+  if (res.status === 429) throw new Error("429: quota exhausted")
+
+  if (!res.ok) {
+    // Read the body so we can log the real Gemini error (400/401/403/404 etc.)
+    let errBody = {}
+    try { errBody = await res.json() } catch (_) {}
+    const msg = errBody?.error?.message || errBody?.error?.status || `HTTP ${res.status}`
+    console.error(`Gemini API error ${res.status}:`, msg)
+    throw new Error(`Gemini ${res.status}: ${msg}`)
+  }
+
+  return await res.json()
 }
 
 function parseJson(data) {

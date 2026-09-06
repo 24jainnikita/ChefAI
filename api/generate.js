@@ -83,13 +83,10 @@ module.exports = async (req, res) => {
     setTimeout(() => store.delete(key), TTL_MS)
     return res.status(200).json(result)
   } catch (err) {
-  console.error("Generate error:", err.message)
-  const is429 = err.message?.includes("429") || err.message?.includes("quota")
-  return res
-    .status(is429 ? 429 : 502)
-    .json(formatError(is429
-      ? "AI quota exhausted — try again in a minute"
-      : err.message || "Generation failed"
-    ))
+    console.error("Generate error:", err.message)
+    const is429   = err.message?.includes("429") || err.message?.includes("quota")
+    const noKey   = err.message?.includes("GEMINI_KEY")
+    const status  = is429 ? 429 : noKey ? 503 : 502
+    return res.status(status).json(formatError(err.message || "Generation failed"))
   }
 }
